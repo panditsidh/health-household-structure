@@ -9,6 +9,8 @@
 do "code/gen hhstruc.do"
 
 
+do "code/state district match.do"
+
 /*
 married
 between ages 15-29
@@ -19,6 +21,51 @@ currently residing with husband
 
 gen ever_married = v501!=0
 gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1)
+
+
+
+*******************************************************
+* Initialize woman-centric parent-in-law variables
+*******************************************************
+gen mil_present = .   // woman's mother-in-law present
+gen fil_present = .   // woman's father-in-law present
+gen pil_present = .   // any parent-in-law present
+
+label var mil_present "Woman's mother-in-law present"
+label var fil_present "Woman's father-in-law present"
+label var pil_present "Any parent-in-law present"
+
+*******************************************************
+* CASE 1: Woman is WIFE OF HEAD (v150 == 2)
+* Her husband is the head → head's parents = her in-laws
+*******************************************************
+replace mil_present = has_mother if v150 == 2
+replace fil_present = has_father if v150 == 2
+replace pil_present = has_parent if v150 == 2
+
+*******************************************************
+* CASE 2: Woman is DAUGHTER-IN-LAW OF HEAD (v150 == 4)
+* Her husband is a son of the head → head + head's spouse = her in-laws
+*******************************************************
+* PIL always present because the head is present
+replace pil_present = 1 if v150 == 4
+
+* Use sex of the head to determine which parent-in-law is present
+replace mil_present = 1 if v150 == 4 & v151 == 2      // head is female = MIL
+replace fil_present = 1 if v150 == 4 & v151 == 1      // head is male   = FIL
+
+*******************************************************
+* CASE 3: Woman is HEAD (v150 == 1)
+* Cannot determine her in-laws from head-centric variables
+*******************************************************
+replace mil_present = . if v150 == 1
+replace fil_present = . if v150 == 1
+replace pil_present = . if v150 == 1
+
+
+*******************************************************
+* Done
+*******************************************************
 
 
 
