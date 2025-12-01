@@ -6,11 +6,13 @@ use $all_nfhs_ir, clear
 *--------------------------------------------------------------------
 
 * outcomes
-local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z
+// local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_health_permission prob_health_money
 
-local dv_outcomes    beating_justified dv_phys dv_sex
+local nat_outcomes prob_health_permission prob_health_money neonatal_death
 
-local state_outcomes nosay_healthcare  nosay_purchases nosay_visits
+// local dv_outcomes    beating_justified dv_phys dv_sex
+//
+// local state_outcomes nosay_healthcare  nosay_purchases nosay_visits
 
 local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
 
@@ -61,7 +63,10 @@ cd "/Users/sidhpandit/Documents/GitHub/household-structure/figures/"
 foreach outcome in `outcomes' {
 	
 
+local prob_health_permission "Getting permission is a problem in accessing healthcare"
+local  prob_health_money "Paying for treatment is a problem in accessing healthcare"
 
+local  neonatal_death "Last birth was a neonatal death"
 
 * Nutrition indicators
 local lab_meat_egg_fish_weekly   "Consumes meat,egg,fish at least weekly"

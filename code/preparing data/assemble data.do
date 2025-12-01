@@ -212,6 +212,18 @@ gen mo_since_birth = v008-b3_01
 gen home_birth_312 = home_birth if inrange(mo_since_birth,3,12)
 
 
+
+gen public = inlist(M15,20,21,22,23,24,25,26,27) if !missing(M15)
+label var public "Delivery in public facility"
+
+gen private = inlist(M15,30,31,32,33) if !missing(M15)
+label var private "Delivery in private facility"
+
+gen public_312 = public  if inrange(mo_since_birth,3,12)
+gen private_312 = private  if inrange(mo_since_birth,3,12)
+
+
+
 * C-section
 gen c_section = (v401==1) if !missing(v401)
 gen c_section_312 = c_section if inrange(mo_since_birth,3,12)
@@ -318,6 +330,9 @@ gen bmi = v445 if v445!=9998 & !missing(v445)
 replace bmi = bmi/100
 replace bmi = . if bmi > 60
 
+gen underweight = bmi<18.5
+gen overweight = bmi>25 
+gen obesity = bmi>30
 
 
 * Compute z-score of v191 *within each round*
@@ -427,5 +442,50 @@ use $all_nfhs_ir, clear
 
 merge 1:1 v000 caseid using `nfhs5br'
 
+
+gen anc_four = m14_1>=4 if !missing(m14_1)
+
+
+
+
+// gen focus = region==1
+// gen central = region==2
+// gen east = region==3
+// gen west = region==4
+// gen north = region==5 
+// gen south = region==6
+// gen northeast = region==7
+
+gen forward = group==1
+gen obc = group==2
+gen dalit = group==3
+gen adivasi = group==4
+gen muslim = group==5
+gen sjc = group==6
+
+
+gen poorest = v190==1
+gen poorer = v190==2
+gen middle = v190==3
+gen richer = v190==4
+gen richest = v190==5
+
+
+gen fridge = v122==1 if inlist(v122,0,1)
+gen tv = v121==1 if inlist(v121,0,1)
+gen motorcycle = v124==1 if inlist(v124,0,1)
+
+
+
+gen no_educ = v106==0
+gen primary = v106==1
+gen secondary = v106==2
+gen higher = v106==3
+
+
+tab parity, gen(parity)
+
+
 save $all_nfhs_ir, replace
+
 
