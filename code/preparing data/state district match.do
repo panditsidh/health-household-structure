@@ -233,3 +233,60 @@ label define state_lbl ///
 37 "Ladakh"
 
 label values state state_lbl
+
+
+
+* Step 1: Define region value labels
+label define regionlbl ///
+    1 "focus" ///
+    2 "central" ///
+    3 "east" ///
+    4 "west" ///
+    5 "north" ///
+    6 "south" ///
+    7 "northeast"
+
+* Step 2: Generate the numeric variable
+gen region = .
+
+* Step 3: NFHS-5 (round == 5)
+replace region = 1 if inlist(v024, 9, 10) & round == 5 // UP, Bihar
+replace region = 2 if inlist(v024, 23, 22) & round == 5 // MP, Chhattisgarh
+replace region = 3 if inlist(v024, 19, 20, 21) & round == 5 // WB, Jharkhand, Odisha
+replace region = 4 if inlist(v024, 24, 27, 30) & round == 5 // Gujarat, Maharashtra, Goa
+replace region = 5 if inlist(v024, 1, 2, 3, 5, 6, 8) & round == 5 // J&K, HP, Punjab, Uttarakhand, Haryana, Rajasthan
+replace region = 6 if inlist(v024, 28, 29, 32, 33, 36) & round == 5 // AP, Karnataka, Kerala, TN, Telangana
+replace region = 7 if inlist(v024, 12, 13, 14, 15, 16, 18) & round == 5 // NE states
+
+* Step 4: NFHS-4 (round == 4)
+replace region = 1 if inlist(v024, 33, 5) & round == 4 // UP, Bihar
+replace region = 2 if inlist(v024, 19, 7) & round == 4 // MP, Chhattisgarh
+replace region = 3 if inlist(v024, 35, 15, 26) & round == 4 // WB, Jharkhand, Odisha
+replace region = 4 if inlist(v024, 11, 20, 10) & round == 4 // Gujarat, Maharashtra, Goa
+replace region = 5 if inlist(v024, 14, 13, 28, 12, 34, 6) & round == 4 // J&K, HP, Punjab, Uttarakhand, Delhi, Haryana
+replace region = 6 if inlist(v024, 2, 36, 17, 31, 16) & round == 4 // AP, Telangana, Kerala, TN, Karnataka
+replace region = 7 if inlist(v024, 3, 23, 24, 21, 32, 22, 4, 30) & round == 4 // NE states
+
+* Step 5: NFHS-3 (round == 3)
+replace region = 1 if inlist(v024, 9, 10) & round == 3 // UP, Bihar
+replace region = 2 if inlist(v024, 23, 22) & round == 3 // MP, Chhattisgarh
+replace region = 3 if inlist(v024, 19, 20, 21) & round == 3 // WB, Jharkhand, Odisha
+replace region = 4 if inlist(v024, 24, 27, 30) & round == 3 // Gujarat, Maharashtra, Goa
+replace region = 5 if inlist(v024, 1, 2, 3, 5, 6, 8) & round == 3 // J&K, HP, Punjab, Uttarakhand, Haryana, Rajasthan
+replace region = 6 if inlist(v024, 28, 29, 32, 33) & round == 3 // AP, Karnataka, Kerala, TN
+replace region = 7 if inlist(v024, 12, 13, 14, 15, 16, 18) & round == 3 // NE states
+
+gen india=1
+gen focus = region==1
+gen central = region==2
+gen east = region==3
+gen west = region==4
+gen north = region==5
+gen south = region==6
+gen northeast = region==7
+
+
+* Step 6: Apply value labels
+label values region regionlbl
+
+

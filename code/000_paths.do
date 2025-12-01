@@ -23,6 +23,7 @@ if "`c(username)'" == "sidhpandit" {
 	global nfhs5ir "/Users/sidhpandit/Desktop/data/nfhs/nfhs5ir/IAIR7EFL.DTA"
 	global nfhs5hr "/Users/sidhpandit/Desktop/data/nfhs/nfhs5hr/IAHR7EFL.DTA"
 	global nfhs5hmr "/Users/sidhpandit/Desktop/data/nfhs/nfhs5hmr/IAPR7EFL.DTA"
+	global nfhs5br "/Users/sidhpandit/Desktop/data/nfhs/nfhs5br/IABR7EFL.DTA"
 	
 	global all_nfhs_ir "/Users/sidhpandit/Desktop/data/nfhs/all_nfhs_ir.dta"
 	

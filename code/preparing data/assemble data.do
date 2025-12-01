@@ -10,6 +10,8 @@ do "code/preparing data/gen hhstruc.do"
 
 do "code/preparing data/state district match.do"
 
+
+
 /*
 married
 between ages 15-29
@@ -26,6 +28,9 @@ gen prob_facility_distance = inlist(v467d,1,2)
 gen prob_health_permission = inlist(v467b,1,2)
 gen prob_health_money = inlist(v467c,1,2)
 
+
+gen parity = bord_01
+replace parity = 4 if bord_01>4
 
 *******************************************************
 * Initialize woman-centric parent-in-law variables
@@ -389,6 +394,8 @@ label values group grouplbl
 
 
 
+gen rural = v025==2
+
 
 
 *==============================================================*
@@ -396,3 +403,29 @@ label values group grouplbl
 *==============================================================*
 
 save $all_nfhs_ir, replace
+
+
+use $nfhs5br, clear
+
+* Keep only the most recent birth per woman
+keep if bidx == 1
+
+* Neonatal death (death at 0–1 month) for that birth
+gen neonatal_death = 0
+
+replace neonatal_death = b7<=1 if !missing(b7)
+gen youngest_child_death = !missing(b7)
+
+* Keep merge IDs + outcome
+keep v000 caseid neonatal_death
+
+tempfile nfhs5br
+save `nfhs5br', replace
+
+
+use $all_nfhs_ir, clear
+
+merge 1:1 v000 caseid using `nfhs5br'
+
+save $all_nfhs_ir, replace
+
