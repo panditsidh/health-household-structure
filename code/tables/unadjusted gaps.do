@@ -158,8 +158,7 @@ replace outcome = "C-section (3–12 months ago)"           if outcome == "c_sec
 
 listtex outcome NFHS3 NFHS4 NFHS5 using "tables/table_unadjusted.tex", ///
     replace rstyle(tabular) ///
-    head("Table 2. Patrilocal–Nuclear Gaps without controls by NFHS Round" ///
-         "\begin{tabular}{lccc}" ///
+    head("\begin{tabular}{lccc}" ///
          "\hline" ///
          "Outcome & 2005-06 & 2015-16 & 2019-21 \\\\" ///
          "\hline") ///

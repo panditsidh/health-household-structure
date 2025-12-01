@@ -39,7 +39,7 @@ foreach r of numlist 2/5 {
 
 	
 * outcomes
-local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z
+local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_facility_distance prob_health_permission prob_health_money
 
 local dv_outcomes    beating_justified dv_phys dv_sex
 
@@ -91,6 +91,9 @@ local lab_nosay_purchases         "No say in large purchases"
 local lab_wealth_z           "Wealth index z score"
 
 
+local lab_prob_facility_distance "Distance to facility is a problem for healthcare access"
+local lab_prob_health_permission "Getting permission is a problem for healthcare access"
+local lab_prob_health_money "Money is a problem for healthcare access"
 
 
 

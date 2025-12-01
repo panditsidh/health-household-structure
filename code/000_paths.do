@@ -1,5 +1,5 @@
 
-cd "/Users/sidhpandit/Documents/GitHub/household-structure"
+cd "/Users/sidhpandit/Documents/GitHub/health-household-structure"
 
 
 if "`c(username)'" == "sidhpandit" {

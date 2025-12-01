@@ -2,6 +2,9 @@ use $all_nfhs_ir, clear
 
 
 
+
+
+
 *--------------------------------------------------------------------
 * 1. Define outcome groups by regression spec
 *--------------------------------------------------------------------
@@ -63,7 +66,7 @@ foreach y of local outcomes {
         *-------------------------
         local sample   "inlist(hh_struc,1,2) & round==`r'"
         local wvar     "wt"
-        local controls ""
+        local controls i.v149 i.v012 i.bord_01 i.prob_facility_distance
         local addcond  ""      // extra condition (pregnant==1, etc.)
 
         * outcomes_pregnant: all pregnant sample, wt

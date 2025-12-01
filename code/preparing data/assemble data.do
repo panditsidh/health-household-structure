@@ -6,10 +6,9 @@
 * 2. Household Structure and Sample Definition
 *==============================================================*
 
-do "code/gen hhstruc.do"
+do "code/preparing data/gen hhstruc.do"
 
-
-do "code/state district match.do"
+do "code/preparing data/state district match.do"
 
 /*
 married
@@ -22,6 +21,10 @@ currently residing with husband
 gen ever_married = v501!=0
 gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1)
 
+
+gen prob_facility_distance = inlist(v467d,1,2)
+gen prob_health_permission = inlist(v467b,1,2)
+gen prob_health_money = inlist(v467c,1,2)
 
 
 *******************************************************

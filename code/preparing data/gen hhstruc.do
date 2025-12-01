@@ -90,21 +90,21 @@ save `hr_combined'
 
 
 * NFHS-3
-use caseid s824b w124 v044 d* s46* v* s558a-s558g m15* d105* b3* using "$nfhs3ir", clear
+use caseid s824b w124 v044 d* s46* v* s558a-s558g m15* d105* b3* bord* using "$nfhs3ir", clear
 tempfile nfhs3
 save `nfhs3'
 
 * NFHS-5
 use caseid s930b s932 s929 v743a* v044 d105a-d105j d129 s909 s910 s920 s116 v* ///
     s236 s220b* ssmod sb* sb18d sb25d sb29d sb18s sb25s sb29s sweight sdweight ///
-    s731a-s731i m15* d105* b3* using "$nfhs5ir", clear
+    s731a-s731i m15* d105* b3* bord* using "$nfhs5ir", clear
 tempfile nfhs5
 save `nfhs5'
 
 * NFHS-4
 use caseid s928b s930 s927 v743a* v044 d105a-d105j d129 s907 s908 s116 v* ///
     s236 s220b* ssmod sb* sb16d sb23d sb27d sb16s sb23s sb27s ///
-    sv005 sd005 s726a-s726i m15* d105* b3* using "$nfhs4ir", clear
+    sv005 sd005 s726a-s726i m15* d105* b3* bord* using "$nfhs4ir", clear
 
 * Append NFHS-5, NFHS-3, NFHS-1, NFHS-2 to NFHS-4
 append using `nfhs5'
