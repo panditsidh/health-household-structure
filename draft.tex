@@ -126,15 +126,38 @@ Describe the NFHS data.
 
 
 
-% \begin{table}[H]
-%     \centering
-%     \setlength{\tabcolsep}{4pt} % shrink column padding
-%     \footnotesize % shrink text
-%     \caption{: Household structure 3+ mopreg women are observed in by subgroup}
-%     \begin{adjustbox}{width=\textwidth}
-%         \input{tables/table_adjusted}
-%     \end{adjustbox}
-% \end{table}
+\begin{table}[H]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{: Coefficient on patrilocal indicator from a regression using only state fixed effects}
+        \label{tab:unadjusted}
+
+        
+        \setlength{\tabcolsep}{3pt}
+        \renewcommand{\arraystretch}{1.2}
+
+        \input{tables/table_unadjusted}
+                
+        \begin{tablenotes}
+            \item notes on sample for national vars
+            \item notes on sample for state vars
+            \item notes on sample for dv vars
+            \item notes on sample for last birth vars
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+
+
+maybe add
+- getting permission problem to accessing healthcare
+- full antenatal care
+- underweight
+- public birth
+- private birth
+- last birth neonatal death
+
+
 
 \begin{figure}[H]
     \centering
