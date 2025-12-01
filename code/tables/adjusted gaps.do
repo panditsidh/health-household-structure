@@ -2,7 +2,7 @@ use $all_nfhs_ir, clear
 
 
 
-
+keep if inlist(round,3,4,5)
 
 
 *--------------------------------------------------------------------
@@ -66,7 +66,7 @@ foreach y of local outcomes {
         *-------------------------
         local sample   "inlist(hh_struc,1,2) & round==`r'"
         local wvar     "wt"
-        local controls i.v149 i.v012 i.bord_01 i.prob_facility_distance
+        local controls ""
         local addcond  ""      // extra condition (pregnant==1, etc.)
 
         * outcomes_pregnant: all pregnant sample, wt
@@ -114,7 +114,7 @@ foreach y of local outcomes {
             *-------------------------
             * Run reghdfe with spec for this outcome
             *-------------------------
-            quietly reghdfe `y' patrilocal `controls' ///
+            reghdfe `y' patrilocal `controls' i.v149 i.v013 i.group i.parity i.prob_facility_distance i.rural ///
                 [aw=`wvar'] if `fullsample', absorb(state) cluster(psu)
 
             *-------------------------
