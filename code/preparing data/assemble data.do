@@ -339,6 +339,9 @@ regress bmi i.gestdur [aw=wt]
 predict bmi_resid, resid
 
 
+
+
+
 * Compute z-score of v191 *within each round*
 bysort round: egen v191_mean = mean(v191)
 bysort round: egen v191_sd   = sd(v191)
@@ -432,9 +435,6 @@ gen rural = v025==2
 *==============================================================*
 
 save $all_nfhs_ir, replace
-
-
-
 
 use $nfhs5br, clear
 

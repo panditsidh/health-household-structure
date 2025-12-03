@@ -1,6 +1,6 @@
 use $all_nfhs_ir, clear
 
-keep if pregnant==1
+
 
 keep if inlist(hh_struc,1,2)
 
@@ -17,7 +17,7 @@ gen patrilocal4 = patrilocal if round==4
 gen patrilocal5 = patrilocal if round==5
 
 
-local y public
+local y bmi
 local wvar w_state
 
 * Clear old stored estimates
@@ -36,7 +36,7 @@ foreach r in 3 4 5 {
     *-------------------------
     * Adjusted spec
     *-------------------------
-    reghdfe `y' patrilocal`r' i.gestdur i.v149 i.v013 i.group i.parity i.prob_facility_distance i.rural i.v190 ///
+    reghdfe `y' patrilocal`r' i.v149 i.v013 i.group i.parity i.prob_facility_distance i.rural i.v190 ///
         [aw=`wvar'] if round==`r', absorb(state) cluster(psu)
     
 	eststo a`r'
