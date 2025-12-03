@@ -77,9 +77,9 @@ foreach y of local outcomes {
             else if (`p'<0.05) local stars "**"
             else if (`p'<0.10) local stars "*"
 
-            local coef : display %7.4f `b'
-            local LCI  : display %7.4f `lb'
-            local UCI  : display %7.4f `ub'
+            local coef : display %7.3f `b'
+            local LCI  : display %7.3f `lb'
+            local UCI  : display %7.3f `ub'
 
             local out "`coef' (`LCI', `UCI')`stars'"
         }

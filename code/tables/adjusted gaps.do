@@ -174,44 +174,7 @@ replace outcome = "Physical domestic violence"            if outcome == "dv_phys
 replace outcome = "Sexual domestic violence"              if outcome == "dv_sex"
 replace outcome = "Home birth (3–12 months ago)"          if outcome == "home_birth_312"
 replace outcome = "C-section (3–12 months ago)"           if outcome == "c_section_312"
-         *-------------------------
-            * Use r(table) to extract everything
-            *-------------------------
-            matrix R = r(table)
-
-            local b    = R[1, "patrilocal"]   // coefficient
-            local se   = R[2, "patrilocal"]   // standard error
-            local p    = R[4, "patrilocal"]   // p-value
-            local lb   = R[5, "patrilocal"]   // lower CI
-            local ub   = R[6, "patrilocal"]   // upper CI
-
-            *-------------------------
-            * Significance stars
-            *-------------------------
-            local stars ""
-            if (`p'<0.01)      local stars "***"
-            else if (`p'<0.05) local stars "**"
-            else if (`p'<0.10) local stars "*"
-
-            *-------------------------
-            * Pretty formatting
-            *-------------------------
-            local coef : display %5.3f `b'
-            local LCI  : display %5.3f `lb'
-            local UCI  : display %5.3f `ub'
-
-            *-------------------------
-            * Final stored string
-            *-------------------------
-            local out "`coef' [`LCI', `UCI']`stars'"
 
 
-
-listtex outcome NFHS3 NFHS4 NFHS5 using "tables/table_adjusted.tex", ///
-    replace rstyle(tabular) ///
-    head("\begin{tabular}{lccc}" ///
-         "\hline" ///
-         "Outcome & 2005-06 & 2015-16 & 2019-21 \\\\" ///
-         "\hline") ///
-    foot("\hline" "\end{tabular}")
+save "tables/adjusted.dta", replace
 
