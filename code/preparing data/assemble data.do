@@ -213,10 +213,10 @@ gen home_birth_312 = home_birth if inrange(mo_since_birth,3,12)
 
 
 
-gen public = inlist(M15,20,21,22,23,24,25,26,27) if !missing(M15)
+gen public = inlist(m15_1,20,21,22,23,24,25,26,27) if !missing(m15_1)
 label var public "Delivery in public facility"
 
-gen private = inlist(M15,30,31,32,33) if !missing(M15)
+gen private = inlist(m15_1,30,31,32,33) if !missing(m15_1)
 label var private "Delivery in private facility"
 
 gen public_312 = public  if inrange(mo_since_birth,3,12)
@@ -335,6 +335,10 @@ gen overweight = bmi>25
 gen obesity = bmi>30
 
 
+regress bmi i.gestdur [aw=wt]
+predict bmi_resid, resid
+
+
 * Compute z-score of v191 *within each round*
 bysort round: egen v191_mean = mean(v191)
 bysort round: egen v191_sd   = sd(v191)
@@ -408,6 +412,16 @@ label define grouplbl ///
 label values group grouplbl
 
 
+label define roundlbl ///
+1 "1995-96" ///
+2 "1998-99" ///
+3 "2005-2006" ///
+4 "2015-16" ///
+5 "2019-21"
+
+label values round roundlbl
+
+
 
 gen rural = v025==2
 
@@ -418,6 +432,8 @@ gen rural = v025==2
 *==============================================================*
 
 save $all_nfhs_ir, replace
+
+
 
 
 use $nfhs5br, clear
@@ -439,6 +455,10 @@ save `nfhs5br', replace
 
 
 use $all_nfhs_ir, clear
+
+capture drop _merge 
+capture drop neonatal_death
+capture drop youngest_child_death
 
 merge 1:1 v000 caseid using `nfhs5br'
 

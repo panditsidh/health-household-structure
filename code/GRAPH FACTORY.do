@@ -1,6 +1,9 @@
 
 use $all_nfhs_ir, clear
 
+replace  prob_health_permission = . if round==2
+replace prob_health_money = . if round==2
+
 *--------------------------------------------------------------------
 * 0. Setup
 *--------------------------------------------------------------------
@@ -8,11 +11,13 @@ use $all_nfhs_ir, clear
 * outcomes
 // local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_health_permission prob_health_money
 
-local nat_outcomes prob_health_permission prob_health_money neonatal_death
+local nat_outcomes prob_health_permission prob_health_money 
 
 // local dv_outcomes    beating_justified dv_phys dv_sex
 //
 // local state_outcomes nosay_healthcare  nosay_purchases nosay_visits
+
+local state_outcomes nosay_healthcare
 
 local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
 
@@ -41,17 +46,20 @@ foreach r of numlist 2/5 {
 
 	
 * outcomes
-local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_facility_distance prob_health_permission prob_health_money
+// local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_health_permission prob_health_money
 
-local dv_outcomes    beating_justified dv_phys dv_sex
+local nat_outcomes prob_health_permission prob_health_money 
 
-local state_outcomes nosay_healthcare  nosay_purchases nosay_visits
+// local dv_outcomes    beating_justified dv_phys dv_sex
+//
+// local state_outcomes nosay_healthcare  nosay_purchases nosay_visits
+
+local state_outcomes nosay_healthcare
 
 local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
 
 
-
-replace nosay_purchases = . if round==2
+// replace nosay_purchases = . if round==2
 
 *--------------------------------------------------------------------
 * 3. Choose correct weights for this outcome

@@ -1,5 +1,5 @@
 
-cd "/Users/sidhpandit/Documents/GitHub/health-household-structure"
+
 
 
 if "`c(username)'" == "sidhpandit" {
@@ -26,6 +26,8 @@ if "`c(username)'" == "sidhpandit" {
 	global nfhs5br "/Users/sidhpandit/Desktop/data/nfhs/nfhs5br/IABR7EFL.DTA"
 	
 	global all_nfhs_ir "/Users/sidhpandit/Desktop/data/nfhs/all_nfhs_ir.dta"
+	
+	cd "/Users/sidhpandit/Documents/GitHub/health-household-structure"
 	
 	
 }
