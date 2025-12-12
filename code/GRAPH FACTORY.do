@@ -1,4 +1,3 @@
-
 use $all_nfhs_ir, clear
 
 replace  prob_health_permission = . if round==2
