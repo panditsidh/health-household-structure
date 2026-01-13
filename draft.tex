@@ -23,6 +23,7 @@
 \usepackage{afterpage}
 \usepackage[margin=1in]{geometry}
 \usepackage[round]{natbib}
+\setcitestyle{authoryear}
 \usepackage{hyperref}
 \usepackage{titlesec}
 \usepackage{threeparttable}
@@ -64,7 +65,7 @@
 
 Health during pregnancy matters for both women and their children.  The ability to make decisions about your own healthcare may have positive consequences for health and is a good in itself.  
 
-Both theory (modernization theory) and evidence (Allendorf, 2012) suggest a trend towards nuclear households in India.  Scholars have long associated nuclear households with more autonomy for women (cite Jeffreys, others).  
+Both theory (modernization theory) and evidence (\cite{allendorf2013going}) suggest a trend towards nuclear households in India.  Scholars have long associated nuclear households with more autonomy for women (\cite{jacobson1992women};\cite{jeffery1989labour};\cite{madan1989family}).  
 
 Research questions: What is the relationship between household structure and pregnant women's autonomy (say in decisions about own health, say in visits to family and friends, and getting permission is a problem)?  What is the relationship between household structure and pregnant women's health outcomes (Nutrition: dairy consumption, meat consumption, BMI, underweight, anemia; Violence: sexual, physical;  Pregnancy and birth care and outcomes: ANC visits, home birth, c-section, NNM, (rural north only): private hospital)?  
 
@@ -109,18 +110,22 @@ Given that the demographic trends that appear to be contributing to an increase 
 \section{Background}
 
 \subsection{The significance of women's healthcare decision making}
-Women's autonomy or decision-making power within their households has a significant effect on their healthcare, especially when it comes to neonatal health and maternal healthcare. Coffey et al.\ \cite{coffey2022mothers} show that children of lower-ranking mothers are more likely to die in early life. In joint patrilocal households in rural India women who are married to the younger brothers are assigned lower rank than women married to the older brother in the same household. As numerous healthcare policies are rooted in women empowerment evidence from this paper indicates the role of social ranking in empowerment.
+Women's autonomy or decision-making power within their households has a significant effect on their healthcare, especially when it comes to neonatal health and maternal healthcare. \cite{coffey2022mothers} show that children of lower-ranking mothers are more likely to die in early life. In joint patrilocal households in rural India women who are married to the younger brothers are assigned lower rank than women married to the older brother in the same household. As numerous healthcare policies are rooted in women empowerment evidence from this paper indicates the role of social ranking in empowerment. Further, \cite{coffey2021neonatal} emphasizes the role of decision making power in case of neonatal mortality through maternal under nutrition which is concentrated among younger women who are early in their careers of childbearing. The findings also indicate the relevance of social status of women, household structure, and demographic relations in health outcomes in the developing world. 
 
 
 \subsection{Women's health, autonomy, and household structure: Are there causal relationships?}
+There is an increasing trend in decision making power among women in the last three rounds of NFHS. But at the same time we did observe an increase in young women's residence in the patrilocal extended households unlike \cite{allendorf2013going} where she observed an increase in young married women's residence in nuclear households. But their work emphasized that contrary to literature young women living in the nuclear households do not have better health than those living in patrilocal extended families. Further, their work showed that women living in patrilocal residences had an overall advantage Although this paper also notes that women living in nuclear families are more likely to consume meat, fish and eggs on a weekly basis but there is an overall advantage for women living in patrilocal extended families. Although \cite{hou2013effect} work doesn't show a direct association between household structure and women's health and autonomy but their work indicates that the presence of influential males' have an opposite effect in uptake of maternal health service uptake. 
 
 \subsection{The changing experience of pregnancy}
+Trends in decision making power indicate increase in involvement of the women in different forms of decision making in the household including their own healthcare. Studies by \cite{ghose2017women} using Bangladesh DHS indicate that women who make decisions along with their spouses are more likely to use more number of maternal health services. Thus, indicating an increase as well as advantage in husband's involvement in reproductive care. 
 
 \subsection{Trends in the use of healthcare at birth}
+There has been a significant change in use of healthcare at birth in India. Though there has been an increase in uptake of maternal healthcare services, there has also been a doubling in cesarean deliveries. This growth is closely related to the simultaneous decline in the share of home deliveries without medical supervision and an increase in institutional deliveries spearheaded by contemporary cash transfer policies encouraging women to use prenatal and postnatal care in modern health centers. Along the same time the major rise in cesarean deliveries occurred in private clinics where it rose from 27.5 percent to 40.8 percent as opposed to government facilities where it remained 11 percent in 2015-16(\cite{guilmoto2019trends}. Other studies such as \cite{singh2021maternal}'s study using NFHS data shows that there is still a persisting difference in the full use of ANC (antenatal care) and SBA (skilled birth attendant) especially among adolescent mothers. They also observed that the likelihood of using these services also decreases with increase in birth order. In the context of utilizing maternal healthcare services \cite{pathak2010economic} observed economic status as one of the parameters of utilizing health services. Even \cite{allendorf2013going} observes the same as in her paper she identifies economic status as a mediator for the patrilocal residence advantage where women in patrilocal extended households are more likely to use antenatal care and delivery assistance as well as consume milk and curd weekly and are also less likely to report physical violence
+
 
 \section{Data and Methods}
 
-Describe the NFHS data.
+This paper uses data from the National Family Health Survey (NFHS) collected in 2005-2006, 2015-16 and 2019-21. It is a cross-sectional, large-scale, nationally representative survey of households and women of reproductive age. I have restricted the sample to only pregnant women as here the focus is on pregnant women's access and experience in healthcare. Further, I have constructed the household structures using information from the household roster which provides data on who else resides in the same household as the respondent. The analytical sample consists of 5911 pregnant women interviewed in 2005-2006; 32,428 pregnant women interviewed in 2015-16, and 28,408 pregnant women interviewed in 2019-21. 
 
 \section{Results}
 
@@ -128,10 +133,7 @@ Describe the NFHS data.
 
 \newpage
 
-\section{References}
 
-\bibliographystyle{apalike}
-\bibliography{writing/references}
 
 
 \newpage
@@ -226,23 +228,27 @@ Describe the NFHS data.
 
 
 
+
+
+
 \begin{table}[H]
     \centering
     \begin{threeparttable}[t]
-        \caption{: Percentage of pregnant women living in patrilocal extended families as opposed to nuclear families}
+        \caption{: Descriptive stats}
         \label{tab:unadjusted}
 
-        
+        \scriptsize
         \setlength{\tabcolsep}{3pt}
-        \renewcommand{\arraystretch}{1.2}
+        \renewcommand{\arraystretch}{1}
 
-        \input{tables/patrilocal_table}
+        \input{tables/table_grouped}
                 
         \begin{tablenotes}
-            \item sig column is the significance of the difference between nfhs-5 and nfhs-3
+            \item sample now is only patrilocal and nuclear
         \end{tablenotes}
     \end{threeparttable}
 \end{table}
+
 
 
 \begin{landscape}
@@ -251,18 +257,16 @@ Describe the NFHS data.
 \begin{table}[H]
     \centering
     \begin{threeparttable}[t]
-        \caption{: Percentage of pregnant women living in patrilocal extended families as opposed to nuclear families}
+        \caption{: patrilocal coeff}
         \label{tab:unadjusted}
 
-        
+        \scriptsize
         \setlength{\tabcolsep}{3pt}
-        \renewcommand{\arraystretch}{1.2}
+        \renewcommand{\arraystretch}{1.7}
 
         \input{tables/coefficient_table}
                 
-        \begin{tablenotes}
-            \item sig column is the significance of the difference between nfhs-5 and nfhs-3
-        \end{tablenotes}
+       
     \end{threeparttable}
 \end{table}
 
@@ -386,10 +390,10 @@ Describe the NFHS data.
 %     \includegraphics[width=\textwidth]{figures/region facility round4.png}
 % \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]{figures/region facility round5.png}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{figures/region facility round5.png}
+% \end{figure}
 
 
 
@@ -461,6 +465,6 @@ Describe the NFHS data.
 
 
 
-\bibliographystyle{asa}
-\bibliography{reference}
+\bibliographystyle{apalike}
+\bibliography{references}
 \end{document}
