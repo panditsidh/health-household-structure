@@ -7,15 +7,15 @@ use $all_nfhs_ir, clear
 *--------------------------------------------------------------------
 
 * outcomes
-// local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_health_permission prob_health_money
+local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_health_permission prob_health_money
 
-local nat_outcomes prob_health_permission prob_health_money 
+//local nat_outcomes prob_health_permission prob_health_money 
 
 // local dv_outcomes    beating_justified dv_phys dv_sex
-//
-// local state_outcomes nosay_healthcare  nosay_purchases nosay_visits
 
-local state_outcomes nosay_healthcare
+//local state_outcomes nosay_healthcare  nosay_purchases nosay_visits
+
+//local state_outcomes nosay_healthcare
 
 local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
 
@@ -29,7 +29,7 @@ compress
 
 *--------------------------------------------------------------------
 * 2. Precompute all subpopulation flags once
-*    sub_i_r_p = (hh_struc==i & round==r & pregnant==p)
+*    sub_i_r_p = (hh_struc==i & round==r & pregnant==p) ** keep**
 *--------------------------------------------------------------------
 foreach r of numlist 3/5 {
     foreach i of numlist 1/3 {
@@ -45,15 +45,15 @@ foreach r of numlist 3/5 {
 
 	
 * outcomes
-// local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_health_permission prob_health_money
+local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily  anemic  v191 wealth_z prob_health_permission prob_health_money
 
-local nat_outcomes prob_health_permission prob_health_money 
+//local nat_outcomes prob_health_permission prob_health_money 
 
 // local dv_outcomes    beating_justified dv_phys dv_sex
 //
 // local state_outcomes nosay_healthcare  nosay_purchases nosay_visits
 
-local state_outcomes nosay_healthcare
+//local state_outcomes nosay_healthcare
 
 local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
 
@@ -61,7 +61,7 @@ local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
 // replace nosay_purchases = . if round==2
 
 *--------------------------------------------------------------------
-* 3. Choose correct weights for this outcome
+* 3. Choose correct weights for this outcome ** only the one line you need**
 *--------------------------------------------------------------------
 
 
@@ -70,7 +70,7 @@ cd "/Users/bipasabanerjee/Documents/GitHub/health-household-structure/code/figur
 foreach outcome in `outcomes' {
 	
 
-local prob_health_permission "Getting permission is a problem in accessing healthcare"
+
 local  prob_health_money "Paying for treatment is a problem in accessing healthcare"
 
 local  neonatal_death "Last birth was a neonatal death"
@@ -127,8 +127,8 @@ if strpos(" `dv_outcomes' ",  " `outcome' ")   local wvar w_dv
 if strpos(" `state_outcomes' ", " `outcome' ") local wvar w_state
 
 
-
-svyset psu [pweight=`wvar'], strata(strata) singleunit(centered)
+** choose the right weight**
+svyset psu [pweight=`wvar'], strata(strata) singleunit(centered) 
 
 
 
@@ -142,7 +142,7 @@ postfile handle nfhs_round hh_type preg mean ci_low ci_high using `results', rep
 
 
 *--------------------------------------------------------------------
-* 5. FAST MAIN LOOP (no preserve/restore)
+* 5. FAST MAIN LOOP (no preserve/restore) ** main loop**
 *--------------------------------------------------------------------
 foreach r of numlist 3/5 {
 	
@@ -274,10 +274,13 @@ twoway
 				"2015–16: `round41' pregnant, 2019–21: `round51' pregnant");
 
 #delimit cr
+cd "/Users/bipasabanerjee/Documents/GitHub/health-household-structure/figures3_4_5"
+graph save "`outcome'_pregnant", replace
+graph export "`outcome'_pregnant.png", as(png) replace
 
-graph save "`ylab'_pregnant", replace
-graph export "`ylab'_pregnant.png", as(png) replace
+restore
 
+}
 
 
 
