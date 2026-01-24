@@ -1,14 +1,7 @@
-*==============================================================*
-* 1. Stack IR Files (NFHS-3,4,5 + NFHS-1,2)
-*==============================================================*
 
-*==============================================================*
-* 2. Household Structure and Sample Definition
-*==============================================================*
+do "code/11_gen hhstruc.do"
 
-do "code/preparing data/gen hhstruc.do"
-
-do "code/preparing data/state district match.do"
+do "code/12_state district match.do"
 
 
 

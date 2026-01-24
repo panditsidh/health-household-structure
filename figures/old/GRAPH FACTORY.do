@@ -1,15 +1,20 @@
 
 use $all_nfhs_ir, clear
 
+
+gen recent_birth_date = v008 - b3_01 // how many months ago was this
+
+keep if inrange(recent_birth_date,3,12)
+
 *--------------------------------------------------------------------
 * 0. Setup
 *--------------------------------------------------------------------
 
 * outcomes
-local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily home_birth
+local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily home_birth anc_four
 local dv_outcomes    beating_justified
 local state_outcomes nosay_healthcare nosay_ownearnings nosay_visits
-local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
+local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes' 
 
 *--------------------------------------------------------------------
 * 1. Keep only necessary variables — MASSIVE SPEED BOOST
@@ -43,11 +48,15 @@ foreach r of numlist 2/5 {
 
 
 
-local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily home_birth
+local nat_outcomes   meat_egg_fish_weekly meat_egg_fish_daily dairy_daily home_birth anc_four
 local dv_outcomes    beating_justified
 local state_outcomes nosay_healthcare nosay_ownearnings nosay_visits
-local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
+// local outcomes `nat_outcomes' `state_outcomes' `dv_outcomes'
 
+local outcomes anc_four
+
+
+local lab_anc_four "Completed four ANC visits"
 local lab_meat_egg_fish_weekly   "Consumes meat,egg,fish at least weekly"
 local lab_meat_egg_fish_daily    "Consumes meat,egg,fish daily"
 local lab_dairy_daily            "Consumes dairy daily"
@@ -60,14 +69,21 @@ local lab_nosay_ownearnings      "No say in spending own earnings"
 local lab_nosay_visits           "No say in visiting natal family"
 
 
-cd "/Users/sidhpandit/Documents/GitHub/household-structure/figures/"
+cd "/Users/sidhpandit/Documents/GitHub/health-household-structure/figures"
 
 * choose which outcome to run (example)
 
 foreach outcome in `outcomes' {
 
 
-preserve
+
+
+preserve 
+
+
+local outcome anc_four
+local lab_anc_four "Completed four ANC visits"
+local wvar wt
 
 local ylab `lab_`outcome''
 
@@ -98,11 +114,11 @@ foreach r of numlist 2/5 {
         foreach p of numlist 0/1 {
             
             * skip empty cells (important)
-            quietly count if sub_`i'_`r'_`p'
+            count if sub_`i'_`r'_`p'
             if r(N)==0 continue
 
             * calculate mean + CI
-            quietly svy, subpop(sub_`i'_`r'_`p'): mean `outcome'
+            svy, subpop(sub_`i'_`r'_`p'): mean `outcome'
             
             matrix M = r(table)
             local mean = M[1,1]
@@ -122,7 +138,11 @@ postclose handle
 *--------------------------------------------------------------------
 * 6. Load results dataset
 *--------------------------------------------------------------------
-use `results', clear
+* diagnostics (optional but super useful)
+di as txt "tempfile is: `results'"
+confirm file "`results'"
+
+use "`results'", clear
 
 
 * Nice labels for panels

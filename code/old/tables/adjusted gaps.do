@@ -110,7 +110,13 @@ foreach y of local outcomes {
             *-------------------------
             * Run regression
             *-------------------------
+			/*
+			edu attainment
+			age in 5 year 
+			social groups
+			parity
 			
+			*/
 			
             quietly reghdfe `y' patrilocal `controls' ///
                 i.v149 i.v013 i.group i.parity ///

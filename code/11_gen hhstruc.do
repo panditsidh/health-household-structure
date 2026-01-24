@@ -1,13 +1,12 @@
 /*
 
-This do file is run by assemble data
-By the time it is run, the stacked individual recode is in memory
-First it prepares a stacked hhmr for merge with the stacked ir
-Then it merges and determines household structure based on the stacked hhmr vars
-
+This do file takes awhile to run
+First it stacks  nfhs 1-5 household member recode
+and uses that to figure out what household structure each household is
+(based on who is there and who isn't)
+then it merges this household level information to the stacked woman's individual file
 
 */
-
 
 
 clear 
@@ -21,6 +20,7 @@ foreach file in nfhs3hmr nfhs4hmr nfhs5hmr {
 use hvidx hv000 hv001 hv002 hhid hv101 hv104 hv105 hv115 using "${nfhs3hmr}", clear
 append using "${nfhs4hmr}"
 append using "${nfhs5hmr}"
+
 
 * someone who is not child or spouse of the hh head
 gen non_nuclear_member = !inlist(hv101,1,2,3,11)
