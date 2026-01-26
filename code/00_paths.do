@@ -32,7 +32,6 @@ if "`c(username)'" == "sidhpandit" {
 	
 }
 
-<<<<<<< Updated upstream
 
 
 
