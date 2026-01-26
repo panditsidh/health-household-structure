@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:code/hhstruc bargraph.do
 /*
 
@@ -16,6 +17,8 @@ in both cases we look at the entire sample
 cd "/Users/bipasabanerjee/Documents/GitHub/health-household-structure"
 =======
 >>>>>>> Stashed changes:code/20_figure 1 change in hhstructure.do
+=======
+>>>>>>> Stashed changes
 use $all_nfhs_ir, clear
 
 keep if ever_married==1
@@ -82,6 +85,7 @@ graph bar (mean) nuclear natal patrilocal other_extended if pregnant==0  [aw=wt]
 
 
 graph export "figures/hhstruc non pregnant.png", as(png) replace
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream:code/hhstruc bargraph.do
 preserve 	
 keep if nuclear | natal | patrilocal
@@ -105,6 +109,8 @@ graph export "figures/hhstruc pregnant.png", as(png) replace
 	
 =======
 >>>>>>> Stashed changes:code/20_figure 1 change in hhstructure.do
+=======
+>>>>>>> Stashed changes
 
 
 */

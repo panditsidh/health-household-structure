@@ -32,6 +32,7 @@ if "`c(username)'" == "sidhpandit" {
 	
 }
 
+<<<<<<< Updated upstream
 
 
 
@@ -82,3 +83,5 @@ if "`c(username)'" == "bipasabanerjee" {
 	
 	
 }
+=======
+>>>>>>> Stashed changes

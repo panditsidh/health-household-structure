@@ -22,6 +22,7 @@ append using "${nfhs4hmr}"
 append using "${nfhs5hmr}"
 
 
+
 * someone who is not child or spouse of the hh head
 gen non_nuclear_member = !inlist(hv101,1,2,3,11)
 
