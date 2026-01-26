@@ -1,11 +1,13 @@
 use $all_nfhs_ir, clear
 
+
+
 * keep the analytic sample
 keep if inlist(round,3,4,5)
 keep if inlist(hh_struc,1,2)
 keep if pregnant==1 & preg==1
-
-
+keep if ever_married==1
+ s
 gen finished_floor = (v127>=30 & v127<=96) if !missing(v127)
 
 
