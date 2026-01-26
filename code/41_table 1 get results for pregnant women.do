@@ -7,7 +7,9 @@ keep if inlist(round,3,4,5)
 keep if inlist(hh_struc,1,2)
 keep if pregnant==1 & preg==1
 keep if ever_married==1
- s
+
+
+
 gen finished_floor = (v127>=30 & v127<=96) if !missing(v127)
 
 
@@ -40,6 +42,19 @@ replace columns = 4 if round==4 & hh_struc==2
 replace columns = 5 if round==5 & hh_struc==1
 
 replace columns = 6 if round==5 & hh_struc==2
+
+
+
+label define columnlbl ///
+    1 "Nuclear NFHS-3 " ///
+    2 "Patrilocal NFHS-3" ///
+    3 "Nuclear NFHS-4" ///
+    4 "Patrilocal NFHS-4" ///
+    5 "Nuclear NFHS-5" ///
+    6 "Patrilocal NFHS-5"
+
+label values columns columnlbl
+
 
 
 preserve
@@ -95,6 +110,15 @@ append using `collapsed_N'
 * Now: columns varname mean
 * If you want wide with 6 columns:
 reshape wide mean, i(varname) j(columns)
+
+
+
+rename mean1 Nuclear3 
+rename mean2 Patrilocal3 
+rename mean3 Nuclear4
+rename mean4 Patrilocal4
+rename mean5 Nuclear5
+rename mean6 Patrilocal5
 
 
 gen sample = "pregnant"

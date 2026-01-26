@@ -11,6 +11,7 @@ use $all_nfhs_ir, clear
 * sample restriction
 keep if inlist(round,3,4,5)
 keep if inlist(hh_struc,1,2)
+keep if ever_married==1
 
 
 gen columns = 1 if round==3 & hh_struc==1
@@ -25,6 +26,17 @@ replace columns = 5 if round==5 & hh_struc==1
 
 replace columns = 6 if round==5 & hh_struc==2
 drop if missing(columns)
+
+label define columnlbl ///
+    1 "Nuclear NFHS-3 " ///
+    2 "Patrilocal NFHS-3" ///
+    3 "Nuclear NFHS-4" ///
+    4 "Patrilocal NFHS-4" ///
+    5 "Nuclear NFHS-5" ///
+    6 "Patrilocal NFHS-5"
+
+label values columns columnlbl
+
 
 gen months_ago_last_birth = v008 - b3_01
 keep if inrange(months_ago_last_birth, 3, 12)
@@ -89,5 +101,13 @@ append using `collapsed_N_pp'
 * Now: columns varname mean
 * If you want wide with 6 columns:
 reshape wide mean, i(varname) j(columns)
+
+
+rename mean1 Nuclear3 
+rename mean2 Patrilocal3 
+rename mean3 Nuclear4
+rename mean4 Patrilocal4
+rename mean5 Nuclear5
+rename mean6 Patrilocal5
 
 gen sample = "3-12 months ago last birth"
