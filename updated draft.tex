@@ -1,0 +1,125 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} %package to manage images
+\graphicspath{ {./figures/} }
+\usepackage{caption}
+\usepackage[font=scriptsize]{subcaption}
+\captionsetup[figure]{labelsep=none}
+\captionsetup[table]{labelsep=none}
+\usepackage{bbm}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{array}
+\usepackage{booktabs}     % no extra vertical space between paragraphs
+\usepackage{indentfirst}
+\usepackage{afterpage}
+\usepackage{floatrow}
+\usepackage{pdflscape}
+\usepackage{soul}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{afterpage}
+\usepackage[margin=1in]{geometry}
+\usepackage[round]{natbib}
+\setcitestyle{authoryear}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{threeparttable}
+\usepackage{setspace}
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+\usepackage{rotating}
+\usepackage{authblk}
+\usepackage{makecell}
+
+
+% Optional styling for nicer author/affil typography
+\renewcommand\Authfont{\normalsize\bfseries}
+\renewcommand\Affilfont{\small\normalfont}
+\setlength{\affilsep}{0.3em} % space between author and affiliation
+
+\setlength{\parindent}{0pt}   % standard indent (~0.25 inch)
+\setlength{\parskip}{1em}       % no extra vertical space between paragraphs
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{14}{16}\selectfont}  % Bold 14pt
+  {}{0pt}{}  % No numbering
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{12}{14}\selectfont}  % Bold 12pt
+  {}{0pt}{}  % No numbering
+
+\titleformat{\subsubsection}
+  {\normalfont\itshape\fontsize{12}{14}\selectfont}  % Italic 12pt
+  {}{0pt}{}  % No numbering
+  
+\begin{document}
+\title{Consequence of increasing joint family residence on pregnant women's autonomy and healthcare in India: A Research Note}
+\date{\today}
+\maketitle
+
+
+
+\section{Results}
+
+
+Table \ref{tab:sumstats} shows that patrilocal households do better on wealth measures and healthcare measures but worse on autonomy measures. 
+
+\begin{landscape}
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  Summary statistics for variables used in mediation analysis}
+        \label{tab:sumstats}
+
+        \scriptsize
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{1}
+
+        \input{tables/table 1 summary stats}
+
+        \begin{tablenotes}
+            \item put table notes here
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+\end{landscape}
+
+
+\begin{landscape}
+
+Table \ref{tab:reg_coefs} shows that wealth accounts for the patrilocal advantage in healthcare utilization measures, but not the patrilocal disadvantage in autonomy measures.
+
+
+
+
+
+
+
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  patrilocal coefficient in different regression specifications}
+        \label{tab:reg_coefs}
+
+        \scriptsize
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{2}
+
+        \input{tables/table 2 regressions}
+
+        \begin{tablenotes}
+            \item put table notes here
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+\end{landscape}
+
+
+
+\end{document}
