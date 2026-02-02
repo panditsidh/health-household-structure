@@ -29,6 +29,7 @@ keep if nuclear | natal | patrilocal
 
 keep if pregnant==1
 
+keep if inlist(round, 3, 4, 5)
 
 
 

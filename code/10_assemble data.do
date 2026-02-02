@@ -1,7 +1,9 @@
 
-do "code/11_gen hhstruc.do"
+cd"/Users/bipasabanerjee/Documents/GitHub/health-household-structure/code" 
 
-do "code/12_state district match.do"
+do "/Users/bipasabanerjee/Documents/GitHub/health-household-structure/code/11_gen hhstruc.do"
+
+do "/Users/bipasabanerjee/Documents/GitHub/health-household-structure/code/12_state district match.do"
 
 
 
