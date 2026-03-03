@@ -88,14 +88,7 @@ As Das Gupta (1999) observed in her work in a patrilineal joint family system wo
 
 Over the last three NFHS rounds that is from 2005 till 2021 we observe more pregnant women living in their patrilocal joint households compared to nuclear household structure. This goes against the believe of modernization theory which indicates a move towards nuclearization. We see that there is a increase in patrilocal joint household living from 47 percentage points to 53 percentage points as well as decline in nuclear household living from 38 pp to 32 pp. 
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth] 
-    {figures/figure 1 change in hhstructure.png}
-    \caption{: 1 panel figure showing change showing household structure}
-    \label{fig:ihds_eat_last}
-    \parbox{1\linewidth}{\footnotesize figure notes go here}
-\end{figure}
+
 
 As we investigate what does this mean for pregnant women and their autonomy as well as healthcare access we observe that pregnant women in joint patrilocal households consistently has reported having lower say in their healthcare as well as visiting their families. The difference in having no say in their health care and visiting their families have gone down than before but the gap still exists. 
 Looking at the wealth measures we see joint households are in on average better than nuclear households. In terms of wealth measure, we look into finished floor, electricity, owns radio, owns TV, owns refrigerator, owns bicycle, owns car, uses toilets/ latrines, owns land.
@@ -104,19 +97,6 @@ Thus indicating though there is lower autonomy in patrilocal household structure
 There are consistent gaps in having “no say in own health care” and “no say in visits to family and friends” that suggest that pregnant women in joint households have less autonomy than those in nuclear households.  Yet, pregnant women in joint households enjoy apparent advantages in healthcare: they are less likely to give birth at home and more likely to have the WHO-recommended 4 prenatal visits.
 
 
-\begin{landscape}
-    
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth]
-    {figures/figure 2 four panel.pdf}
-    \caption{: 4 panel figure showing changes over time in say in own healthcare, say in visits to family, friends, facility birth, and 4+ ANC visits}
-    \label{fig:ihds_eat_last}
-    \parbox{1\linewidth}{\footnotesize figure notes go here}
-\end{figure}
-
-\end{landscape}
 
 In NFHS 3 women living in joint households had a 18.4 percentage point higher probability of reporting no say in their own health compared to women in nuclear households. The association has increased slightly when adjusted for wealth. Whereas, in NFHS 5 we see that the difference have gone down significantly where only 6pp women living in the joint patrilocal extended households claim to not have any say in their own healthcare. We don’t see much change when control for wealth in this case. 
 Similarly for no say in visit to family and friends currently pregnant women living in joint patrilocal households were 24 pp more likely to not have say in visiting friends and family compared to their counterparts in nuclear households in 2005 the gap has decreased now to 6 pp but the fact that pregnant women in joint patrilocal households have less say has remained consistent. 
@@ -130,7 +110,28 @@ In case of going for 4+ ANC visits here also we observe a significant difference
 
 Table \ref{tab:sumstats} shows that patrilocal households do better on wealth measures and healthcare measures but worse on autonomy measures. 
 
+
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  proportion patrilocal by subgroup}
+        \label{tab:patrilocal}
+
+        \scriptsize
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{1.3}
+
+        \input{code/old/tables/table1_patrilocal_by_subgroup}
+
+        \begin{tablenotes}
+            \item put table notes here
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
 \begin{landscape}
+
 
 \begin{table}[!htbp]
     \centering
@@ -154,46 +155,19 @@ Table \ref{tab:sumstats} shows that patrilocal households do better on wealth me
 
 \begin{landscape}
 
-Table \ref{tab:reg_coefs} shows that wealth accounts for the patrilocal advantage in healthcare utilization measures, but not the patrilocal disadvantage in autonomy measures.
+
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth] 
     {figures/figure 1 regression coefficients.png}
-    \caption{: 1 panel figure showing change showing household structure}
+    \caption{: Patrilocal-nuclear difference in various outcomes by survey round}
     \label{fig:ihds_eat_last}
     \parbox{1\linewidth}{\footnotesize figure notes go here}
 \end{figure}
 
 
 \end{landscape}
-
-
-
-
-
-
-\section{Discussion}
-
-\section{Appendix}
-
-\begin{table}[!htbp]
-    \centering
-    \begin{threeparttable}[t]
-        \caption{:  proportion patrilocal by subgroup}
-        \label{tab:patrilocal}
-
-        \scriptsize
-        \setlength{\tabcolsep}{6pt}
-        \renewcommand{\arraystretch}{1.3}
-
-        \input{code/old/tables/table1_patrilocal_by_subgroup}
-
-        \begin{tablenotes}
-            \item put table notes here
-        \end{tablenotes}
-    \end{threeparttable}
-\end{table}
 
 
 \begin{table}[!htbp]
@@ -213,6 +187,43 @@ Table \ref{tab:reg_coefs} shows that wealth accounts for the patrilocal advantag
         \end{tablenotes}
     \end{threeparttable}
 \end{table}
+
+
+\newpage
+
+
+\section{Discussion}
+
+\section{Appendix}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth] 
+    {figures/figure 1 change in hhstructure.png}
+    \caption{: 1 panel figure showing change showing household structure}
+    \label{fig:ihds_eat_last}
+    \parbox{1\linewidth}{\footnotesize figure notes go here}
+\end{figure}
+
+\begin{landscape}
+    
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]
+    {figures/figure 2 four panel.pdf}
+    \caption{: 4 panel figure showing changes over time in say in own healthcare, say in visits to family, friends, facility birth, and 4+ ANC visits}
+    \label{fig:ihds_eat_last}
+    \parbox{1\linewidth}{\footnotesize figure notes go here}
+\end{figure}
+
+\end{landscape}
+
+
+
+
+
+
 
 \begin{landscape}
     
