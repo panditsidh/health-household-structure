@@ -1,0 +1,241 @@
+\documentclass[12pt]{article}
+\usepackage{graphicx} %package to manage images
+\graphicspath{ {./figures/} }
+\usepackage{capt-of}
+\usepackage{caption}
+\usepackage[font=scriptsize]{subcaption}
+\captionsetup[figure]{labelsep=none}
+\captionsetup[table]{labelsep=none}
+\usepackage{bbm}
+\usepackage{amsmath}
+\usepackage{import}
+\usepackage{array}
+\usepackage{booktabs}     % no extra vertical space between paragraphs
+\usepackage{indentfirst}
+\usepackage{afterpage}
+\usepackage{floatrow}
+\usepackage{pdflscape}
+\usepackage{soul}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{setspace}
+\usepackage{afterpage}
+\usepackage[margin=1in]{geometry}
+\usepackage[round]{natbib}
+\setcitestyle{authoryear}
+\usepackage{hyperref}
+\usepackage{titlesec}
+\usepackage{threeparttable}
+\usepackage{setspace}
+\usepackage{float}
+\floatstyle{plaintop}
+\restylefloat{table}
+\usepackage{rotating}
+\usepackage{authblk}
+\usepackage{makecell}
+
+
+% Optional styling for nicer author/affil typography
+\renewcommand\Authfont{\normalsize\bfseries}
+\renewcommand\Affilfont{\small\normalfont}
+\setlength{\affilsep}{0.3em} % space between author and affiliation
+
+\setlength{\parindent}{0pt}   % standard indent (~0.25 inch)
+\setlength{\parskip}{1em}       % no extra vertical space between paragraphs
+
+\titleformat{\section}
+  {\normalfont\bfseries\fontsize{14}{16}\selectfont}  % Bold 14pt
+  {}{0pt}{}  % No numbering
+
+\titleformat{\subsection}
+  {\normalfont\bfseries\fontsize{12}{14}\selectfont}  % Bold 12pt
+  {}{0pt}{}  % No numbering
+
+\titleformat{\subsubsection}
+  {\normalfont\itshape\fontsize{12}{14}\selectfont}  % Italic 12pt
+  {}{0pt}{}  % No numbering
+  
+\begin{document}
+\title{Consequence of increasing joint family residence on pregnant women's autonomy and healthcare in India: A Research Note}
+\author{
+Bipasa Banerjee, Siddhant Pandit, Diane Coffey \\ 
+
+
+}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+
+Over the past few decades there has been sustained scholarly interest in trying to understand how women’s lives change following marriage in India. Marriages in India have historically been characterized by patrilocal residence, with brides moving into their husband’s parental households and living with their in-laws. Virtually all marriages in rural India are arranged by family members, and oftentimes women don’t get to meet their husband or his family members before moving to their household.
+
+There have been numerous studies on the consequences of this living situation among newly married young women. One such study by \cite{gupta1999lifeboat} identifies young daughters-in-law in these households as the most vulnerable members as they are at the bottom of both gender and generational hierarchies. Drawing on this, \cite{allendorf2013going}  investigates young, married women’s health outcomes by family structure, that is, whether they live in patrilocal joint households or nuclear households. Using three National Family Health Surveys (NFHS), spanning 1992 to 2005, she documents an increase in young, married women’s residence in nuclear households and finds that these households have a disadvantage in most health, diet, and domestic violence outcomes relative to patrilocal households. Further, she hypothesizes that if young married women have better health outcomes in nuclear households, it is being mediated through autonomy and if health outcomes in patrilocal joint households are better, it is mediated through economic status.
+ 
+This paper uses more recent NFHS data (spanning 2005 to 2021) to revisit trends in family structure and how it affects autonomy, and health care use among pregnant women. By focusing on pregnancy, we study household structure during an important life stage when healthcare needs and resource demands intensify. Further, as women’s decision making power is especially consequential during pregnancy, we examine women’s autonomy \cite{hou2013effect} as a primary outcome rather than as a mediating mechanism . 
+While Allendorf’s findings indicated a modest movement towards nuclearization between 1992 and 2006, we observe a reversal of that trend between 2005 and 2021, as pregnant married women became were 6 percentage points more likely to live in patrilocal joint households. Further, our findings show that pregnant married women continue to have lower decision-making power in patrilocal joint households compared to their counterparts in nuclear households, but that the gap in decision-making power across household types is narrowing.  We also find that pregnant married women in patrilocal joint households receive more health care: they are more likely than those in nuclear households to give birth in a health facility, rather than at home, and more likely to have  at least four prenatal care visits.  The patrilocal advantage in healthcare utilization is almost entirely accounted for by greater wealth in these households, while the nuclear advantage in decision making power persists even after adding controls for wealth and education. These findings raise an important question: as residence in patrilocal joint households becomes more common relative to nuclear households, is there a trade-off between pregnant women’s household resources and their autonomy, and what does this imply for interpreting improvements in maternal health over time?
+
+
+
+
+
+
+
+\section{Data and methodology}
+
+The data we use comes from the Indian National Family Health Survey (NFHS) collected in NFHS 3 (2005-2006)\cite{IIPS2007NFHS3}, NFHS 4 (2014-15) \cite{IIPS2017NFHS4}, and NFHS 5 (2019-2021 \cite{IIPS2021NFHS5}. The NFHS is a nationally representative cross-sectional survey of households and women of reproductive age that is between the ages of 15-49 in India. In this study we have limited the sample to women who are currently pregnant in our primary analysis of trends in household structure, and outcomes related to decision making power and autonomy. For analyses of maternal health care utilization, we restrict the sample to women who have given birth in the past 3-12 months. The analytic sample consists of a total of 66,747 currently pregnant women with 5,911 women interviewed in 2005-2006, 32,428 in 2015-16, and 28,408 in 2019-21. The results of the health care utilization analysis consist of  91,111 women who have given birth in the past 3-12 months. This includes 8,664 women in this category interviewed in 2005-2006, 44,204 women interviewed in 2015-16 and 38,243 women interviewed in 2019-2021.
+Our sample is also restricted to women who are living in one of the two household structures that are nuclear and patrilocal joint households. We include natal households since in some cases in India pregnant women temporarily move to their parents’ households prior to giving birth. But since we observed the changes in the natal household remained stable, we only focus on the comparison of pregnant women in nuclear and patrilocal households for our regression analysis. Household structures are constructed using information on a woman’s relationship to the household head. We define nuclear households as ones where the woman lives with her husband and children. Patrilocal joint households are defined as the ones where the woman lives with her husband’s kin that is if the household has members such as parent-in-law and sibling-in-law. Finally natal households are the one where the woman lives with her own kin. 
+
+
+
+
+\section{Descriptive Analysis}
+
+Figure 1 shows the distribution of household structures in which pregnant women were living in the last three rounds of the NFHS.  There is an increasing trend in pregnant women residing in patrilocal joint households: in 2005, 47 percent of pregnant women lived in patrilocal joint households, in 2019-21 that number was 53 percent. There was a decline in nuclear household residence from 38 percent to 32 percent.  In each survey wave, about 15 percent of pregnant women live in natal households.  This shows a reversal in nuclearization of households which Allendorf (2013) observed between 1992 and 2005.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth] 
+    {figures/figure 1 change in hhstructure.png}
+    \caption{: 1 panel figure showing change showing household structure}
+    \label{fig:ihds_eat_last}
+    \parbox{1\linewidth}{\footnotesize figure notes go here}
+\end{figure}
+
+To understand how these changes in household structure affect pregnant women, we further look into differences in outcome variables related to women’s  autonomy and the use of maternal healthcare. To understand pregnant women’s autonomy, we look into the following questions: ‘who usually makes decisions about healthcare for yourself?’ and ‘who usually makes decisions about visits to your family or relatives?’  We create a binary indicator coded as 1 if the woman  reported having no say in decision making and 0 if she reports having some say. The “no say” category combines responses in which decisions are reported to be made by the husband alone, someone else in the household, or another individual.  
+Further, to understand access to maternal healthcare, we looked at whether women had their last birth at a health facility or not, and whether they had at least 4 prenatal appointments during their last pregnancy.
+The top panel of Figure 2 shows that more pregnant women in patrilocal joint households reported having no say in their healthcare as well as in terms of visiting family or relatives. There is a consistent gap between the nuclear and patrilocal joint households in terms of autonomy. But we also see that the gap has decreased.  In 2005, there was a 20-percentage point difference between the two household types; in 2020, it was only 5 percentage points. There has been significant improvement within household type, in which the percentage of pregnant women in patrilocal households who reported having no say over their healthcare reduced to 54 percent in 2005 to 34 percent in 2015-16, and to 26 percent in 2019-202. 
+The bottom panel of Figure 2 shows access to maternal healthcare. Women in nuclear households who gave birth in the last 3-12 months are more likely to have delivered at home than women in patrilocal joint households. In contrast women in patrilocal households were more likely to have received four or more antenatal care visits. In 2005-06 the difference between patrilocal and nuclear households in receiving four or more antenatal visits was 9 percentage points, By 2019-21 this gap has slightly narrowed to 7 percentage points. Throughout the trends we observe that there hasn’t been much difference among natal households, the proportion of pregnant women observed in natal households remained 15 percent throughout 2005-06 and 2015-16 and 14 percent in 2019-21. Similarly in terms of autonomy and healthcare utilization the pattern has consistently remained similar to patrilocal households. As a result we decided to drop the natal households in our regression analysis and move forward with a nuclear and patrilocal household 
+
+
+\begin{landscape}
+    
+
+    \centering
+    \includegraphics[width=\textwidth]
+    {figures/figure 2 four panel.pdf}
+    \captionof{figure}{A 4 panel figure showing changes over time in say in own healthcare, say in visits to family, friends, facility birth, and 4+ ANC visits.}
+    \label{fig:ihds_eat_last}
+    \parbox{1\linewidth}{\footnotesize figure notes go here}
+
+
+\end{landscape}
+
+\section{Regression Analysis}
+
+In this section, we investigate whether household economic resources mediate the difference between nuclear and patrilocal household structure in women’s autonomy and maternal healthcare access. We already observed there is an overall healthcare advantage and decision making disadvantage for women in patrilocal households. To understand what mediates this difference we assess whether these patterns can be explained by differences in household wealth. We use nine wealth measures.  They are: whether the house has finished floors, electricity, radio, TV, refrigerator, bicycle, car, toilet and whether they own land. 
+
+Table 1 shows the summary statistics for these variables for both pregnant and women who have birth in the last 3-12 months. We observe that overall patrilocal joint households are economically better off than nuclear households on average.
+
+
+
+Table \ref{tab:sumstats} shows that patrilocal households do better on wealth measures and healthcare measures but worse on autonomy measures. 
+
+\begin{landscape}
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  Summary statistics for variables used in mediation analysis}
+        \label{tab:sumstats}
+
+        \scriptsize
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{1}
+
+        \input{tables/table 1 summary stats}
+
+        \begin{tablenotes}
+            \item put table notes here
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+\end{landscape}
+
+
+Table \ref{tab:reg_coefs} we find that adjusting for household wealth does little to change the association between patrilocal residence and women’s decision making power. In 2005-2006, pregnant women in patrilocal joint households were 18.4 percentage points more likely to report having no say over their own health care than women in nuclear households. After adjusting for household wealth this estimate increases slightly to 19.1 percentage points. A similar pattern is observed for visits to family and friends. Women in patrilocal households were 24.1 percentage points more likely to report having no say in visiting family or relatives, and this difference remains unchanged after wealth adjustments. 
+Turning to maternal health care access, the association between patrilocal residence and healthcare access is substantially attenuated after accounting for household wealth. In 2005-06, women who had given birth 3-12 months preceding the survey and resided in patrilocal joint households were 10.5 percentage points more likely to deliver at a health facility compared to their counterparts in nuclear households. They were also 7 percentage points more likely to receive four or more antenatal care (ANC) visits. 
+After adjusting for wealth these differences declined sharply to 3 percentage points for institutional delivery and 0.5 percentage points for receipt of four or more ANC visits. The magnitude of this decline suggests that much of the patrilocal advantage in maternal healthcare use operates through differences in household economic resources. 
+This pattern continues to persist through the survey round. In the most recent round in 2019-2021 patrilocal residence is associated with 6.1 percentage points higher likelihood of institutional delivery and a 5.9 percentage point higher likelihood of receiving four or more ANC visits. When adjusted for wealth these differences fall to 3.4 and 1.6 percentage points, respectively.
+
+\newpage
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  patrilocal coefficient in different regression specifications}
+        \label{tab:reg_coefs}
+
+        \scriptsize
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{2}
+
+        \input{tables/table 2 regressions}
+
+        \begin{tablenotes}
+            \item put table notes here
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+
+\section{Decomposition Analysis}
+
+To assess whether outcomes would have been different if the 2005 household structure had remained constant, we conduct Kitagawa decomposition (Appendix). The results of the decomposition show that the shift towards joint household structures haven’t had large consequences, either for women’s autonomy or health outcomes. For example, if the household structure remained constant between 2005 and 2021 there would have been only a 4 percentage point decline in having no say in their own healthcare for pregnant women. A similar pattern is observed for decision making about visits to family and relatives. 
+The same pattern also holds for maternal healthcare outcomes.Only 2 percentage point increase in institutional deliveries and a 5 percentage point increase in four or more antenatal care visits can be attributed to shifts in household structure, thus indicating that the compositional shifts are modest. Thus the major improvements are primarily because of the improvements within household structure for both autonomy and maternal healthcare access. 
+
+
+\section{Discussion}
+
+Using recent NFHS data, this study revisits the relationship between household structure, women’s autonomy and healthcare use in India. We document a reversal of earlier trends towards nuclearization observed in prior literature (Allendorf, 2013).  Although pregnant women in patrilocal joint households continue to report lower decision making power than their counterparts in nuclear households, this gap has been narrowed over time. At the same time women have a patrilocal advantage in accessing maternal healthcare, this advantage is largely accounted for by greater household wealth. 
+Decomposition analysis further shows that improvements in autonomy and maternal healthcare over time are driven primarily by changes within the household rather than shifts in overall distribution of household structure. Together these findings indicate that household structure shapes women’s autonomy and healthcare use in different ways.  Although women in patrilocal households report lower decision making power the quality of relationships within these households particularly with mother in laws may also shape women’s well being. Recent research indicates that there is a change in inter-generational dynamics \cite{allendorf2012women}\cite{allendorf2017like}. These findings highlight the importance of examining how evolving family relationships can influence both women’s autonomy and maternal health outcomes. 
+
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\section{Appendix}
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  proportion patrilocal by subgroup}
+        \label{tab:patrilocal}
+
+        \scriptsize
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{1.3}
+
+        \input{code/old/tables/table1_patrilocal_by_subgroup}
+
+        \begin{tablenotes}
+            \item put table notes here
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  decomposition}
+        \label{tab:decomposition}
+
+        \scriptsize
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{2}
+
+        \input{tables/table3_decomposition}
+
+        \begin{tablenotes}
+            \item put table notes here
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
+
+
+
+
+
+\end{document}
