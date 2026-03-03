@@ -1,9 +1,10 @@
 
-cd"/Users/bipasabanerjee/Documents/GitHub/health-household-structure/code" 
 
-do "/Users/bipasabanerjee/Documents/GitHub/health-household-structure/code/11_gen hhstruc.do"
+* @ bipasa, the cd line for you is now in paths. run that before and this will work.
 
-do "/Users/bipasabanerjee/Documents/GitHub/health-household-structure/code/12_state district match.do"
+do "code/11_gen hhstruc.do"
+
+do "12_state district match.do"
 
 
 

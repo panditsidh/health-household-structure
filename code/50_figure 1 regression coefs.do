@@ -27,7 +27,7 @@ keep if inlist(round,3,4,5)
 
 * Postpartum restriction
 gen months_ago_last_birth = v008 - b3_01
-gen postpartum = inrange(months_ago_last_birth, 3, .)
+gen postpartum = inrange(months_ago_last_birth, 3, 12)
 
 * Outcomes
 gen facility_birth = (home_birth==0) if !missing(home_birth)
