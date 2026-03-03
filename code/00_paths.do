@@ -35,6 +35,7 @@ if "`c(username)'" == "sidhpandit" {
 
 
 
+
 if "`c(username)'" == "bipasabanerjee" {
 	global nfhs5hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS-5/Household/IAHR7EFL.DTA"
 	global nfhs4hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS 4/Individual recode/IAIR74FL.DTA"
@@ -82,5 +83,3 @@ if "`c(username)'" == "bipasabanerjee" {
 	
 	
 }
-=======
->>>>>>> Stashed changes

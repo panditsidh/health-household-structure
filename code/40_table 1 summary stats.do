@@ -73,8 +73,8 @@ input str150 rows
 "\textbf{Currently pregnant women}"
 ""
 "\textbf{Autonomy measures}"
-"\hspace*{2em}Say in own healthcare"
-"\hspace*{2em}Say in visits to family/friends"
+"\hspace*{2em}No say in own healthcare"
+"\hspace*{2em}No say in visits to family/friends"
 ""
 "\textbf{Wealth measures}"
 "\hspace*{2em}Finished floor"
@@ -117,53 +117,61 @@ order rows
 *******************************************************
 * Keep only display variables
 *******************************************************
-keep rows mean1 mean2 mean3 mean4 mean5 mean6
+keep rows Nuclear* Patrilocal*
 
-*******************************************************
-* Create string display columns
-*******************************************************
-foreach j of numlist 1/6 {
-    gen str12 disp`j' = ""
-}
 
-*******************************************************
-* Fill display columns
-*******************************************************
-foreach j of numlist 1/6 {
 
-    * Blank rows (headers / spacing)
-    replace disp`j' = "" if missing(rows)
+foreach r in 3 4 5 {
+	
+	
+	gen str12 dispNuclear`r' = ""
+	gen str12 dispPatrilocal`r' = ""
+	
+	* Blank rows (headers / spacing)
+    replace dispNuclear`r' = "" if missing(rows)
+	replace dispPatrilocal`r' = "" if missing(rows)
 
     * N rows: integers with commas
-    replace disp`j' = string(round(mean`j'), "%9.0fc") ///
+    replace dispNuclear`r' = string(round(Nuclear`r'), "%9.0fc") ///
+        if rows=="\textbf{N}"
+	replace dispPatrilocal`r' = string(round(Patrilocal`r'), "%9.0fc") ///
         if rows=="\textbf{N}"
 
     * All other rows: proportions with 2 decimals
-    replace disp`j' = string(mean`j', "%4.2f") ///
+    replace dispNuclear`r' = string(Nuclear`r', "%4.2f") ///
         if !missing(rows) & rows!="\textbf{N}"
+		
+	replace dispPatrilocal`r' = string(Patrilocal`r', "%4.2f") ///
+        if !missing(rows) & rows!="\textbf{N}"
+	
+}
+
+
+
+
+foreach var in dispNuclear3 dispPatrilocal3 dispNuclear4 dispPatrilocal4 dispNuclear5 dispPatrilocal5 {
+	
+	replace `var' = "" if strpos(row, "\textbf{")!=0 & rows!="\textbf{N}"
 }
 
 *******************************************************
 * Optional: drop numeric means now
 *******************************************************
-drop mean1 mean2 mean3 mean4 mean5 mean6
+keep rows disp*
 
 *******************************************************
 * Sanity check
 *******************************************************
-list rows disp1 disp2 disp3 disp4 disp5 disp6, noobs clean
+list rows disp*, noobs clean
 
 
-foreach j of numlist 1/6 {
-    replace disp`j' = "" if strpos(rows, "\textbf") & rows != "\textbf{N}"
-}
 
 
 
 
 
 listtex ///
-    rows disp1 disp2 disp3 disp4 disp5 disp6 ///
+    rows dispNuclear3 dispPatrilocal3 dispNuclear4 dispPatrilocal4 dispNuclear5 dispPatrilocal5 ///
     using "tables/table 1 summary stats.tex", ///
     replace rstyle(tabular) ///
     head( ///
@@ -171,7 +179,7 @@ listtex ///
         "\toprule" ///
         " & \multicolumn{2}{c}{NFHS-3} & \multicolumn{2}{c}{NFHS-4} & \multicolumn{2}{c}{NFHS-5} \\\\" ///
         "\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}" ///
-        " & Joint & Nuclear & Joint & Nuclear & Joint & Nuclear \\\\" ///
+        " & Nuclear & Joint & Nuclear & Joint & Nuclear & Joint \\\\" ///
         "\midrule" ///
     ) ///
     foot( ///
