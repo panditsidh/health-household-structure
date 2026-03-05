@@ -50,7 +50,7 @@ if "`c(username)'" == "bipasabanerjee" {
 	global nfhs4ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS 4/Individual recode/IAIR74FL.DTA"
 	global nfhs5ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS-5/Individual/IAIR7EFL.DTA"
 	
-	
+	cd"/Users/bipasabanerjee/Documents/GitHub/health-household-structure" 
 	
 	
 }

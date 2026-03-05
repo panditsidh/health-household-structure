@@ -179,7 +179,7 @@ twoway ///
         mlabel(mlabel) mlabpos(12) mlabsize(tiny) mlabcolor(black)) ///
     , ///
     by(outcome_title, cols(2) note("") graphregion(color(white)) legend( pos(6))) ///
-    legend(order(2 "No controls (open circle)" 4 "Wealth controls (open triangle)") ///
+    legend(order(2 "No controls" 4 "Wealth controls") ///
            rows(1) ring(0) pos(6) bplacement(south) ///
            region(lstyle(none))) ///
     xlabel(1 `"2005-06"' 2 `"2015-16"' 3 `"2019-21"', noticks nogrid) ///
@@ -190,4 +190,4 @@ twoway ///
     plotregion(color(white)) 
 	
 	
-graph export "figures/figure 1 regression coefficients.png", as(png) name("Graph")
+graph export "figures/figure 1 regression coefficients.png", as(png) name("Graph") replace

@@ -4,7 +4,7 @@
 
 do "code/11_gen hhstruc.do"
 
-do "12_state district match.do"
+do "code/12_state district match.do"
 
 
 
