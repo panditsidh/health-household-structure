@@ -39,6 +39,8 @@ label values columns columnlbl
 
 
 gen months_ago_last_birth = v008 - b3_01
+gen birth_3_12 = inrange(months_ago_last_birth, 3, 12) if !missing(months_ago_last_birth)
+
 keep if inrange(months_ago_last_birth, 3, 12)
 
 * outcomes

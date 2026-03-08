@@ -1,4 +1,5 @@
 
+cd "/Users/bipasabanerjee/Documents/GitHub/health-household-structure"
 do "code/42_table 1 get 3-12 mo.ago birth results.do"
 
 tempfile postpartum_sample
@@ -117,8 +118,8 @@ order rows
 *******************************************************
 * Keep only display variables
 *******************************************************
-keep rows mean1 mean2 mean3 mean4 mean5 mean6
-
+*keep rows mean1 mean2 mean3 mean4 mean5 mean6
+keep rows Nuclear3 Patrilocal3 Nuclear4 Patrilocal4 Nuclear5 Patrilocal5
 *******************************************************
 * Create string display columns
 *******************************************************
@@ -162,7 +163,7 @@ foreach j of numlist 1/6 {
 
 
 
-listtex ///
+*listtex ///
     rows disp1 disp2 disp3 disp4 disp5 disp6 ///
     using "tables/table 1 summary stats.tex", ///
     replace rstyle(tabular) ///
@@ -178,3 +179,38 @@ listtex ///
         "\bottomrule" ///
         "\end{tabular}" ///
     )
+
+	
+	*******************************************************
+* Export to Word (DOCX) version of Table 1
+*******************************************************
+
+* Make Word-friendly row labels (remove LaTeX commands)
+gen str200 rows_doc = rows
+replace rows_doc = subinstr(rows_doc, "\textbf{", "", .)
+replace rows_doc = subinstr(rows_doc, "}", "", .)
+replace rows_doc = subinstr(rows_doc, "\hspace*{2em}", "  ", .)
+
+* Start docx
+putdocx clear
+putdocx begin
+
+putdocx paragraph, style(Heading1)
+putdocx text ("Table 1. Summary statistics for variables used in mediation analysis")
+
+* Create table: 1 label col + 6 data cols
+putdocx table t1 = data(rows_doc disp1 disp2 disp3 disp4 disp5 disp6), varnames
+
+* Rename header row to match your LaTeX header intent
+putdocx table t1(1,1) = ("")
+putdocx table t1(1,2) = ("NFHS-3 Nuclear")
+putdocx table t1(1,3) = ("NFHS-3 Joint")
+putdocx table t1(1,4) = ("NFHS-4 Nuclear")
+putdocx table t1(1,5) = ("NFHS-4 Joint")
+putdocx table t1(1,6) = ("NFHS-5 Nuclear")
+putdocx table t1(1,7) = ("NFHS-5 Joint")
+
+* Optional: basic formatting
+putdocx table t1, layout(autofitcontents)
+
+putdocx save "tables/table_1_summary_stats.docx", replace

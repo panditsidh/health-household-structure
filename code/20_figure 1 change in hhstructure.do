@@ -21,6 +21,7 @@ cd "/Users/bipasabanerjee/Documents/GitHub/health-household-structure"
 >>>>>>> Stashed changes
 use $all_nfhs_ir, clear
 
+preserve
 keep if ever_married==1
 
 // keep if (nuclear | natal | patrilocal | other_extended)
@@ -42,14 +43,14 @@ graph bar (mean) nuclear natal patrilocal if pregnant==1  [aw=wt],
 	legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
 	blabel(bar, format(%4.2f) position(inside) size(small))
 	ytitle("Proportion")
-	note("Sample restricted to nuclear, natal, patrilocal household structure - dropped 5% downwardly extended in NFHS-2, otherwise negligible");
+	note("Sample restricted to nuclear, natal, patrilocal household structure");
 #delimit cr
 
 	
 graph export "figures/figure 1 change in hhstructure.png", as(png) replace
 
 
-	
+restore	
 
 
 
