@@ -53,14 +53,14 @@ foreach y in nosay_healthcare nosay_visits {
     foreach r in 3 4 5 {
 
         * no controls
-        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1
+        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu)
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])
 
         * wealth controls
         reghdfe `y' i.patrilocal `wealth_controls' ///
-            [aw=wt] if round==`r' & pregnant==1
+            [aw=wt] if round==`r' & pregnant==1, cluster(psu)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])
@@ -73,14 +73,14 @@ foreach y in facility_birth anc_four {
 
         * no controls
         reghdfe `y' i.patrilocal [aw=wt] ///
-            if round==`r' & postpartum==1
+            if round==`r' & postpartum==1, cluster(psu)
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])
 
         * wealth controls
         reghdfe `y' i.patrilocal `wealth_controls' ///
-            [aw=wt] if round==`r' & postpartum==1
+            [aw=wt] if round==`r' & postpartum==1, cluster(psu)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])
@@ -110,4 +110,34 @@ foreach v of varlist se* {
 
 
 keep round spec disp*
+
+
+foreach o in anc_four facility_birth nosay_healthcare nosay_visits {
+
+    * numeric b
+    gen double b_`o' = real(disp_b`o')
+
+    * numeric se (remove parentheses)
+    gen str10 tmp_`o' = subinstr(disp_se`o',"(","",.)
+    replace tmp_`o'   = subinstr(tmp_`o',")","",.)
+    gen double se_`o' = real(tmp_`o')
+
+}
+
+foreach o in anc_four facility_birth nosay_healthcare nosay_visits {
+
+    gen double z_`o' = b_`o' / se_`o'
+    gen double p_`o' = 2*normal(-abs(z_`o'))
+
+    gen str3 stars_`o' = ""
+    replace stars_`o' = "*"   if p_`o' < 0.10
+    replace stars_`o' = "**"  if p_`o' < 0.05
+    replace stars_`o' = "***" if p_`o' < 0.01
+}
+
+foreach o in anc_four facility_birth nosay_healthcare nosay_visits {
+
+    gen str50 cell_`o' = ///
+        disp_b`o' + stars_`o' + " \newline " + disp_se`o'
+}
 

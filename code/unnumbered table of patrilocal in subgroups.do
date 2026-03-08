@@ -75,53 +75,130 @@ order row
 gen order = _n
 
 
-expand 3 if inlist(order,1,3,9,16,23)
+
+replace order = 27 if row=="postpartum"
+
+sort order
+
+expand 3 if inlist(order,2,3,9,16,23,26)
 
 
 sort order
 
 
+drop if _n==2
+
+drop if _n==3
+
+drop if _n==35
 
 
-
+capture drop row_fmt
 
 input str150 row_fmt
-"\textbf{Sample}"
-"Gave birth 3-12 mo. ago"
-"Currently pregnant"
-"\textbf{}"
-"\hspace*{2em}No say in own healthcare"
-"\hspace*{2em}No say in visits to family/friends"
+"\textbf{All currently pregnant women}"
 ""
-"\textbf{Wealth measures}"
-"\hspace*{2em}Finished floor"
-"\hspace*{2em}Electricity"
-"\hspace*{2em}Owns radio"
-"\hspace*{2em}Owns TV"
-"\hspace*{2em}Owns refrigerator"
-"\hspace*{2em}Owns bicycle"
-"\hspace*{2em}Owns car"
-"\hspace*{2em}Uses toilet/latrine"
-"\hspace*{2em}Owns land"
+"\textbf{Social group}"
+"\hspace*{2em}Forward caste"
+"\hspace*{2em}OBC"
+"\hspace*{2em}Dalit"
+"\hspace*{2em}Adivasi"
+"\hspace*{2em}Muslim"
+"\hspace*{2em}Sikh/Jain/Christian"
 ""
-"\textbf{N}"
+"\textbf{Region}"
+"\hspace*{2em}Focus states"
+"\hspace*{2em}Central"
+"\hspace*{2em}East"
+"\hspace*{2em}West"
+"\hspace*{2em}North"
+"\hspace*{2em}South"
+"\hspace*{2em}Northeast"
 ""
-"\textbf{Women who gave birth 3--12 months before the survey}"
+"\textbf{Age}"
+"\hspace*{2em}15--19"
+"\hspace*{2em}20--24"
+"\hspace*{2em}25--29"
+"\hspace*{2em}30--34"
+"\hspace*{2em}35--39"
+"\hspace*{2em}40--44"
+"\hspace*{2em}45--49"
 ""
-"\textbf{Healthcare measures}"
-"\hspace*{2em}Birth in a health facility"
-"\hspace*{2em}4+ antenatal visits"
+"\textbf{Parity (live births)}"
+"\hspace*{2em}0"
+"\hspace*{2em}1"
+"\hspace*{2em}2"
+"\hspace*{2em}3+"
 ""
-"\textbf{Wealth measures}"
-"\hspace*{2em}Finished floor"
-"\hspace*{2em}Electricity"
-"\hspace*{2em}Owns radio"
-"\hspace*{2em}Owns TV"
-"\hspace*{2em}Owns refrigerator"
-"\hspace*{2em}Owns bicycle"
-"\hspace*{2em}Owns car"
-"\hspace*{2em}Uses toilet/latrine"
-"\hspace*{2em}Owns land"
-""
-"\textbf{N}" 
+"\textbf{All women 3--12 months postpartum}" 
 end
+
+
+
+keep row_fmt patrilocal*
+
+order row_fmt
+
+
+
+*******************************************************
+* Create display columns for Table 1
+*******************************************************
+
+* 1) Create string display columns
+foreach r in 3 4 5 {
+    gen str12 disp`r' = ""
+}
+
+* 2) Fill numeric rows with formatted values (2 decimals)
+foreach r in 3 4 5 {
+    replace disp`r' = string(patrilocal`r', "%4.2f") ///
+        if row_fmt!="" 
+}
+
+* 3) Blank out section headers + spacer rows
+*    Keep only the two "overall" bold rows numeric
+foreach r in 3 4 5 {
+    replace disp`r' = "" ///
+        if strpos(row_fmt, "\textbf{") ///
+        & row_fmt!="\textbf{All currently pregnant women}" ///
+        & row_fmt!="\textbf{All women 3--12 months postpartum}"
+}
+
+* 4) Also blank explicit spacer rows (row_fmt == "")
+foreach r in 3 4 5 {
+    replace disp`r' = "" if row_fmt==""
+}
+
+*******************************************************
+* Optional: sanity check
+*******************************************************
+list row_fmt disp3 disp4 disp5, noobs sep(0)
+
+
+
+
+*******************************************************
+* Export Table 1
+*******************************************************
+#delimit ;
+
+listtex ///
+    row_fmt disp3 disp4 disp5 ///
+    using "tables/table1 patrilocal_by_subgroup.tex", replace ///
+    rstyle(tabular) ///
+    head( ///
+        "\begin{tabular}{lccc}" ///
+        "\toprule" ///
+        " & \multicolumn{1}{c}{NFHS-3} & \multicolumn{1}{c}{NFHS-4} & \multicolumn{1}{c}{NFHS-5} \\\\" ///
+        " & \multicolumn{1}{c}{(2005--06)} & \multicolumn{1}{c}{(2015--16)} & \multicolumn{1}{c}{(2019--21)} \\\\" ///
+        "\midrule" ///
+    ) ///
+    foot( ///
+        "\midrule" ///
+        "\multicolumn{4}{p{0.85\linewidth}}{\footnotesize\textit{Note:} All subgroup estimates refer to currently pregnant women unless otherwise indicated. The final row reports women 3--12 months postpartum.}" ///
+        "\\ \bottomrule" ///
+        "\end{tabular}" ///
+    );
+
+#delimit cr

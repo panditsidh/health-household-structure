@@ -238,7 +238,7 @@ label values state state_lbl
 
 * Step 1: Define region value labels
 label define regionlbl ///
-    1 "focus" ///
+    1 "UP and Bihar" ///
     2 "central" ///
     3 "east" ///
     4 "west" ///

@@ -35,6 +35,7 @@ if "`c(username)'" == "sidhpandit" {
 
 
 
+
 if "`c(username)'" == "bipasabanerjee" {
 	global nfhs5hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS-5/Household/IAHR7EFL.DTA"
 	global nfhs4hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS 4/Individual recode/IAIR74FL.DTA"
@@ -49,7 +50,7 @@ if "`c(username)'" == "bipasabanerjee" {
 	global nfhs4ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS 4/Individual recode/IAIR74FL.DTA"
 	global nfhs5ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS-5/Individual/IAIR7EFL.DTA"
 	
-	
+	cd"/Users/bipasabanerjee/Documents/GitHub/health-household-structure" 
 	
 	
 }
@@ -82,6 +83,8 @@ if "`c(username)'" == "bipasabanerjee" {
 	
 	
 }
+<<<<<<< HEAD
+=======
 
 
 
@@ -89,3 +92,4 @@ if "`c(username)'" == "bipasabanerjee" {
 
 //=======
 //>>>>>>> Stashed changes
+>>>>>>> 77bfbc064a7a6ef4519aee7f09e8e0fd93213ab1
