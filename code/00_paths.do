@@ -83,13 +83,3 @@ if "`c(username)'" == "bipasabanerjee" {
 	
 	
 }
-<<<<<<< HEAD
-=======
-
-
-
-
-
-//=======
-//>>>>>>> Stashed changes
->>>>>>> 77bfbc064a7a6ef4519aee7f09e8e0fd93213ab1
