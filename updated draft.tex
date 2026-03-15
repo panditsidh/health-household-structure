@@ -83,6 +83,70 @@ As Das Gupta (1999) observed in her work in a patrilineal joint family system wo
 
 
 \section{Data and methodology}
+\subsection*{Regression Models}
+
+We estimate linear probability models (LPMs) to examine the association between household structure and four binary outcomes: (1) reporting ``no say'' in decisions about the respondent's own healthcare, (2) reporting ``no say'' in decisions about visits to family or relatives, (3) having an institutional delivery (birth in a health facility), and (4) receiving at least four antenatal care (ANC) visits.\footnote{All outcomes are coded as binary indicators.}
+
+For woman $i$ in state $s$ and survey round $t$, our baseline specification is:
+
+\begin{equation}
+Y^{(m)}_{ist} = \beta_0 + \beta_1 \text{Patrilocal}_{ist} + \beta_2 \text{NFHS4}_{t} + \beta_3 \text{NFHS5}_{t} + \beta_4 \mathbf{X}_{ist} + \gamma_s + \epsilon_{ist},
+\end{equation}
+
+where $Y^{(m)}_{ist}$ denotes outcome $m \in \{1,2,3,4\}$, $\text{Patrilocal}_{ist}$ is an indicator for residing in a patrilocal joint household (nuclear households are the reference category), $\text{NFHS4}_t$ and $\text{NFHS5}_t$ are survey-round indicators (NFHS-3 is the reference), $\mathbf{X}_{ist}$ is a vector of individual-level controls, and $\gamma_s$ denotes state fixed effects.
+
+To assess the role of household economic status, we estimate an additional specification that includes wealth:
+
+\begin{equation}
+Y^{(m)}_{ist} = \beta_0 + \beta_1 \text{Patrilocal}_{ist} + \beta_2 \text{Wealth}_{ist} + \beta_3 \text{NFHS4}_{t} + \beta_4 \text{NFHS5}_{t} + \beta_5 \mathbf{X}_{ist} + \gamma_s + \epsilon_{ist}.
+\end{equation}
+
+In all models, we report standard errors clustered at the primary sampling unit (PSU) level to account for within-cluster correlation in outcomes.\footnote{All models additionally account for the NFHS complex survey design using sampling weights and stratification.}000000
+
+
+
+\subsection*{Kitagawa Decomposition}
+
+To assess whether changes in autonomy and maternal healthcare are driven by shifts in the distribution of household structure or by changes within household types, we implement a Kitagawa decomposition between NFHS-3 (2005--06) and NFHS-5 (2019--21), treating NFHS-3 as the baseline.
+
+Let the overall mean outcome in survey round $t$ be:
+
+\begin{equation}
+Y_t = \sum_{k} p_{kt} r_{kt}
+\end{equation}
+
+where $k \in \{N, P\}$ indexes household type (nuclear and patrilocal), $p_{kt}$ denotes the proportion of women residing in household type $k$ in round $t$, and $r_{kt}$ denotes the corresponding outcome rate within household type $k$.
+
+The total change between NFHS-3 and NFHS-5 is:
+
+\begin{equation}
+\Delta = Y_5 - Y_3
+\end{equation}
+
+Following Kitagawa, this total change can be decomposed into a compositional component and a rate component:
+
+\begin{equation}
+\Delta = \Delta_{\text{composition}} + \Delta_{\text{rate}}
+\end{equation}
+
+The compositional component is:
+
+\begin{equation}
+\Delta_{\text{composition}} =
+\sum_{k}
+(p_{k5} - p_{k3})
+\frac{r_{k5} + r_{k3}}{2}
+\end{equation}
+
+The rate component is:
+
+\begin{equation}
+\Delta_{\text{rate}} =
+\sum_{k}
+(r_{k5} - r_{k3})
+\frac{p_{k5} + p_{k3}}{2}
+\end{equation}
+
 
 \section{Results}
 
