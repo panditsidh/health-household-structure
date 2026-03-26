@@ -113,14 +113,14 @@ foreach y in facility_birth anc_four {
 
         * no controls
         reghdfe `y' i.patrilocal [aw=wt] ///
-            if round==`r' & postpartum==1, cluster(psu)
+            if round==`r' & postpartum==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
 
         * wealth controls
         reghdfe `y' i.patrilocal `wealth_controls' ///
-            [aw=wt] if round==`r' & postpartum==1, cluster(psu)
+            [aw=wt] if round==`r' & postpartum==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])

@@ -25,6 +25,7 @@ gen prob_health_permission = inlist(v467b,1,2)
 gen prob_health_money = inlist(v467c,1,2)
 
 
+
 gen parity = bord_01
 replace parity = 4 if bord_01>4
 
@@ -282,19 +283,16 @@ replace moperiod = 11 if v215==311
 //months since last period is not reported for 1,274 women who also report pregnancy.  use self-reported "months pregnant" as a measure of gestational duration for those women.
 //this allows us to assign a gestational duration for all but 5 women who report pregnancy.
 count if moperiod==. & v213==1
-gen gestdur = moperiod
+gen gestdur = moperiod if v213==1
 replace gestdur = v214 if missing(moperiod) & v213==1
 tab gestdur if v213==1, m
 
 //create an appendix table to explain why we drop women who report 1, 2, or missing months of gestational duration.
 tab gestdur if v213==1, m
+gen preg = v213
+replace preg = . if gestdur<3 & v213==1
+gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
 
-//Create a variable "preg" to distinguish between the two groups.
-gen preg = v213 == 1
-tab preg, m
-
-
-gen gestdur_3plus = gestdur>=3 if !missing(gestdur)
 
 gen pregnant     = gestdur_3plus
 gen not_pregnant = !pregnant

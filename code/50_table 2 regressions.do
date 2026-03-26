@@ -53,7 +53,7 @@ foreach y in nosay_healthcare nosay_visits {
     foreach r in 3 4 5 {
 
         * no controls
-        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu)
+        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu) 
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])
