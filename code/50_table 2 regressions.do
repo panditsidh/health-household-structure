@@ -10,6 +10,24 @@ set more off
 
 use $all_nfhs_ir, clear
 
+
+
+keep if inlist(round,3,4,5)
+
+
+
+
+
+	
+foreach r in 3 4 5 {
+	
+	preserve
+	
+	keep if round==`r'
+	tempfile round`r'
+	save `round`r''
+	restore
+}	
 *******************************************************
 * 1) Define samples + variables
 *******************************************************
@@ -51,16 +69,16 @@ postfile h ///
 * -------- Pregnant outcomes --------
 foreach y in nosay_healthcare nosay_visits {
     foreach r in 3 4 5 {
-
+		use `round`r'', clear
         * no controls
-        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu) 
+        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])
 
         * wealth controls
-        reghdfe `y' i.patrilocal `wealth_controls' ///
-            [aw=wt] if round==`r' & pregnant==1, cluster(psu)
+        reghdfe `y' i.patrilocal i.wealth_group ///
+            [aw=wt] if round==`r' & pregnant==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])
@@ -70,17 +88,18 @@ foreach y in nosay_healthcare nosay_visits {
 * -------- Postpartum outcomes --------
 foreach y in facility_birth anc_four {
     foreach r in 3 4 5 {
+		use `round`r'', clear
 
         * no controls
         reghdfe `y' i.patrilocal [aw=wt] ///
-            if round==`r' & postpartum==1, cluster(psu)
+            if round==`r' & postpartum==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])
 
         * wealth controls
-        reghdfe `y' i.patrilocal `wealth_controls' ///
-            [aw=wt] if round==`r' & postpartum==1, cluster(psu)
+        reghdfe `y' i.patrilocal i.wealth_group ///
+            [aw=wt] if round==`r' & postpartum==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["se","1.patrilocal"])

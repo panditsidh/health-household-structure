@@ -68,6 +68,10 @@ local wealth_controls ///
     finished_floor finished_wall finished_roof electricity ///
     owns_radio owns_tv owns_fridge owns_bike owns_car latrine
 
+	
+egen wealth_group = group(finished_floor finished_wall finished_roof ///
+                         electricity owns_radio owns_tv owns_fridge ///
+                         owns_bike owns_car latrine)
 *******************************************************
 * 2) Run NFHS-5 regressions with controls only
 *******************************************************
@@ -78,27 +82,22 @@ local wealth_controls ///
 eststo clear
 
 * Pregnant sample outcomes
-eststo m1: reghdfe nosay_healthcare i.patrilocal `wealth_controls' ///
+eststo m1: reghdfe nosay_healthcare i.patrilocal i.wealth_group ///
     [aw=wt] if round==5 & pregnant==1, cluster(psu) absorb(v024)
 
-eststo m2: reghdfe nosay_visits i.patrilocal `wealth_controls' ///
+eststo m2: reghdfe nosay_visits i.patrilocal i.wealth_group ///
     [aw=wt] if round==5 & pregnant==1, cluster(psu) absorb(v024)
 
 * Postpartum sample outcomes
-eststo m3: reghdfe facility_birth i.patrilocal `wealth_controls' ///
+eststo m3: reghdfe facility_birth i.patrilocal i.wealth_group ///
     [aw=wt] if round==5 & postpartum==1, absorb(v024) cluster(psu)
 
-eststo m4: reghdfe anc_four i.patrilocal `wealth_controls' ///
+eststo m4: reghdfe anc_four i.patrilocal i.wealth_group ///
     [aw=wt] if round==5 & postpartum==1, absorb(v024) cluster(psu)
 
 *******************************************************
 * 3) Add useful summary rows
 *******************************************************
-
-estadd local state_fe "No" : m1
-estadd local state_fe "No" : m2
-estadd local state_fe "Yes" : m3
-estadd local state_fe "Yes" : m4
 
 estadd local sample "Pregnant"   : m1
 estadd local sample "Pregnant"   : m2

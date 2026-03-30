@@ -6,69 +6,21 @@ set more off
 use $all_nfhs_ir, clear
 
 keep if inlist(round,3,4,5)
-
-*******************************************************
-* 1) Define samples + variables
-*******************************************************
-
-* Postpartum restriction
-gen months_ago_last_birth = v008 - b3_01
-gen postpartum = inrange(months_ago_last_birth, 3, 12)
-
-* Outcomes
-gen facility_birth = (home_birth==0) if !missing(home_birth)
-
-* Wealth controls
-gen finished_floor = (v127>=30 & v127<=96) if !missing(v127)
-gen latrine        = !inlist(v116,30,31) if !missing(v116)
-gen electricity    = v119==1 if !missing(v119)
-gen owns_radio     = v120==1 if !missing(v120)
-gen owns_tv        = v121==1 if !missing(v121)
-gen owns_fridge    = v122==1 if !missing(v122)
-gen owns_bike      = v123==1 if !missing(v123)
-gen owns_car       = v125==1 if !missing(v125)
-gen owns_land      = inlist(v745b,1,2,3) if !missing(v745b)
-gen floor = v127 if v127 < 96
-replace floor = 10 if inrange(floor, 10, 19)
-replace floor = 20 if inrange(floor, 20, 29)
-replace floor = 30 if inrange(floor, 30, 39)
-label define floor 10 "unfinished" 20 "part finished" 30 "finished" 
-label val floor floor
-
-gen wall = v128 if v128 < 96
-replace wall = 10 if inrange(wall, 10, 19)
-replace wall = 20 if inrange(wall, 20, 29)
-replace wall = 30 if inrange(wall, 30, 39)
-label define wall 10 "unfinished" 20 "part finished" 30 "finished" 
-label val wall wall
-
-gen roof = v129 if v129 < 96
-replace roof = 10 if inrange(roof, 10, 19)
-replace roof = 20 if inrange(roof, 20, 29)
-replace roof = 30 if inrange(roof, 30, 39)
-label define roof 10 "unfinished" 20 "part finished" 30 "finished" 
-label val roof roof
-
-gen finished_wall = wall==30 if !missing(wall)
-gen finished_roof = roof==30 if !missing(roof)
-
-gen water = v113 if v113<51
-replace water = 10 if inrange(water, 10,19)
-replace water = 20 if inrange(water, 20,29)
-replace water = 30 if inrange(water, 30,39)
-replace water = 40 if inrange(water, 40,49)
-label val water V113
-
-gen piped_water = water
-
-
-egen wealth_group = group(finished_floor finished_wall finished_roof ///
-                         electricity owns_radio owns_tv owns_fridge ///
-                         owns_bike owns_car latrine)
+	
+foreach r in 3 4 5 {
+	
+	preserve
+	
+	keep if round==`r'
+	tempfile round`r'
+	save `round`r''
+	restore
+}	
 
 
 local wealth_controls ///
     finished_floor finished_wall finished_roof electricity owns_radio owns_tv owns_fridge owns_bike owns_car latrine 
+
 
 tempfile results
 capture postclose h
@@ -82,16 +34,17 @@ postfile h ///
 * -------- Pregnant outcomes --------
 foreach y in nosay_healthcare nosay_visits {
     foreach r in 3 4 5 {
-
+		
+		use `round`r'', clear
         * no controls
-        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu) absorb(v024)
+        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu) 
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
 
         * wealth controls
         reghdfe `y' i.patrilocal i.wealth_group ///
-            [aw=wt] if round==`r' & pregnant==1, cluster(psu) absorb(v024)
+            [aw=wt] if round==`r' & pregnant==1, cluster(psu) 
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
@@ -101,17 +54,18 @@ foreach y in nosay_healthcare nosay_visits {
 * -------- Postpartum outcomes --------
 foreach y in facility_birth anc_four {
     foreach r in 3 4 5 {
-
+		
+		use `round`r'', clear
         * no controls
         reghdfe `y' i.patrilocal [aw=wt] ///
-            if round==`r' & postpartum==1, cluster(psu) absorb(v024)
+            if round==`r' & postpartum==1, cluster(psu) 
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
 
         * wealth controls
         reghdfe `y' i.patrilocal i.wealth_group ///
-            [aw=wt] if round==`r' & postpartum==1, cluster(psu) absorb(v024)
+            [aw=wt] if round==`r' & postpartum==1, cluster(psu) 
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
@@ -185,11 +139,11 @@ twoway ///
 	ylabel(,labsize(small)) ///
     xscale(range(0.5 3.5)) ///
     xtitle("") ///
-    ytitle("Difference in outcome (Patrilocal – Nuclear, pp)", margin(medsmall)) ///
+    ytitle("Regression coefficient (Patrilocal − Nuclear, pp)", margin(medsmall)) ///
     yline(0, lpattern(solid) lcolor(gs10)) ///
     graphregion(color(white) margin(b+10 l+6 r+6 t+4)) ///
     plotregion(color(white) margin(l+4 r+4 t+4 b+4)) 
 
 	
 	
-graph export "figures/figure 1 regression coefficients.png", as(png) name("Graph") replace
+graph export "figures/figure 1 regression coefficients without state fes.png", as(png) name("Graph") replace
