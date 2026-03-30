@@ -177,6 +177,8 @@ list row_fmt disp3 disp4 disp5, noobs sep(0)
 
 
 
+drop if row_fmt=="\textbf{All women 3--12 months postpartum}"
+
 
 *******************************************************
 * Export Table 1
@@ -195,10 +197,7 @@ listtex ///
         "\midrule" ///
     ) ///
     foot( ///
-        "\midrule" ///
-        "\multicolumn{4}{p{0.85\linewidth}}{\footnotesize\textit{Note:} All subgroup estimates refer to currently pregnant women unless otherwise indicated. The final row reports women 3--12 months postpartum.}" ///
-        "\\ \bottomrule" ///
-        "\end{tabular}" ///
-    );
-
+    "\bottomrule" ///
+    "\end{tabular}" ///
+);
 #delimit cr

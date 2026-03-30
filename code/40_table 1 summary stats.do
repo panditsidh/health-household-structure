@@ -177,9 +177,9 @@ listtex ///
     head( ///
         "\begin{tabular}{lcccccc}" ///
         "\toprule" ///
-        " & \multicolumn{2}{c}{NFHS-3} & \multicolumn{2}{c}{NFHS-4} & \multicolumn{2}{c}{NFHS-5} \\\\" ///
+        " & \multicolumn{2}{c}{NFHS-3 (2005-06)} & \multicolumn{2}{c}{NFHS-4 (2015-16)} & \multicolumn{2}{c}{NFHS-5 (2019-21)} \\\\" ///
         "\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}" ///
-        " & Nuclear & Joint & Nuclear & Joint & Nuclear & Joint \\\\" ///
+        " & Nuclear & Patrilocal & Nuclear & Patrilocal & Nuclear & Patrilocal \\\\" ///
         "\midrule" ///
     ) ///
     foot( ///
