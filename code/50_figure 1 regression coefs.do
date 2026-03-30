@@ -1,17 +1,3 @@
-/*
-
-
-We need a figure that is 4 panels - 1 for each outcome
-
-
-outcome | survey round | controls | b | ll | ul 
-
-
-
-
-
-*/
-
 
 
 clear
@@ -93,14 +79,14 @@ foreach y in nosay_healthcare nosay_visits {
     foreach r in 3 4 5 {
 
         * no controls
-        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu)
+        reghdfe `y' i.patrilocal [aw=wt] if round==`r' & pregnant==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
 
         * wealth controls
         reghdfe `y' i.patrilocal `wealth_controls' ///
-            [aw=wt] if round==`r' & pregnant==1, cluster(psu)
+            [aw=wt] if round==`r' & pregnant==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
@@ -172,22 +158,33 @@ twoway ///
     (rcap ul ll xoff if spec=="no controls", lcolor(black) legend(off)) ///
     (scatter b xoff if spec=="no controls", ///
         msymbol(Oh) mcolor(black) mfc(none) ///
-        mlabel(mlabel) mlabpos(12) mlabsize(tiny) mlabcolor(black)) ///
+        mlabel(mlabel) mlabpos(9) mlabsize(vsmall) mlabcolor(black)) ///
     (rcap ul ll xoff if spec=="wealth controls", lcolor(gs8) legend(off)) ///
     (scatter b xoff if spec=="wealth controls", ///
         msymbol(Th) mcolor(gs8) mfc(none) ///
-        mlabel(mlabel) mlabpos(12) mlabsize(tiny) mlabcolor(black)) ///
+        mlabel(mlabel) mlabpos(3) mlabsize(vsmall) mlabcolor(black)) ///
     , ///
-    by(outcome_title, cols(2) note("") graphregion(color(white)) legend( pos(6))) ///
+    by(outcome_title, ///
+        cols(2) ///
+        note("") ///
+        graphregion(color(white)) ///
+        legend(pos(6)) ///
+        yrescale ///
+        xrescale ///
+        imargin(small)) ///
     legend(order(2 "No controls" 4 "Wealth controls") ///
            rows(1) ring(0) pos(6) bplacement(south) ///
            region(lstyle(none))) ///
-    xlabel(1 `"2005-06"' 2 `"2015-16"' 3 `"2019-21"', noticks nogrid) ///
+    xlabel(0.7 `"2005-06"' 2 `"2015-16"' 3.3 `"2019-21"', ///
+           noticks nogrid labsize(small)) ///
+	ylabel(,labsize(small)) ///
+    xscale(range(0.5 3.5)) ///
     xtitle("") ///
-    ytitle("Difference in outcome (Patrilocal – Nuclear, pp)") ///
+    ytitle("Difference in outcome (Patrilocal – Nuclear, pp)", margin(medsmall)) ///
     yline(0, lpattern(solid) lcolor(gs10)) ///
-    graphregion(color(white) margin(b+8)) ///
-    plotregion(color(white)) 
+    graphregion(color(white) margin(b+10 l+6 r+6 t+4)) ///
+    plotregion(color(white) margin(l+4 r+4 t+4 b+4)) 
+
 	
 	
 graph export "figures/figure 1 regression coefficients.png", as(png) name("Graph") replace
