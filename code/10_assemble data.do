@@ -16,6 +16,8 @@ currently residing with husband
 */
 
 
+
+
 gen ever_married = v501!=0
 gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1)
 
@@ -424,6 +426,8 @@ gen rural = v025==2
 
 
 
+
+
 *==============================================================*
 * 13. Save Stacked File
 *==============================================================*
@@ -498,6 +502,66 @@ gen higher = v106==3
 
 
 tab parity, gen(parity)
+
+
+
+* Postpartum restriction
+gen months_ago_last_birth = v008 - b3_01
+gen postpartum = inrange(months_ago_last_birth, 3, 12)
+
+* Outcomes
+gen facility_birth = (home_birth==0) if !missing(home_birth)
+
+* Wealth controls
+gen finished_floor = (v127>=30 & v127<=96) if !missing(v127)
+gen latrine        = !inlist(v116,30,31) if !missing(v116)
+gen electricity    = v119==1 if !missing(v119)
+gen owns_radio     = v120==1 if !missing(v120)
+gen owns_tv        = v121==1 if !missing(v121)
+gen owns_fridge    = v122==1 if !missing(v122)
+gen owns_bike      = v123==1 if !missing(v123)
+gen owns_car       = v125==1 if !missing(v125)
+gen owns_land      = inlist(v745b,1,2,3) if !missing(v745b)
+gen floor = v127 if v127 < 96
+replace floor = 10 if inrange(floor, 10, 19)
+replace floor = 20 if inrange(floor, 20, 29)
+replace floor = 30 if inrange(floor, 30, 39)
+label define floor 10 "unfinished" 20 "part finished" 30 "finished" 
+label val floor floor
+
+gen wall = v128 if v128 < 96
+replace wall = 10 if inrange(wall, 10, 19)
+replace wall = 20 if inrange(wall, 20, 29)
+replace wall = 30 if inrange(wall, 30, 39)
+label define wall 10 "unfinished" 20 "part finished" 30 "finished" 
+label val wall wall
+
+gen roof = v129 if v129 < 96
+replace roof = 10 if inrange(roof, 10, 19)
+replace roof = 20 if inrange(roof, 20, 29)
+replace roof = 30 if inrange(roof, 30, 39)
+label define roof 10 "unfinished" 20 "part finished" 30 "finished" 
+label val roof roof
+
+gen finished_wall = wall==30 if !missing(wall)
+gen finished_roof = roof==30 if !missing(roof)
+
+gen water = v113 if v113<51
+replace water = 10 if inrange(water, 10,19)
+replace water = 20 if inrange(water, 20,29)
+replace water = 30 if inrange(water, 30,39)
+replace water = 40 if inrange(water, 40,49)
+label val water V113
+
+gen piped_water = water
+
+
+egen wealth_group = group(finished_floor finished_wall finished_roof ///
+                         electricity owns_radio owns_tv owns_fridge ///
+                         owns_bike owns_car latrine)
+
+
+	
 
 
 save $all_nfhs_ir, replace

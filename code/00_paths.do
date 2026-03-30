@@ -35,6 +35,20 @@ if "`c(username)'" == "sidhpandit" {
 
 
 
+if "`c(username)'" == "dc42724" {
+
+	global nfhs5ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAIR7DDT\IAIR7DFL.DTA"
+
+	global dataset "C:\Users\dc42724\Dropbox\K01\maternal-nutrition-social-group\data\prepared_dataset.dta"
+	
+	cd "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups"
+	
+	global paths "C:\Users\dc42724\Documents\GitHub\maternal-nutrition-and-social-groups\dofiles\000_paths.do"
+	
+	global ihds2_ewomen "C:\Users\dc42724\Dropbox\Data\IHDS\2011 data\women\36151-0003-Data.dta"
+}
+
+
 
 if "`c(username)'" == "bipasabanerjee" {
 	global nfhs5hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS-5/Household/IAHR7EFL.DTA"
