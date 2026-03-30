@@ -62,6 +62,11 @@ label val water V113
 gen piped_water = water
 
 
+egen wealth_group = group(finished_floor finished_wall finished_roof ///
+                         electricity owns_radio owns_tv owns_fridge ///
+                         owns_bike owns_car latrine)
+
+
 local wealth_controls ///
     finished_floor finished_wall finished_roof electricity owns_radio owns_tv owns_fridge owns_bike owns_car latrine 
 
@@ -85,7 +90,7 @@ foreach y in nosay_healthcare nosay_visits {
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
 
         * wealth controls
-        reghdfe `y' i.patrilocal `wealth_controls' ///
+        reghdfe `y' i.patrilocal i.wealth_group ///
             [aw=wt] if round==`r' & pregnant==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
@@ -105,7 +110,7 @@ foreach y in facility_birth anc_four {
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
 
         * wealth controls
-        reghdfe `y' i.patrilocal `wealth_controls' ///
+        reghdfe `y' i.patrilocal i.wealth_group ///
             [aw=wt] if round==`r' & postpartum==1, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
