@@ -75,7 +75,7 @@ This paper investigates how household structure shapes pregnant women's autonomy
 
 This paper builds upon and dialog with prior empirical research by \cite{allendorf2013going}, who uses 1992 to 2005 data from India to show that several women's health outcomes were positively associated with joint, rather than nuclear family, residence, during that period.  \cite{allendorf2013going}'s paper noted an approximately 8 percentage point increase in the proportion of young women living in nuclear households between 1992 and 2005, and raised the question of how, considering the joint family health advantages that she documented, the shift towards nuclear families might impact women's health in the future.  In contrast, our research, which specifically focuses on pregnant women, finds that in the last two decades, the trend towards nuclear households has reversed.  Pregnant women are actually 6 percentage points less likely to be living in nuclear households in 2021 than they were in 2005. However, one thing that remains consistent with the period \cite{allendorf} studied is that joint families are still wealthier than nuclear families, and wealth is a mediator that explains part of the observed gap between patrilocal and nuclear households in facility births and 4+ ANC visits. Consistent with this, the inclusion of wealth controls substantially reduced the magnitude of these differences but does not eliminate them entirely.
 
-Among this paper's substantive contributions to the literature is documenting the reversal in the trend towards nuclear household structure among pregnant women in India, while showing that autonomy and maternal healthcare follow distinct patterns across household types, with autonomy gaps persisting but narrowing, and healthcare advantages in joint households largely explained by economic resources.
+Among this paper's substantive contributions to the literature is documenting the reversal in the trend towards nuclear household structure among pregnant women in India. Along with consistently showing that pregnant women in joint households have lower decision making power than their counterparts in nuclear households the same doesn't seem to happening in case of maternal healthcare utilization. Thus, indicating lower decision making power does not translate into lower maternal healthcare utilization rather, it operates through a different mechanism which is largely explained by economic resources. 
 
 
 
@@ -256,7 +256,7 @@ Together these findings indicate that narratives of nuclearization and women’s
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth] 
-    {figures/figure 1 regression coefficients.png}
+    {figures/figure 1 regression coefficients with state fes.png}
     \caption{: Estimated differences in autonomy and healthcare utilization outcomes for women living in patrilocal extended households relative to nuclear households}
     \label{fig:regresults}
     \parbox{1\linewidth}{\footnotesize Points represent the coefficient on the patrilocal household indicator from linear probability models shown in equations \ref{eq:nocontrols} and \ref{eq:controls}. Panels for outcomes "Gave birth in a health facility" and "Had 4+ antenatal care visits" use the sample of women who gave birth 3-12 months before the survey. Panels for outcomes "No say in own healthcare" and "No say in visits to family/friends" use the sample of women who report being three or more months pregnant at the time of the survey.}
@@ -321,6 +321,20 @@ Together these findings indicate that narratives of nuclearization and women’s
     \end{threeparttable}
 \end{table}
 
+
+\begin{landscape}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth] 
+    {figures/figure 1 regression coefficients without state fes.png.png}
+    \caption{: (without state fe) Estimated differences in autonomy and healthcare utilization outcomes for women living in patrilocal extended households relative to nuclear households}
+    \label{fig:regresultsnocontrols}
+    \parbox{1\linewidth}{\footnotesize Same as figure \ref{fig:regresults} but without state fixed effects. Points represent the coefficient on the patrilocal household indicator from linear probability models shown in equations \ref{eq:nocontrols} and \ref{eq:controls}. Panels for outcomes "Gave birth in a health facility" and "Had 4+ antenatal care visits" use the sample of women who gave birth 3-12 months before the survey. Panels for outcomes "No say in own healthcare" and "No say in visits to family/friends" use the sample of women who report being three or more months pregnant at the time of the survey.}
+\end{figure}
+
+\end{landscape}
 
 
 
