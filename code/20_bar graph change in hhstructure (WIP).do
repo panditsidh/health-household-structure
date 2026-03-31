@@ -1,5 +1,4 @@
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream:code/hhstruc bargraph.do
+
 /*
 
 This do file creates a bar graph
@@ -14,40 +13,79 @@ in both cases we look at the entire sample
 
 */
 
-cd "/Users/bipasabanerjee/Documents/GitHub/health-household-structure"
-=======
->>>>>>> Stashed changes:code/20_figure 1 change in hhstructure.do
-=======
->>>>>>> Stashed changes
 use $all_nfhs_ir, clear
 
 keep if ever_married==1
-
-// keep if (nuclear | natal | patrilocal | other_extended)
-
 keep if nuclear | natal | patrilocal
-
-keep if pregnant==1
-
 keep if inlist(round, 3, 4, 5)
 
-
-
-
-
+*******************************************************
+* Panel 1: Pregnant women
+*******************************************************
 #delimit ;
-graph bar (mean) nuclear natal patrilocal if pregnant==1  [aw=wt],
-	over(round) 
-	stack
-	legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
-	blabel(bar, format(%4.2f) position(inside) size(small))
-	ytitle("Proportion")
-	note("Sample restricted to nuclear, natal, patrilocal household structure - dropped 5% downwardly extended in NFHS-2, otherwise negligible");
+graph bar (mean) nuclear natal patrilocal if pregnant==1 [aw=wt],
+    over(round)
+    stack
+    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
+    blabel(bar, format(%4.2f) position(inside) size(small))
+    ytitle("Proportion of women")
+    title("Pregnant women")
+    name(g1, replace);
 #delimit cr
 
-	
-graph export "figures/figure 1 change in hhstructure.png", as(png) replace
+*******************************************************
+* Panel 2: Allendorf sample
+*******************************************************
+#delimit ;
+graph bar (mean) nuclear natal patrilocal if allendorf_sample==1 [aw=wt],
+    over(round)
+    stack
+    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
+    blabel(bar, format(%4.2f) position(inside) size(small))
+    ytitle("Proportion of women")
+    title("Allendorf sample")
+    name(g2, replace);
+#delimit cr
 
+*******************************************************
+* Panel 3: Non-pregnant women
+*******************************************************
+#delimit ;
+graph bar (mean) nuclear natal patrilocal if pregnant==0 [aw=wt],
+    over(round)
+    stack
+    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
+    blabel(bar, format(%4.2f) position(inside) size(small))
+    ytitle("Proportion of women")
+    title("Non-pregnant women")
+    name(g3, replace);
+#delimit cr
+
+*******************************************************
+* Panel 4: All women
+*******************************************************
+#delimit ;
+graph bar (mean) nuclear natal patrilocal [aw=wt],
+    over(round)
+    stack
+    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
+    blabel(bar, format(%4.2f) position(inside) size(small))
+    ytitle("Proportion of women")
+    title("All women")
+    name(g4, replace);
+#delimit cr
+
+*******************************************************
+* Combine into 2x2 panel
+*******************************************************
+grc1leg g1 g2 g3 g4, ///
+    cols(2) ///
+    imargin(2 2 2 2) ///
+    graphregion(color(white)) ///
+	iscale(0.6)
+
+	
+graph export "figures/apdx bar graph four panel.png", as(png) name("Graph")
 
 	
 

@@ -108,8 +108,8 @@ use caseid s928b s930 s927 v743a* v044 d105a-d105j d129 s907 s908 s116 v* ///
 * Append NFHS-5, NFHS-3, NFHS-1, NFHS-2 to NFHS-4
 append using `nfhs5'
 append using `nfhs3'
-append using "${nfhs1ir}"
-append using "${nfhs2ir}"
+// append using "${nfhs1ir}"
+// append using "${nfhs2ir}"
 
 merge m:1 v000 v001 v002 using `hr_combined', generate(hh_merge)
 

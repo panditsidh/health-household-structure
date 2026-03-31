@@ -15,9 +15,6 @@ use $all_nfhs_ir, clear
 keep if inlist(round,3,4,5)
 
 
-
-
-
 	
 foreach r in 3 4 5 {
 	

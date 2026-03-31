@@ -167,40 +167,25 @@ twoway
         mlabsize(tiny)
         mlabcolor(black)
     )
-    (rcap ci_low ci_high survey_year_natal if hh_type==3,
-        lcolor(gs8)
-        lwidth(medthick)
-    )
-    (scatter mean survey_year_natal if hh_type==3,
-        msymbol(triangle)
-        mcolor(gs8)
-        msize(medium)
-        mlabel(prop_label)
-        mlabpos(3)
-        mlabsize(tiny)
-        mlabcolor(black)
-    ),
-    xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", 
+	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", 
         labsize(small) angle(0)
     )
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))
 	xscale(range(2003 2023))
     ytitle("No say in own healthcare", size(medium))
-    xtitle("Survey year", size(medium))
+    xtitle("Survey year", size(small))
     legend(
         order(
             2 "Nuclear"
             4 "Patrilocal"
-            6 "Natal"
         )
         row(1)
         pos(6)
         size(medium)
     )
     graphregion(color(white))
-    aspect(0.7)
-	caption("Sample is restricted to currently pregnant women." "Sample sizes are `N2005', `N2015', and `N2020' for survey years" "2005-2006, 2015-2016, and 2019-2021, respectively.", size(small));
+    aspect(0.7);
 
 #delimit cr
 
@@ -254,19 +239,6 @@ twoway
         mlabpos(12)
         mlabsize(tiny)
         mlabcolor(black)
-    )
-    (rcap ci_low ci_high survey_year_natal if hh_type==3,
-        lcolor(gs8)
-        lwidth(medthick)
-    )
-    (scatter mean survey_year_natal if hh_type==3,
-        msymbol(triangle)
-        mcolor(gs8)
-        msize(medium)
-        mlabel(prop_label)
-        mlabpos(3)
-        mlabsize(tiny)
-        mlabcolor(black)
     ),
     xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", 
         labsize(small) angle(0)
@@ -275,24 +247,18 @@ twoway
     yscale(range(0 1))
     xscale(range(2003 2023))
     ytitle("No say in visits", size(medium))
-    xtitle("Survey year", size(medium))
+    xtitle("Survey year", size(small))
     legend(
         order(
             2 "Nuclear"
             4 "Patrilocal"
-            6 "Natal"
         )
         row(1)
         pos(6)
         size(medium)
     )
     graphregion(color(white))
-    aspect(0.7)
-    caption(
-        "Sample is restricted to currently pregnant women."
-        "Sample sizes are `N2005', `N2015', and `N2020' for survey years"
-        "2005-2006, 2015-2016, and 2019-2021, respectively.", size(small)
-    );
+    aspect(0.7);
 #delimit cr
 
 restore

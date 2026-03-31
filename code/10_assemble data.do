@@ -7,6 +7,9 @@ do "code/11_gen hhstruc.do"
 do "code/12_state district match.do"
 
 
+gen ever_married = v501!=0
+gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1)
+
 
 /*
 married
@@ -14,13 +17,6 @@ between ages 15-29
 usual resident
 currently residing with husband
 */
-
-
-
-
-gen ever_married = v501!=0
-gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1)
-
 
 gen prob_facility_distance = inlist(v467d,1,2)
 gen prob_health_permission = inlist(v467b,1,2)

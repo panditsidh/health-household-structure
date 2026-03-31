@@ -18,7 +18,7 @@ use "$all_nfhs_ir", clear
 keep if inlist(round,3,4,5)
 
 * months since most recent birth (you used b3_01)
-gen months_ago_last_birth = v008 - b3_01
+// gen months_ago_last_birth = v008 - b3_01
 keep if inrange(months_ago_last_birth, 3, 12)
 
 svyset psu [pweight=wt], strata(strata) singleunit(centered)
@@ -144,27 +144,15 @@ twoway
         msymbol(square) mcolor(black) msize(medium)
         mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(tiny) mlabcolor(black)
     )
-    (rcap ci_low ci_high survey_year_natal if hh_type==3,
-        lcolor(gs8) lwidth(medthick)
-    )
-    (scatter mean survey_year_natal if hh_type==3,
-        msymbol(triangle) mcolor(gs8) msize(medium)
-        mlabel(prop_label) mlabpos(3) mlabsize(tiny) mlabcolor(black)
-    ),
-    xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0))
+	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0))
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))
     xscale(range(2003 2023))
     ytitle("Last birth at home", size(medium))
-    xtitle("Survey year", size(medium))
-    legend(order(2 "Nuclear" 4 "Patrilocal" 6 "Natal") row(1) pos(6) size(medium))
+    xtitle("Survey year", size(small))
+    legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medium))
     graphregion(color(white))
-    aspect(0.7)
-    caption(
-        "Sample: women with a birth 3–12 months before interview."
-        "Sample sizes are `N2005', `N2015', and `N2020' for survey years"
-        "2005-2006, 2015-2016, and 2019-2021, respectively.", size(small)
-    );
+    aspect(0.7);
 #delimit cr
 
 restore
@@ -199,28 +187,16 @@ twoway
     (scatter mean survey_year_sasural if hh_type==2,
         msymbol(square) mcolor(black) msize(medium)
         mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(tiny) mlabcolor(black)
-    )
-    (rcap ci_low ci_high survey_year_natal if hh_type==3,
-        lcolor(gs8) lwidth(medthick)
-    )
-    (scatter mean survey_year_natal if hh_type==3,
-        msymbol(triangle) mcolor(gs8) msize(medium)
-        mlabel(prop_label) mlabpos(3) mlabsize(tiny) mlabcolor(black)
     ),
     xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0))
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))
     xscale(range(2003 2023))
     ytitle("4+ ANC visits in last pregnancy", size(medium))
-    xtitle("Survey year", size(medium))
-    legend(order(2 "Nuclear" 4 "Patrilocal" 6 "Natal") row(1) pos(6) size(medium))
+    xtitle("Survey year", size(small))
+    legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medium))
     graphregion(color(white))
-    aspect(0.7)
-    caption(
-        "Sample: women with a birth 3–12 months before interview."
-        "Sample sizes are `N2005', `N2015', and `N2020' for survey years"
-        "2005-2006, 2015-2016, and 2019-2021, respectively.", size(small)
-    );
+    aspect(0.7);
 #delimit cr
 
 restore
