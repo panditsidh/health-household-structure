@@ -307,7 +307,7 @@ Together these findings indicate that narratives of nuclearization and women’s
 \begin{table}[!htbp]
     \centering
     \begin{threeparttable}[t]
-        \caption{: Changes in the patrilocal–nuclear gap in women's autonomy and maternal healthcare utilization across NFHS rounds}
+        \caption{: Changes in the patrilocal--nuclear gap in women's autonomy and maternal healthcare utilization across NFHS rounds}
         \label{tab:proppatrilocal}
 
         \scriptsize
@@ -318,39 +318,38 @@ Together these findings indicate that narratives of nuclearization and women’s
 
         \begin{tablenotes}
 
-\item .
-
-\item specifications in the first two columns estimate:
+\item Columns 1 and 2 report coefficients from regressions comparing NFHS-3 to NFHS-4 and NFHS-4 to NFHS-5, respectively: 
 \[
-Y_{is} = \alpha + \beta \cdot \text{Patrilocal}_i + \gamma \cdot \text{Post}_t + \delta \cdot (\text{Patrilocal}_i \times \text{Post}_t) + X_i'\theta + \mu_s + \varepsilon_{is},
+Y_{is} = \alpha + \beta \,\text{Patrilocal}_i + \gamma \,\text{LaterRound}_t
++ \delta \,(\text{Patrilocal}_i \times \text{LaterRound}_t)
++ \lambda_{g(i)} + \mu_s + \varepsilon_{is},
 \]
-where $\text{Post}_t$ is an indicator for the later survey round (NFHS-4 or NFHS-5). The reported coefficient $\delta$ measures the change in the patrilocal–nuclear gap between survey rounds (NFHS-3 to 4 or NFHS-4 to 5).
-
+where $\text{LaterRound}_t$ is an indicator for the later survey round in the relevant comparison, $\lambda_{g(i)}$ denotes wealth-group fixed effects (groups for the interaction of finished floor, finished wall, finished roof, electricity, owns radio, owns TV, owns fridge, owns bike, owns car, owns latrine), and $\mu_s$ denotes state fixed effects. The reported coefficient $\delta$ measures the change in the patrilocal--nuclear gap between survey rounds.
 \item . 
-\item the stacked specification used in the last two columns estimates
+\item Columns 3 and 4 report coefficients from a stacked specification pooling all three survey rounds:
 \[
 \begin{aligned}
 Y_{is} =\;& \alpha 
-+ \beta \cdot \text{Patrilocal}_i 
-+ \gamma_4 \cdot \mathbf{1}\{\text{round}=4\}
-+ \gamma_5 \cdot \mathbf{1}\{\text{round}=5\} \\
-&+ \delta_4 \cdot \left(\text{Patrilocal}_i \times \mathbf{1}\{\text{round}=4\}\right)
-+ \delta_5 \cdot \left(\text{Patrilocal}_i \times \mathbf{1}\{\text{round}=5\}\right)
-+ X_i'\theta + \mu_s + \varepsilon_{is},
++ \beta \,\text{Patrilocal}_i
++ \gamma_4 \,\text{Round4}_t
++ \gamma_5 \,\text{Round5}_t \\
+&+ \delta_4 \,(\text{Patrilocal}_i \times \text{Round4}_t)
++ \delta_5 \,(\text{Patrilocal}_i \times \text{Round5}_t)
++ \lambda_{g(i)} + \mu_s + \varepsilon_{is},
 \end{aligned}
 \]
-where NFHS-3 is the omitted category. The reported coefficients $\delta_4$ and $\delta_5$ measure changes in the patrilocal–nuclear gap between NFHS-3 and NFHS-4, and between NFHS-3 and NFHS-5, respectively.
-
+where NFHS-3 is the omitted category, $\lambda_{g(i)}$ denotes wealth-group fixed effects, and $\mu_s$ denotes state fixed effects. The reported coefficients $\delta_4$ and $\delta_5$ measure changes in the patrilocal--nuclear gap relative to NFHS-3.
 \item .
-\item All specifications include state fixed effects $\mu_s$, household wealth $X_i$, and standard errors clustered at the PSU level.
-
+\item Autonomy outcomes are estimated on the currently pregnant sample using state-level weights. Maternal healthcare outcomes are estimated on the postpartum sample using survey weights.
 \item .
-\item Standard errors are reported in parentheses. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
-\end{tablenotes}
+\item Standard errors are reported in parentheses and clustered at the PSU level. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
+
+        \end{tablenotes}
     \end{threeparttable}
 \end{table}
+\begin{landscape}
+    
 
-\newpage
 
 \begin{table}[!htbp]
     \centering
@@ -372,6 +371,8 @@ where NFHS-3 is the omitted category. The reported coefficients $\delta_4$ and $
     \end{threeparttable}
 \end{table}
 
+
+\end{landscape}
 
 \begin{landscape}
 
