@@ -138,14 +138,14 @@ twoway
     )
     (scatter mean survey_year_nuclear if hh_type==1,
         msymbol(Oh) mcolor(black) mfcolor(white) msize(medium)
-        mlabel(prop_label) mlabpos(9) mlabsize(tiny) mlabcolor(black)
+        mlabel(prop_label) mlabpos(9) mlabsize(vsmall) mlabcolor(black)
     )
     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
         lcolor(black) lwidth(medthick)
     )
     (scatter mean survey_year_sasural if hh_type==2,
         msymbol(square) mcolor(black) msize(medium)
-        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(tiny) mlabcolor(black)
+        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(vsmall) mlabcolor(black)
     )
 	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0) nogrid)
     ylabel(0(.2)1, labsize(medium) grid)
@@ -182,14 +182,14 @@ twoway
     )
     (scatter mean survey_year_nuclear if hh_type==1,
         msymbol(Oh) mcolor(black) mfcolor(white) msize(medium)
-        mlabel(prop_label) mlabpos(9) mlabsize(tiny) mlabcolor(black)
+        mlabel(prop_label) mlabpos(9) mlabsize(vsmall) mlabcolor(black)
     )
     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
         lcolor(black) lwidth(medthick)
     )
     (scatter mean survey_year_sasural if hh_type==2,
         msymbol(square) mcolor(black) msize(medium)
-        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(tiny) mlabcolor(black)
+        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(vsmall) mlabcolor(black)
     ),
     xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0) nogrid)
     ylabel(0(.2)1, labsize(medium) grid)

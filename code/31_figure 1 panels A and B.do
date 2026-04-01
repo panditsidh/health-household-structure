@@ -16,12 +16,15 @@ nfhs_round | hh_type | outcome            | mean | ci_low | ci_high | N
 
 use "$all_nfhs_ir", clear
 keep if inlist(round,3,4,5)
+keep if inlist(hh_struc,1,2)
+
 
 * Restrict once
 keep if pregnant==1
 keep if preg==1
 
-svyset psu [pweight=wt], strata(strata) singleunit(centered)
+keep if ever_married==1
+svyset psu [pweight=w_state], strata(strata) singleunit(centered)
 
 ************************************************************
 * Subpop indicators (hh_struc x round)
@@ -150,7 +153,7 @@ twoway
         msize(medium)
         mlabel(prop_label)
         mlabpos(9)
-        mlabsize(tiny)
+        mlabsize(vsmall)
         mlabcolor(black)
     )
     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
@@ -164,11 +167,11 @@ twoway
         mlabel(prop_label)
 		mlabgap(*2)
         mlabpos(12)
-        mlabsize(tiny)
+        mlabsize(vsmall)
         mlabcolor(black)
     )
 	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", 
-        labsize(small) angle(0)
+        labsize(small) angle(0) nogrid
     )
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))
@@ -223,7 +226,7 @@ twoway
         msize(medium)
         mlabel(prop_label)
         mlabpos(9)
-        mlabsize(tiny)
+        mlabsize(vsmall)
         mlabcolor(black)
     )
     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
@@ -237,11 +240,11 @@ twoway
         mlabel(prop_label)
         mlabgap(*2)
         mlabpos(12)
-        mlabsize(tiny)
+        mlabsize(vsmall)
         mlabcolor(black)
     ),
     xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", 
-        labsize(small) angle(0)
+        labsize(small) angle(0) nogrid
     )
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))

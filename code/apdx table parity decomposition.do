@@ -64,7 +64,6 @@ keep if inlist(hh_struc,1,2)
 *-----------------------------*
 
 
-
 *
 *-----------------------------*
 * Overall patrilocal rates
@@ -198,20 +197,17 @@ list group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp
 *******************************************************
 
 #delimit ;
-
 listtex ///
     group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct ///
     using "tables/appendix table_decomp_patrilocal_parity.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{lcccccc}"
          "\toprule"
-         "Parity group & \makecell{Share in\\05-06 (\%)} & \makecell{Share in\\19-21 (\%)} & \makecell{Share patrilocal\\extended 05-06 (\%)} & \makecell{Share patrilocal\\extended 19-21 (\%)} & \makecell{Explained\\share of total\\change (\%)} & \makecell{Unexplained\\share of total\\change (\%)} \\"
+         "Parity group & \makecell{Share at parity\\2005--2006 (\%)} & \makecell{Share at parity\\2019--2021 (\%)} & \makecell{Share in patrilocal\\extended households\\2005--2006 (\%)} & \makecell{Share in patrilocal\\extended households\\2019--2021 (\%)} & \makecell{Share of total \\ change explained \\ by parity (\%)} & \makecell{Share of total \\ change unexplained \\ by parity (\%)} \\"
          "\midrule") ///
     foot("\bottomrule"
          "\end{tabular}");
-
-#delimit cr
-
+#delimit cr	 
 *******************************************************
 * Display summary numbers for text
 *******************************************************
