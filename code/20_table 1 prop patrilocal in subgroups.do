@@ -6,10 +6,9 @@ keep if inlist(hh_struc,1,2)
 
 keep if inlist(round, 3,4,5)
 
-
-gen months_ago_last_birth = v008 - b3_01
 gen sample = 1 if inrange(months_ago_last_birth, 3, 12)
 replace sample = 2 if pregnant==1
+
 label define samplelbl ///
     1 "postpartum" ///
     2 "pregnant" 

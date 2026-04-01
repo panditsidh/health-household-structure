@@ -16,7 +16,10 @@ nfhs_round | hh_type | outcome    | mean | ci_low | ci_high | N
 
 use "$all_nfhs_ir", clear
 keep if inlist(round,3,4,5)
+keep if inlist(hh_struc,1,2)
 
+
+keep if ever_married==1
 * months since most recent birth (you used b3_01)
 // gen months_ago_last_birth = v008 - b3_01
 keep if inrange(months_ago_last_birth, 3, 12)
@@ -35,7 +38,7 @@ foreach r of numlist 3/5 {
 ************************************************************
 * Define outcomes
 ************************************************************
-local outcomes "home_birth anc_four"
+local outcomes "facility_birth anc_four"
 
 ************************************************************
 * Post results for BOTH outcomes into ONE tempfile
@@ -117,7 +120,7 @@ gen prop_label = string(round(mean, .01), "%4.2f") if !missing(mean)
 * Panel A: home_birth
 ************************************************************
 preserve
-keep if outcome=="home_birth"
+keep if outcome=="facility_birth"
 
 quietly summarize N if nfhs_round==3, meanonly
 local N2005 : display %7.0fc r(sum)
@@ -144,11 +147,11 @@ twoway
         msymbol(square) mcolor(black) msize(medium)
         mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(tiny) mlabcolor(black)
     )
-	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0))
+	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0) nogrid)
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))
     xscale(range(2003 2023))
-    ytitle("Last birth at home", size(medium))
+    ytitle("Last birth in a facility", size(medium))
     xtitle("Survey year", size(small))
     legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medium))
     graphregion(color(white))
@@ -188,7 +191,7 @@ twoway
         msymbol(square) mcolor(black) msize(medium)
         mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(tiny) mlabcolor(black)
     ),
-    xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0))
+    xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0) nogrid)
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))
     xscale(range(2003 2023))

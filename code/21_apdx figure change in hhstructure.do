@@ -1,18 +1,3 @@
-
-/*
-
-This do file creates a bar graph
-each bar is an NFHS round
-it is proportioned by household structure composition
-
-we make this bar graph twice for pregnant and nonpregnant women
-
-in both cases we look at the entire sample
-
-
-
-*/
-
 use $all_nfhs_ir, clear
 
 keep if ever_married==1
