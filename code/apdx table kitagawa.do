@@ -24,14 +24,13 @@ set more off
 
 use $all_nfhs_ir, clear
 
-gen months_ago_last_birth = v008 - b3_01
-
-gen facility_birth = (home_birth==0) if !missing(home_birth)
-
+keep if ever_married==1
 
 keep if pregnant==1
 
 keep if inlist(hh_struc,1,2)
+
+keep if inlist(round,3,4,5)
 
 
 capture postclose h
@@ -169,7 +168,7 @@ listtex outcome_name disp_total disp_hh disp_with ///
     rstyle(tabular) ///
     head("\begin{tabular}{lccc}"
          "\toprule"
-         "Outcome & \makecell{Total change\\(pp)} & \makecell{Share due to change in\\household structure (\%)} & \makecell{Share due to within-\\household changes (\%)} \\"
+         "Outcome & \makecell{Total change\\(pp)} & \makecell{Share explained by \\household structure (\%)} & \makecell{Share from within-\\household structure changes (\%)} \\"
          "\midrule") ///
     foot("\bottomrule"
          "\end{tabular}");

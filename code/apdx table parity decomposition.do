@@ -21,6 +21,9 @@ set more off
 
 use $all_nfhs_ir, clear
 
+keep if ever_married==1
+keep if inlist(hh_struc,1,2)
+
 drop parity*
 
 * true parity (number of children before current pregnancy)
@@ -202,7 +205,7 @@ listtex ///
     rstyle(tabular) ///
     head("\begin{tabular}{lcccccc}"
          "\toprule"
-         "Parity group & \makecell{Share\\NFHS-3 (\%)} & \makecell{Share\\NFHS-5 (\%)} & \makecell{Patrilocal\\rate NFHS-3 (\%)} & \makecell{Patrilocal\\rate NFHS-5 (\%)} & \makecell{Explained\\share of total\\change (\%)} & \makecell{Unexplained\\share of total\\change (\%)} \\"
+         "Parity group & \makecell{Share in\\05-06 (\%)} & \makecell{Share in\\19-21 (\%)} & \makecell{Share patrilocal\\extended 05-06 (\%)} & \makecell{Share patrilocal\\extended 19-21 (\%)} & \makecell{Explained\\share of total\\change (\%)} & \makecell{Unexplained\\share of total\\change (\%)} \\"
          "\midrule") ///
     foot("\bottomrule"
          "\end{tabular}");
