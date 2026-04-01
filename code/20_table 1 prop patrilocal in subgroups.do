@@ -129,8 +129,7 @@ input str150 row_fmt
 "\hspace*{2em}2"
 "\hspace*{2em}3+"
 ""
-"\textbf{All women 3--12 months postpartum}" 
-end
+"\textbf{All women 3--12 months postpartum}" end
 
 
 
@@ -192,7 +191,7 @@ listtex ///
         "\begin{tabular}{lccc}" ///
         "\toprule" ///
         " & \multicolumn{1}{c}{NFHS-3} & \multicolumn{1}{c}{NFHS-4} & \multicolumn{1}{c}{NFHS-5} \\\\" ///
-        " & \multicolumn{1}{c}{(2005--06)} & \multicolumn{1}{c}{(2015--16)} & \multicolumn{1}{c}{(2019--21)} \\\\" ///
+        " & \multicolumn{1}{c}{(2005--2006)} & \multicolumn{1}{c}{(2015--2016)} & \multicolumn{1}{c}{(2019--2021)} \\\\" ///
         "\midrule" ///
     ) ///
     foot( ///
