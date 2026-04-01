@@ -1,7 +1,3 @@
-
-
-* @ bipasa, the cd line for you is now in paths. run that before and this will work.
-
 do "code/11_gen hhstruc.do"
 
 do "code/12_state district match.do"
@@ -26,6 +22,13 @@ gen prob_health_money = inlist(v467c,1,2)
 
 gen parity = bord_01
 replace parity = 4 if bord_01>4
+
+label define paritylbl ///
+    1 "1 (no live births)" ///
+    2 "2 (1 live birth)" ///
+	3 "3 (2 live births)" ///
+	4 "4+ (3+ live births)" 	
+label values parity paritylbl
 
 *******************************************************
 * Initialize woman-centric parent-in-law variables
@@ -411,8 +414,8 @@ label define roundlbl ///
 1 "1995-96" ///
 2 "1998-99" ///
 3 "2005-2006" ///
-4 "2015-16" ///
-5 "2019-21"
+4 "2015-2016" ///
+5 "2019-2021"
 
 label values round roundlbl
 

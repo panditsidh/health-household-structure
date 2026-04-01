@@ -46,7 +46,7 @@ foreach sample in nfhs3to4 nfhs4to5 all_nfhs {
     foreach outcome in nosay_healthcare nosay_visits {
 
         quietly reghdfe `outcome' i.round##i.patrilocal i.wealth_group ///
-            [aw=v005] if pregnant==1, cluster(psu) absorb(v024)
+            [aw=w_state] if pregnant==1, cluster(psu) absorb(v024)
 
         matrix M = r(table)
 
