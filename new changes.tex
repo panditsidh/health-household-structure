@@ -106,7 +106,12 @@ To understand women's autonomy during pregnancy we construct outcomes based on t
 
 To measure maternal healthcare use among recently postpartum women, we examine two indicators: birth in a health facility (as opposed to at home) and having 4 or more antenatal care (ANC) visits. The four visit threshold follows the World Health Organization (WHO) and Government of India’s National Health Mission guidelines which suggested this number of visits until 2016.\footnote{In 2016 WHO and NRHM increased the recommended minimum number of visits to 8.  We use 4 because the median pregnant woman in our data was pregnant in 2015.}
 
-To capture differences in wealth across household types, we control for household ownership of a set of asset indicators. These include indicators for whether the household has finished floors, electricity, a radio, a television, a refrigerator, a bicycle, a car, and a latrine or toilet. All variables are coded as binary indicators.
+\subsubsection{Wealth controls}
+
+To capture differences in wealth across household types, we control for household ownership of a set of asset indicators. These include indicators for whether the household has finished floors, electricity, a radio, a television, a refrigerator, a bicycle, a car, and a latrine or toilet. All variables are coded as binary indicators. 
+
+
+
 
 \subsection{Analytical Strategy}
 \subsubsection{Patrilocal–nuclear differences and the role of household wealth}
@@ -134,7 +139,7 @@ In all models, we report standard errors clustered at the primary sampling unit 
 
 To examine how differences between patrilocal extended and nuclear households evolve over time, we estimate models that allow the association between household structure and outcomes to vary across survey rounds. Specifically, for comparisons between 2005-2006 and 2015-2016, as well as 2015-2016 and 2019-2021, we estimate:
 
-\begin{equation} \label{eq:controls}
+\begin{equation} \label{eq:tworounds}
 Y_{is} = \alpha + \beta \,\text{Patrilocal}_i + \gamma \,\text{LaterRound}_t
 + \delta \,(\text{Patrilocal}_i \times \text{LaterRound}_t)
 + \lambda_{g(i)} + \mu_s + \varepsilon_{is},
@@ -145,25 +150,23 @@ where $\text{LaterRound}_t$ is an indicator for the later survey round in the co
 
 We also estimate a pooled specification including all three survey rounds to assess changes in the patrilocal-nuclear gap between 2005-2006 and 2019-2021 while using the full sample. The equation is:
 
-\begin{equation}
+\begin{equation} \label{eq:stacked}
 \begin{aligned}
 Y_{is} = \alpha 
 &+ \beta \,\text{Patrilocal}_i
-+ \gamma_4 \,\text{Round4}_t
-+ \gamma_5 \,\text{Round5}_t \\
-&+ \delta_4 \,(\text{Patrilocal}_i \times \text{Round4}_t)
-+ \delta_5 \,(\text{Patrilocal}_i \times \text{Round5}_t) \\
++ \gamma_4 \,\text{NFHS4}_t
++ \gamma_5 \,\text{NFHS5}_t \\
+&+ \delta_4 \,(\text{Patrilocal}_i \times \text{NFHS4}_t)
++ \delta_5 \,(\text{Patrilocal}_i \times \text{NFHS5}_t) \\
 &+ \lambda_{g(i)} + \mu_s + \varepsilon_{is}.
 \end{aligned}
 \label{eq:controls_stacked}
 \end{equation}
 
-where 2005-2006 is the omitted category, $\lambda_{g(i)}$ denotes wealth-group fixed effects, and $\mu_s$ denotes state fixed effects. The reported coefficients $\delta_4$ and $\delta_5$ measure changes in the patrilocal--nuclear gap relative to the gap in 2005-2006.
-
+where 2005-2006 is the omitted category, NFHS4 refers to 2015-2016, and NFHS5 refers to 2019-2021. $\lambda_{g(i)}$ denotes wealth-group fixed effects, and $\mu_s$ denotes state fixed effects. The reported coefficients $\delta_4$ and $\delta_5$ measure changes in the patrilocal-nuclear gap relative to the gap in 2005-2006.
 
 \section{Results}
 \subsection{Trends in Patrilocal Residence}
-
 
 Table \ref{tab:proppatrilocal} shows that the share of pregnant women living in patrilocal joint households increased from 61 percent in 2005–2006 to 71 percent in 2019–2021. This increase is observed across all major social groups, with particularly large increases among OBC women (14 percentage points), and smaller increases among Adivasi and Muslim women (5 and 7 percentage points, respectively).\footnote{Social groups are defined by combining caste and religion. Women are classified as Adivasi or Dalit if they report belonging to a Scheduled Tribe or Scheduled Caste, respectively. Muslim women who are not SC/ST are classified as Muslim. Hindu or Sikh women belonging to Other Backward Classes are classified as OBC. Hindu women who are not SC, ST, or OBC are classified as Forward caste. Women who do not fall into these categories (e.g., Christian, Jain, Sikh outside OBC, or no religion) are excluded (2.3 percent in NFHS-5).}
 
@@ -180,35 +183,31 @@ In contrast, maternal healthcare use is higher for women in patrilocal extended 
 Patterns in maternal healthcare use mirror differences in household wealth between household structures. Across all survey rounds and for nearly all indicators, women in patrilocal extended households are more likely to live in households with higher asset ownership and better housing conditions. For example, in 2019–2021, 61 percent of pregnant women in patrilocal households live in homes with finished floors compared to 52 percent in nuclear households, and 81 percent have access to a toilet or latrine compared to 71 percent in nuclear households. Ownership of consumer durables such as televisions and refrigerators is also substantially higher in patrilocal households.
 
 
-\subsection{Regression Results}
+\subsection{Patrilocal–nuclear differences and the role of household wealth}
 
-Figure \ref{fig:regresults} presents estimates of $\beta_1$ from equations \ref{eq:nocontrols} and \ref{eq:controls} for each outcome and survey round, interpreted as the difference in the probability of the outcome between women living in patrilocal and nuclear households.
+Figure \ref{fig:regresults} presents estimates of the patrilocal coefficient (relative to nuclear households) from equations \ref{eq:nocontrols} and \ref{eq:controls} for each outcome and survey round, with and without wealth controls. These coefficients represent percentage point differences in outcome probabilities between women in patrilocal and nuclear households.
 
 \subsubsection{ Maternal healthcare use outcomes:}
 
-In models without wealth controls women in patrilocal households exhibit higher levels of maternal healthcare utilization across survey rounds. In NFHS 3 women residing in joint households were approximately 6 percentage points more likely to deliver in a health facility than their counterparts in nuclear households. This advantage persists in NFHS 4 and NFHS 5, though the magnitude declines modestly over time. A similar pattern is observed for having received four or more antenatal visits. In NFHS 3 patrilocal residence is associated with roughly 5 percentage point higher likelihood of receiving adequate antenatal care. The gap remains positive and statistically significant in subsequent rounds.
+In models without wealth controls, women in patrilocal extended households exhibit higher levels of maternal healthcare utilization across survey rounds. In 2005–2006, women in patrilocal households are 11.3 percentage points more likely to deliver in a health facility than those in nuclear households. This advantage declines over time, to 7.6 percentage points in 2015–2016 and 5.3 percentage points in 2019–2021. A similar pattern is observed for antenatal care: in 2005–2006, patrilocal residence is associated with a 9.0 percentage point higher likelihood of receiving four or more antenatal visits, declining to 5.6 percentage points by 2019–2021.
 
-However, including wealth controls substantially decreases the magnitude differences. Once household assets are accounted for, the patrilocal advantage in institutional delivery and antenatal care is reduced to small and in some cases statistically indistinguishable from zero. It is important to note that the difference in maternal healthcare outcomes narrows over time, indicating a diminishing gap between patrilocal and nuclear households. 
+Controlling for wealth substantially attenuates these differences, indicating that a large share of the advantage in maternal healthcare use among patrilocal households is explained by differences in household economic resources. For institutional delivery, the coefficient declines from 11.3 to 4.5 percentage points in 2005–2006, from 7.6 to 3.6 percentage points in 2015–2016, and from 5.3 to 2.9 percentage points in 2019–2021. In other words, accounting for wealth explains a substantial share—roughly half—of the gap in institutional delivery between patrilocal and nuclear households across survey rounds. For antenatal care, the corresponding reductions are from 9.0 to 2.4 percentage points in 2005–2006, and from 8.2 to 3.9 percentage points in 2015–2016.
 
 \subsubsection{Autonomy outcomes}
 
-In contrast, patrilocal residence is consistently and robustly associated with lower levels of decision making power. In NFHS 3 women in joint households are approximately 14 percentage points more likely to report having no say in their own healthcare and nearly 20 percentage points more likely to report no say in visits to family and friends. Although these gaps narrow over time, they remain statistically significant in NFHS 5.
+In contrast, patrilocal residence is consistently and robustly associated with lower levels of decision-making power. In 2005–2006, women in patrilocal extended households are 16.6 percentage points more likely to report having no say in their own healthcare and 21.1 percentage points more likely to report no say in visits to family and friends. These gaps decline substantially over time but remain non-trivial: by 2019–2021, the corresponding differences are 5.4 percentage points for no say in own healthcare, and 6.5 percentage points for no say in visits to family and friends. 
 
-Controlling for wealth does not significantly reduce  autonomy gaps by household type. The difference between patrilocal and nuclear households remains substantial even after adjusting for household assets and amenities. Thus the autonomy disadvantages between the two household residences cannot be explained by economic differences. 
+Controlling for wealth does not attenuate these differences. For both autonomy outcomes, the estimated coefficients remain similar in magnitude with and without wealth controls. This pattern indicates that, unlike maternal healthcare utilization, differences in decision-making power between patrilocal and nuclear households are not explained by differences in household economic resources.
 
+\subsection{Changes in patrilocal–nuclear differences over time}
 
-\subsubsection{Trends in autonomy gaps over survey rounds}
+Table \ref{tab:interaction} presents estimates of changes in the gap between patrilocal extended and nuclear households over time. Consistent with the descriptive results, differences in women’s autonomy narrow substantially across survey rounds. Between 2005–2006 and 2015–2016, the gap in having no say in healthcare decisions declines by 10.8 percentage points, while the gap in having no say in visiting family and friends declines by 11.6 percentage points. Little additional change occurs between 2015–2016 and 2019–2021 for these autonomy outcomes, but over the full period, the autonomy gaps decline by 13.5 and 17.3 percentage points, respectively.
 
-Results from the pooled regressions (ref:appendix) with interactions between household structure and survey round confirmed that autonomy gap has been narrowing over time. Between NFHS 3 and NFHS 4 the gap in having no say in healthcare declined by 10.8 percentage points and the gap in mobility related decision making declined by 11.6 percentage points. Between NFHS 3 and NFHS 5 these gaps have declined by 13.5 percentage point and 17.3 percentage points respectively. Thus indicating a consistent decrease in disparity over time. All estimates remain statistically significant even after the inclusion of state fixed effects and wealth controls. 
+In contrast, changes in gaps between women in patrilocal and nuclear households for maternal healthcare utilization outcomes are smaller. For institutional delivery, the gap declines by 2.3 percentage points between 2015–2016 and 2019–2021 and by 4.1 percentage points over the full period. For antenatal care, the gap declines by 2.6 percentage points in the later period, but this change is not large enough to generate a statistically significant decline over the full sample period. Overall, convergence in maternal healthcare use across household structures is more limited than for autonomy.
  
-
 \section{Discussion}
 
-
-[WORK THIS IN LATER] These findings also speak to broader demographic changes in family structure across the life course in India. While we document an increase in patrilocal co-residence among pregnant women, other work points to rising independence among older adults. For example, \cite{srivastava2022does} finds that household headship among older adults has increased substantially in recent decades, driven in part by increases in life expectancy and changes in family structure. At the same time, demographic research shows that co-residence among younger couples remains common, as most marriages begin with patrilocal residence and subsequent household division depends on factors such as resource accumulation and the availability of siblings \citep{breton2021modernisation}. Changes in fertility and longevity may further reinforce these patterns, as smaller sibships and longer-lived parents increase the likelihood that married sons continue to co-reside with their parents. Taken together, these patterns suggest that household structure in India is becoming more differentiated across the life course, with younger women more likely to live in extended households and older adults more likely to live independently. This perspective highlights the importance of considering demographic processes, rather than modernization alone, in understanding changes in family structure.
-
 Using nationally representative survey data for India from 2005-2021, we document a moderate reversal in the earlier trend towards nuclear household residence, with pregnant women increasingly residing in joint households.  Examining how maternal autonomy and healthcare utilization differs across household structures, we find that pregnant women in patrilocal households report lower decision making authority over their healthcare and mobility yet they exhibit higher utilization of maternal health services including institutional delivery and antenatal care. This apparent advantage in healthcare utilization is partially mediated by economic status of the household, because after controlling for wealth, the difference between patrilocal and nuclear households in these outcomes decreases. On the other hand, the disadvantage in autonomy over own healthcare use or visits to family and friends among joint households persists even after controlling for wealth.  But further decomposition analysis indicates that the disadvantage in autonomy has also been decreasing over the survey rounds with the improvements being primarily driven by within household structures rather than shifts in the distribution of women across household types. This suggests that the dominant changes observed over this period reflect broader transformations in India such as improvements in healthcare access, expansion of public health programs, and changes in social norms rather than only changes in household structure. 
-
 
 These findings fit into the existing literature which supports the role of economic status in mediating patrilocal joint family advantages (\cite{allendorf2013going} \cite{breton2021modernisation}). Rather than reflecting an inherent benefit of joint residence, the maternal healthcare advantage observed here appears closely tied to the greater material resources available in many joint families. This is also observed in \cite{breton2021modernisation}'s work where he shows a rise of nuclear households among more economically unstable couples, thus explaining the lower economic status of the nuclear households which is consistent with our findings. While higher maternal healthcare utilization in patrilocal households is partly explained by their greater economic resources, the overall increase in antenatal care and institutional delivery is evident across all household types. This patterns points to the role of broader changes, including the expansion of public health programs and maternal health policies, as key drivers of these improvements. This pattern suggests that changes in household structure in India are not solely driven by cultural or social factors, but are also shaped by persistent socioeconomic inequality. 
 
@@ -252,7 +251,7 @@ Together these findings indicate that narratives of nuclearization and women’s
         \scriptsize
         \setlength{\tabcolsep}{6pt}
         \renewcommand{\arraystretch}{1}
-
+        \label{tab:sumstats}
         \input{tables/table 1 summary stats updated}
 
         \begin{tablenotes}
@@ -262,21 +261,6 @@ Together these findings indicate that narratives of nuclearization and women’s
 \end{table}
 \end{landscape}
 
-\begin{table}[!htbp]
-    \centering
-    \begin{threeparttable}[t]
-        \caption{: Changes in the patrilocal--nuclear gap in women's autonomy and maternal healthcare utilization across NFHS rounds}
-        \label{tab:proppatrilocal}
-
-        \scriptsize
-        \setlength{\tabcolsep}{6pt}
-        \renewcommand{\arraystretch}{1.6}
-
-        \input{tables/interaction_gap_table}
-
-
-    \end{threeparttable}
-\end{table}
 
 
 \begin{landscape}
@@ -291,6 +275,23 @@ Together these findings indicate that narratives of nuclearization and women’s
 
 
 \end{landscape}
+
+
+\begin{table}[!htbp]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{: Changes in the patrilocal--nuclear gap in women's autonomy and maternal healthcare utilization across NFHS rounds}
+        \label{tab:narrowinggaps}
+
+        \scriptsize
+        \setlength{\tabcolsep}{6pt}
+        \renewcommand{\arraystretch}{1.6}
+
+        \input{tables/interaction_gap_table}
+
+
+    \end{threeparttable}
+\end{table}
 
 
 
@@ -361,8 +362,8 @@ For each outcome $Y$, the change between NFHS-3 and NFHS-5 can be written as:
         \label{tab:decomposition}
 
         \scriptsize
-        \setlength{\tabcolsep}{6pt}
-        \renewcommand{\arraystretch}{2}
+        \setlength{\tabcolsep}{10pt}
+        \renewcommand{\arraystretch}{2.5}
 
         \input{tables/table3_decomposition}
 
