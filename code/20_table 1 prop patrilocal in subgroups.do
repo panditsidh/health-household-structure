@@ -190,20 +190,19 @@ drop master_order
 * Export Table 1
 *******************************************************
 #delimit ;
-
 listtex ///
-    row_fmt disp3 disp4 disp5 ///
-    using "tables/table1 patrilocal_by_subgroup1.tex", replace ///
+    row_fmt disp3 disp4 disp5 sig ///
+    using "tables/table1_patrilocal_by_subgroup.tex", replace ///
     rstyle(tabular) ///
     head( ///
-        "\begin{tabular}{lccc}" ///
+        "\begin{tabular}{lcccc}" ///
         "\toprule" ///
-        " & \multicolumn{1}{c}{NFHS-3} & \multicolumn{1}{c}{NFHS-4} & \multicolumn{1}{c}{NFHS-5} \\\\" ///
-        " & \multicolumn{1}{c}{(2005--2006)} & \multicolumn{1}{c}{(2015--2016)} & \multicolumn{1}{c}{(2019--2021)} \\\\" ///
+        " & \multicolumn{1}{c}{NFHS-3} & \multicolumn{1}{c}{NFHS-4} & \multicolumn{1}{c}{NFHS-5} & \multicolumn{1}{c}{\shortstack{Sig.\\(2005--2006 vs.\\2019--2021)}} \\\\" ///
+        " & \multicolumn{1}{c}{(2005--2006)} & \multicolumn{1}{c}{(2015--2016)} & \multicolumn{1}{c}{(2019--2021)} & \\\\" ///
         "\midrule" ///
     ) ///
     foot( ///
-    "\bottomrule" ///
-    "\end{tabular}" ///
-);
+        "\bottomrule" ///
+        "\end{tabular}" ///
+    );
 #delimit cr
