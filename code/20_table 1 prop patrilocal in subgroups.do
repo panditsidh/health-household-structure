@@ -178,6 +178,14 @@ list row_fmt disp3 disp4 disp5, noobs sep(0)
 drop if row_fmt=="\textbf{All women 3--12 months postpartum}"
 
 
+gen master_order = _n
+
+merge m:1 row_fmt using "tables/table1_rowfmt_sig_only.dta", nogen keepusing(sig)
+
+sort master_order
+drop master_order
+
+
 *******************************************************
 * Export Table 1
 *******************************************************
@@ -185,7 +193,7 @@ drop if row_fmt=="\textbf{All women 3--12 months postpartum}"
 
 listtex ///
     row_fmt disp3 disp4 disp5 ///
-    using "tables/table1 patrilocal_by_subgroup.tex", replace ///
+    using "tables/table1 patrilocal_by_subgroup1.tex", replace ///
     rstyle(tabular) ///
     head( ///
         "\begin{tabular}{lccc}" ///
