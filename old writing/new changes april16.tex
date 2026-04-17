@@ -9,6 +9,7 @@
 \usepackage{amsmath}
 \usepackage{import}
 \usepackage{array}
+\usepackage{nameref}
 \usepackage{booktabs}     % no extra vertical space between paragraphs
 \usepackage{indentfirst}
 \usepackage{afterpage}
@@ -94,7 +95,7 @@ This paper contributes to the literature in three ways. First, we document a rev
 
 We use data from India’s National Family Health Surveys (NFHS) rounds 3 (2005–2006), 4 (2015–2016), and 5 (2019–2021). The NFHS is India’s Demographic and Health Survey, a nationally representative cross-sectional survey of households and women aged 15–49. These data are publicly available from \texit{www.dhsprogram.com}.
 
-The sample for our primary analysis on trends in household structure and their relationship with autonomy outcomes are those women who are ever married, currently pregnant\footnote{Appendix Table \ref{...} shows that women who report being one or two months pregnant differ systematically from those reporting three or more months of pregnancy. In particular, early pregnancy is more likely to be recognized or reported among more educated and wealthier women. We therefore exclude women reporting one or two months of pregnancy from the analysis.}, and living in either a nuclear or patrilocal household structure. We exclude women living in natal households (about 15 percent of the sample), as this living arrangement represents a substantively different social context from both patrilocal and nuclear households. The prevalence of natal residence is stable across survey rounds as seen in appendix figure \ref{fig:bargraph}, so excluding this group does not affect the interpretation of trends. For analyses of maternal health care utilization, instead of focusing on pregnant women, we restrict the sample to ever married women who have given birth in the 3-12 months before the survey.
+The sample for our primary analysis on trends in household structure and their relationship with autonomy outcomes are those women who are ever married, currently pregnant\footnote{Appendix Table \ref{tab:earlypregnancy} shows that women who report being one or two months pregnant differ systematically from those reporting three or more months of pregnancy. In particular, early pregnancy is more likely to be recognized or reported among more educated and wealthier women. We therefore exclude women reporting one or two months of pregnancy from the analysis.}, and living in either a nuclear or patrilocal household structure. We exclude women living in natal households (about 15 percent of the sample), as this living arrangement represents a substantively different social context from both patrilocal and nuclear households. The prevalence of natal residence is stable across survey rounds as seen in appendix figure \ref{fig:bargraph}, so excluding this group does not affect the interpretation of trends. For analyses of maternal health care utilization, instead of focusing on pregnant women, we restrict the sample to ever married women who have given birth in the 3-12 months before the survey.
 
 \subsection{Variables}
 
@@ -106,10 +107,9 @@ To understand women's autonomy during pregnancy we construct outcomes based on t
 
 To measure maternal healthcare use among recently postpartum women, we examine two indicators: birth in a health facility (as opposed to at home) and having 4 or more antenatal care (ANC) visits. The four visit threshold follows the World Health Organization (WHO) and Government of India’s National Health Mission guidelines which suggested this number of visits until 2016.\footnote{In 2016 WHO and NRHM increased the recommended minimum number of visits to 8.  We use 4 because the median pregnant woman in our data was pregnant in 2015.}
 
-\subsubsection{Wealth controls}
+\subsubsection{Wealth controls} \label{sec:wealthcontrols}
 
-To capture differences in wealth across household types, we control for household ownership of a set of asset indicators. These include indicators for whether the household has finished floors, electricity, a radio, a television, a refrigerator, a bicycle, a car, and a latrine or toilet. All variables are coded as binary indicators. 
-
+To capture differences in wealth across household types, we construct a categorical wealth measure based on the full interaction of 8 asset ownership indicators. Households are grouped into mutually exclusive categories defined by all combinations of ownership of finished floors, electricity, a radio, a television, a refrigerator, a bicycle, a car, and a latrine or toilet, and these categories are included as fixed effects.
 
 
 
@@ -132,8 +132,7 @@ To assess the role of household economic status, we estimate an additional speci
 Y_{is} = \beta_0 + \beta_1 \text{Patrilocal}_{is} + \lambda_ {g(i)} + \mu_s + \epsilon_{is}.
 \end{equation}
 
-In all models, we report standard errors clustered at the primary sampling unit level to account for within-cluster correlation of outcomes.  $\lambda_{g(i)}$ denotes wealth-group fixed effects. (groups for the interaction of finished floor, finished wall, finished roof, electricity, owns radio, owns TV, owns fridge, owns bike, owns car, owns latrine), and $\mu_s$ denotes state fixed effects.\footnote{All models account for the NFHS complex survey design using sampling weights and stratification.}
-
+In all models, we report standard errors clustered at the primary sampling unit level to account for within-cluster correlation of outcomes.  $\lambda_{g(i)}$ denotes wealth-group fixed effects, where groups are defined by the full interaction of eight household asset ownership indicators outlined in section "\nameref{sec:outcomes}". $\mu_s$ denotes state fixed effects.\footnote{All models account for the NFHS complex survey design using sampling weights and stratification.}
 
 \subsubsection{Changes in patrilocal–nuclear differences over time}
 
@@ -160,7 +159,6 @@ Y_{is} = \alpha
 + \delta_5 \,(\text{Patrilocal}_i \times \text{NFHS5}_t) \\
 &+ \lambda_{g(i)} + \mu_s + \varepsilon_{is}.
 \end{aligned}
-\label{eq:controls_stacked}
 \end{equation}
 
 where 2005-2006 is the omitted category, NFHS4 refers to 2015-2016, and NFHS5 refers to 2019-2021. $\lambda_{g(i)}$ denotes wealth-group fixed effects, and $\mu_s$ denotes state fixed effects. The reported coefficients $\delta_4$ and $\delta_5$ measure changes in the patrilocal-nuclear gap relative to the gap in 2005-2006.
@@ -246,7 +244,7 @@ Together these findings indicate that narratives of nuclearization and women’s
     \centering
     \begin{threeparttable}[t]
         \caption{:  Pregnant women in patrilocal extended households are advantaged in wealth and healthcare utilization, but disadvantaged in autonomy outcomes}
-        \label{tab:sumstats}
+
 
         \scriptsize
         \setlength{\tabcolsep}{6pt}
@@ -280,7 +278,7 @@ Together these findings indicate that narratives of nuclearization and women’s
 \begin{table}[!htbp]
     \centering
     \begin{threeparttable}[t]
-        \caption{: Changes in the patrilocal--nuclear gap in women's autonomy and maternal healthcare utilization across NFHS rounds}
+        \caption{: The gap between patrilocal and nuclear households in women's autonomy and health care use in narrowing across survey rounds}
         \label{tab:narrowinggaps}
 
         \scriptsize
@@ -302,6 +300,16 @@ Together these findings indicate that narratives of nuclearization and women’s
 
 \section{Appendix}
 
+% Reset and format appendix numbering
+\setcounter{section}{-1}
+\renewcommand{\thesection}{S.\arabic{section}}
+\renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
+
+% Make tables/figures labeled A.1, A.2, etc.
+\setcounter{table}{0}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
 
 \begin{table}[!htbp]
     \centering
@@ -313,29 +321,29 @@ Together these findings indicate that narratives of nuclearization and women’s
         \setlength{\tabcolsep}{10pt}
         \renewcommand{\arraystretch}{1}
 
-        \input{tables/tableA1 predicting first quarter pregnancy}
+        \input{tables/tableA1_predicting_first_quarter_pregnancy1}
 
         \begin{tablenotes}
-           \item The sample is restricted to women who report being three or more months pregnant at the time of the survey. Women reporting early pregnancy (one to two months) are excluded because early detection is selective.
-            \item The sample is also restricted to women residing in either nuclear or patrilocal extended household structures. 
+            \item gestational duration is calculated as...
+            \item The sample is restricted to women residing in either nuclear or patrilocal extended household structures. 
             
         \end{tablenotes}
     \end{threeparttable}
 \end{table}
 
 
-\begin{landscape}
+% \begin{landscape}
     
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=\textwidth] 
-    {figures/figure 2 four panel.pdf}
-    \caption{: Change in autonomy and healthcare utilization outcomes by household structure}
-    \label{fig:regresultsnocontrols}
-    \parbox{1\linewidth}{\footnotesize The top two panels showing the means of outcomes "no say in healthcare" and "no say in visits" use the sample of women who report being 3 or more months pregnant. The bottom two panels showing means of outcomes "last birth in a facility" and "4+ ANC visits in last pregnancy" use the sample of women who gave birth in the 3-12 months before the survey. Survey year 2005-2006 refers to NFHS-3, 2015-2016 refers to NFHS-4, and 2019-2021 refers to NFHS-5.}
-\end{figure}
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth] 
+%     {figures/figure 2 four panel.pdf}
+%     \caption{: Change in autonomy and healthcare utilization outcomes by household structure}
+%     \label{fig:regresultsnocontrols}
+%     \parbox{1\linewidth}{\footnotesize The top two panels showing the means of outcomes "no say in healthcare" and "no say in visits" use the sample of women who report being 3 or more months pregnant. The bottom two panels showing means of outcomes "last birth in a facility" and "4+ ANC visits in last pregnancy" use the sample of women who gave birth in the 3-12 months before the survey. Survey year 2005-2006 refers to NFHS-3, 2015-2016 refers to NFHS-4, and 2019-2021 refers to NFHS-5.}
+% \end{figure}
 
-\end{landscape}
+% \end{landscape}
 
 
 \subsection*{Kitagawa Decomposition}
@@ -366,16 +374,7 @@ For each outcome $Y$, the change between NFHS-3 and NFHS-5 can be written as:
     \item $p_j^{3}$ and $p_j^{5}$ are the proportions of women residing in household type $j$ in NFHS-3 and NFHS-5
 \end{itemize}
 
-% Reset and format appendix numbering
-\setcounter{section}{-1}
-\renewcommand{\thesection}{S.\arabic{section}}
-\renewcommand{\thesubsection}{S.\arabic{section}.\arabic{subsection}}
 
-% Make tables/figures labeled A.1, A.2, etc.
-\setcounter{table}{0}
-\renewcommand{\thetable}{A\arabic{table}}
-\setcounter{figure}{0}
-\renewcommand{\thefigure}{A\arabic{figure}}
 
 \begin{table}[!htbp]
     \centering
@@ -414,50 +413,6 @@ For each outcome $Y$, the change between NFHS-3 and NFHS-5 can be written as:
 
 
 
-
-\begin{table}[!htbp]
-    \centering
-    \begin{threeparttable}[t]
-        \caption{: Changes in the patrilocal--nuclear gap in women's autonomy and maternal healthcare utilization across NFHS rounds}
-        \label{tab:proppatrilocal}
-
-        \scriptsize
-        \setlength{\tabcolsep}{6pt}
-        \renewcommand{\arraystretch}{1.6}
-
-        \input{tables/interaction_gap_table}
-
-        \begin{tablenotes}
-
-\item Columns 1 and 2 report coefficients from regressions comparing NFHS-3 to NFHS-4 and NFHS-4 to NFHS-5, respectively: 
-\[
-Y_{is} = \alpha + \beta \,\text{Patrilocal}_i + \gamma \,\text{LaterRound}_t
-+ \delta \,(\text{Patrilocal}_i \times \text{LaterRound}_t)
-+ \lambda_{g(i)} + \mu_s + \varepsilon_{is},
-\]
-where $\text{LaterRound}_t$ is an indicator for the later survey round in the relevant comparison, $\lambda_{g(i)}$ denotes wealth-group fixed effects (groups for the interaction of finished floor, finished wall, finished roof, electricity, owns radio, owns TV, owns fridge, owns bike, owns car, owns latrine), and $\mu_s$ denotes state fixed effects. The reported coefficient $\delta$ measures the change in the patrilocal--nuclear gap between survey rounds.
-\item . 
-\item Columns 3 and 4 report coefficients from a stacked specification pooling all three survey rounds:
-\[
-\begin{aligned}
-Y_{is} =\;& \alpha 
-+ \beta \,\text{Patrilocal}_i
-+ \gamma_4 \,\text{Round4}_t
-+ \gamma_5 \,\text{Round5}_t \\
-&+ \delta_4 \,(\text{Patrilocal}_i \times \text{Round4}_t)
-+ \delta_5 \,(\text{Patrilocal}_i \times \text{Round5}_t)
-+ \lambda_{g(i)} + \mu_s + \varepsilon_{is},
-\end{aligned}
-\]
-where NFHS-3 is the omitted category, $\lambda_{g(i)}$ denotes wealth-group fixed effects, and $\mu_s$ denotes state fixed effects. The reported coefficients $\delta_4$ and $\delta_5$ measure changes in the patrilocal--nuclear gap relative to NFHS-3.
-\item .
-\item Autonomy outcomes are estimated on the currently pregnant sample using state-level weights. Maternal healthcare outcomes are estimated on the postpartum sample using survey weights.
-\item .
-\item Standard errors are reported in parentheses and clustered at the PSU level. *** $p<0.01$, ** $p<0.05$, * $p<0.10$.
-
-        \end{tablenotes}
-    \end{threeparttable}
-\end{table}
 \begin{landscape}
     
 
@@ -466,7 +421,7 @@ where NFHS-3 is the omitted category, $\lambda_{g(i)}$ denotes wealth-group fixe
     \centering
     \begin{threeparttable}[t]
         \caption{:  A large portion of the increase in patrilocal extended household structure is due to declining fertility}
-        \label{tab:proppatrilocal}
+        \label{tab:patrilocaldecomposition}
 
         \scriptsize
         \setlength{\tabcolsep}{6pt}
