@@ -109,7 +109,7 @@ gen str40 outcome_title = outcome
 replace outcome_title = "No say in own healthcare"              if outcome=="nosay_healthcare"
 replace outcome_title = "No say in visits to family/friends"    if outcome=="nosay_visits"
 replace outcome_title = "Gave birth in a health facility"       if outcome=="facility_birth"
-replace outcome_title = "Had 4+ antenatal visits"               if outcome=="anc_four"
+replace outcome_title = "Had 4+ prenatal visits"               if outcome=="anc_four"
 
 * --- marker labels: coef with stars if you have them; else just b formatted ---
 * If you already have stars in a variable, swap mlabel() to that.
@@ -149,4 +149,4 @@ twoway ///
 
 	
 	
-graph export "figures/figure 1 regression coefficients with state fes.png", as(png) name("Graph") replace
+graph export "figures/figure 1 regression coefficients.png", as(png) name("Graph") replace

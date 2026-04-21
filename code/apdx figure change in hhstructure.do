@@ -1,28 +1,44 @@
 use $all_nfhs_ir, clear
 
 cap label drop roundlbl
-
 label define roundlbl ///
     3 "2005-2006" ///
     4 "2015-2016" ///
-    5 "2019-2021" 
+    5 "2019-2021"
+label values round roundlbl
 label values group grouplbl
 
 keep if ever_married==1
 keep if nuclear | natal | patrilocal
 keep if inlist(round, 3, 4, 5)
 
+replace allendorf_sample = . if natal==1
+
+*******************************************************
+* Common style
+*******************************************************
+local blue  "navy%55"
+local gray  "gs10%65"
+local red   "maroon%55"
+
 *******************************************************
 * Panel 1: Pregnant women
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal patrilocal if pregnant==1 [aw=wt],
-    over(round)
+    over(round, label(labsize(medlarge)))
     stack
-    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
-    blabel(bar, format(%4.2f) position(inside) size(small))
-    ytitle("Proportion of women")
-    title("Pregnant women")
+    bar(1, color(`blue') lcolor(none))
+    bar(2, color(`gray') lcolor(none))
+    bar(3, color(`red')  lcolor(none))
+    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal")
+           cols(3) pos(6) region(lstyle(none)) size(medlarge))
+    blabel(bar, format(%4.2f) position(inside) size(medsmall))
+    ytitle("Proportion of women", size(medlarge))
+    ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
+    title("Pregnant women", size(large))
+    graphregion(color(white))
+    plotregion(color(white))
     name(g1, replace);
 #delimit cr
 
@@ -30,13 +46,19 @@ graph bar (mean) nuclear natal patrilocal if pregnant==1 [aw=wt],
 * Panel 2: Allendorf sample
 *******************************************************
 #delimit ;
-graph bar (mean) nuclear natal patrilocal if allendorf_sample==1 [aw=wt],
-    over(round)
+graph bar (mean) nuclear patrilocal if allendorf_sample==1 [aw=wt],
+    over(round, label(labsize(medlarge)))
     stack
-    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
-    blabel(bar, format(%4.2f) position(inside) size(small))
-    ytitle("Proportion of women")
-    title("Allendorf sample")
+    bar(1, color(`blue') lcolor(none))
+    bar(2, color(`red')  lcolor(none))
+    legend(order(1 "Nuclear" 2 "Patrilocal")
+           cols(2) pos(6) region(lstyle(none)) size(medlarge))
+    blabel(bar, format(%4.2f) position(inside) size(medsmall))
+    ytitle("Proportion of women", size(medlarge))
+    ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
+    title("Sample used in Allendorf 2013", size(large))
+    graphregion(color(white))
+    plotregion(color(white))
     name(g2, replace);
 #delimit cr
 
@@ -45,12 +67,19 @@ graph bar (mean) nuclear natal patrilocal if allendorf_sample==1 [aw=wt],
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal patrilocal if pregnant==0 [aw=wt],
-    over(round)
+    over(round, label(labsize(medlarge)))
     stack
-    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
-    blabel(bar, format(%4.2f) position(inside) size(small))
-    ytitle("Proportion of women")
-    title("Non-pregnant women")
+    bar(1, color(`blue') lcolor(none))
+    bar(2, color(`gray') lcolor(none))
+    bar(3, color(`red')  lcolor(none))
+    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal")
+           cols(3) pos(6) region(lstyle(none)) size(medlarge))
+    blabel(bar, format(%4.2f) position(inside) size(medsmall))
+    ytitle("Proportion of women", size(medlarge))
+    ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
+    title("Non-pregnant women", size(large))
+    graphregion(color(white))
+    plotregion(color(white))
     name(g3, replace);
 #delimit cr
 
@@ -59,12 +88,19 @@ graph bar (mean) nuclear natal patrilocal if pregnant==0 [aw=wt],
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal patrilocal [aw=wt],
-    over(round)
+    over(round, label(labsize(medlarge)))
     stack
-    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal"))
-    blabel(bar, format(%4.2f) position(inside) size(small))
-    ytitle("Proportion of women")
-    title("All women")
+    bar(1, color(`blue') lcolor(none))
+    bar(2, color(`gray') lcolor(none))
+    bar(3, color(`red')  lcolor(none))
+    legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal")
+           cols(3) pos(6) region(lstyle(none)) size(medlarge))
+    blabel(bar, format(%4.2f) position(inside) size(medsmall))
+    ytitle("Proportion of women", size(medlarge))
+    ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
+    title("All women", size(large))
+    graphregion(color(white))
+    plotregion(color(white))
     name(g4, replace);
 #delimit cr
 
@@ -74,14 +110,11 @@ graph bar (mean) nuclear natal patrilocal [aw=wt],
 grc1leg g1 g2 g3 g4, ///
     cols(2) ///
     imargin(2 2 2 2) ///
+    iscale(0.6) ///
     graphregion(color(white)) ///
-	iscale(0.6)
+    legendfrom(g1)
 
-	
-graph export "figures/apdx bar graph four panel.png", as(png) name("Graph") replace
-
-	
-
+graph export "figures/apdx bar graph four panel.png", as(png) replace
 
 
 	

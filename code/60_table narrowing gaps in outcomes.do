@@ -184,7 +184,7 @@ sort order rowsort
 #delimit ;
 
 listtex rowlabel c_y0506vs1516 c_y1516vs1921 c_stack0506vs1516 c_stack0506vs1921 
-    using "tables/interaction_gap_table.tex", replace 
+    using "tables/table 3 narrowing gaps.tex", replace 
     rstyle(tabular) 
     head(
         "\begin{tabular}{lcccc}"
