@@ -1,5 +1,13 @@
 use $all_nfhs_ir, clear
 
+cap label drop roundlbl
+
+label define roundlbl ///
+    3 "2005-2006" ///
+    4 "2015-2016" ///
+    5 "2019-2021" 
+label values group grouplbl
+
 keep if ever_married==1
 keep if nuclear | natal | patrilocal
 keep if inlist(round, 3, 4, 5)
@@ -70,7 +78,7 @@ grc1leg g1 g2 g3 g4, ///
 	iscale(0.6)
 
 	
-graph export "figures/apdx bar graph four panel.png", as(png) name("Graph")
+graph export "figures/apdx bar graph four panel.png", as(png) name("Graph") replace
 
 	
 
