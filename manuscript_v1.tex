@@ -113,7 +113,7 @@ To measure maternal healthcare use among recently postpartum women, we examine t
 
 \subsubsection{Wealth controls} \label{sec:wealthcontrols}
 
-To capture differences in wealth across household types, we construct a categorical wealth measure based on the full interaction of 8 asset ownership indicators. Households are grouped into mutually exclusive categories defined by all combinations of ownership of finished floors, electricity, a radio, a television, a refrigerator, a bicycle, a car, and a latrine or toilet, and these categories are included as fixed effects.
+To capture differences in wealth across household types, we construct a categorical wealth measure based on the full interaction of 8 asset ownership indicators, which has 784 categories. Households are grouped into mutually exclusive categories defined by all combinations of ownership of finished floors, electricity, a radio, a television, a refrigerator, a bicycle, a car, and a latrine or toilet, and these categories are included as fixed effects.
 
 
 \subsection{Analytical Strategy}
@@ -162,7 +162,6 @@ Y_{is} = \alpha
 + \delta_5 \,(\text{Patrilocal}_i \times \text{NFHS5}_t) \\
 &+ \lambda_{g(i)} + \mu_s + \varepsilon_{is}.
 \end{aligned}
-\label{eq:controls_stacked}
 \end{equation}
 
 2005-2006 is the omitted category; NFHS4 refers to 2015-2016, and NFHS5 refers to 2019-2021. $\lambda_{g(i)}$ denotes wealth-group fixed effects, and $\mu_s$ denotes state fixed effects. The reported coefficients $\delta_4$ and $\delta_5$ measure changes in the patrilocal-nuclear gap relative to the gap in 2005-2006.
@@ -260,7 +259,7 @@ Together these findings are consistent with women empowerment over time but not 
         \setlength{\tabcolsep}{6pt}
         \renewcommand{\arraystretch}{1}
         \label{tab:sumstats}
-        \input{tables/table 1 summary stats updated}
+        \input{tables/table 1 summary stats}
 
         \begin{tablenotes}
             \item The sample of currently pregnant women includes women who report being three or more months pregnant at the time of the survey. Women reporting early pregnancy (one to two months) are excluded because early detection is selective.
@@ -275,7 +274,7 @@ Together these findings are consistent with women empowerment over time but not 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth] 
-    {figures/figure 1 regression coefficients with state fes.png}
+    {figures/figure 1 regression coefficients with and without controls.png}
     \caption{: Estimated differences in autonomy and healthcare utilization outcomes for women living in patrilocal extended households relative to nuclear households}
     \label{fig:regresults}
     \parbox{1\linewidth}{\footnotesize Points represent the coefficient on the patrilocal household indicator from linear probability models shown in equations \ref{eq:nocontrols} and \ref{eq:controls}. Panels for outcomes "Gave birth in a health facility" and "Had 4+ antenatal care visits" use the sample of women who gave birth 3-12 months before the survey. Panels for outcomes "No say in own healthcare" and "No say in visits to family/friends" use the sample of women who report being three or more months pregnant at the time of the survey.}
@@ -288,14 +287,14 @@ Together these findings are consistent with women empowerment over time but not 
 \begin{table}[!htbp]
     \centering
     \begin{threeparttable}[t]
-        \caption{: The gap between patrilocal and nuclear households in women's autonomy and health care use in narrowing across survey rounds}
+        \caption{: The gap between patrilocal extended and nuclear households in women's autonomy and health care use in narrowing across survey rounds}
         \label{tab:narrowinggaps}
 
         \scriptsize
         \setlength{\tabcolsep}{6pt}
         \renewcommand{\arraystretch}{1.6}
 
-        \input{tables/interaction_gap_table}
+        \input{tables/table 3 narrowing gaps}
 
 
     \end{threeparttable}
@@ -417,17 +416,17 @@ We report the estimated coefficients $\beta$ in table \ref{tab:earlypregnancy} t
 \end{table}
 
 
-
-\begin{landscape}
     
 \subsection*{Distribution of women by household type in NFHS-2005, 2015, and 2021}
 
-The sample used for analysis in this paper focuses on women who live in either nuclear or patrilocal joint household structures. 
+The sample used for the main analysis in this paper focuses on pregnant women who live in either nuclear or patrilocal joint household structures, excluding women living in natal households.
 
-We exclude women living in natal households from the sample, as this living arrangement represents a substantively different social context from both patrilocal and nuclear households.
+Figure \ref{fig:bargraph} shows the composition of household structure in different samples of women. While the main analysis in the paper focuses on pregnant women, trends of increasing joint patrilocal residence are also present in the sample of all women, nonpregnant women, and the sample used in \cite{allendorf2013going}. 
 
-Figure \ref{fig:bargraph} shows the composition of household structure in different samples of women. Where applicable, it keeps the subsample of women in natal households to show that its proportion remains stable over time, and its exclusion does not affect trends in nuclear and patrilocal joint household structures.
+In all samples shown in Figure \ref{fig:bargraph} except the sample used in \cite{allendorf2013going}, the bar graph keeps the subsample of women in natal households to show that its proportion remains stable over time, and that its exclusion does not affect trends in nuclear and patrilocal joint household structures.
 
+\begin{landscape}
+    
 
 \begin{figure}[H]
     \centering
@@ -435,13 +434,40 @@ Figure \ref{fig:bargraph} shows the composition of household structure in differ
     {figures/apdx bar graph four panel.png}
     \caption{: The proportion who reside in natal households remains similar over time in relevant sub-samples of women}
     \label{fig:bargraph}
-    \parbox{1\linewidth}{\footnotesize The sample used in \cite{allendorf2012women}}
+    \parbox{1\linewidth}{\footnotesize The sample used in \cite{allendorf2012women} includes women who are currently married, living with their husband, between the ages of 15 and 29, usual residents of their household, and living in either nuclear or patrilocal joint household structures.}
 \end{figure}
 
 \end{landscape}
 
 
 \subsection*{Kitagawa decomposition of changes in autonomy and health care indicators}
+
+
+To assess whether changes in autonomy and maternal healthcare are driven by shifts in the distribution of household structure or by changes within household types, we implement a Kitagawa decomposition \citep{kitagawa1955components} comparing NFHS-3 (2005--06) and NFHS-5 (2019--21), using NFHS-3 as the baseline.
+
+For each outcome $Y$, the change between NFHS-3 and NFHS-5 can be written as:
+
+\begin{equation}
+\Delta \equiv \bar Y^{5} - \bar Y^{3}
+= \Delta_{\text{explained}} + \Delta_{\text{unexplained}}
+\end{equation}
+
+\begin{equation}
+\Delta_{\text{explained}} =
+\sum_{j \in \{N,P\}} \big(p_j^{5} - p_j^{3}\big)\frac{Y_j^{5} + Y_j^{3}}{2}
+\end{equation}
+
+\begin{equation}
+\Delta_{\text{unexplained}} =
+\sum_{j \in \{N,P\}} \big(Y_j^{5} - Y_j^{3}\big)\frac{p_j^{5} + p_j^{3}}{2}
+\end{equation}
+
+\begin{itemize}
+    \item $j \in \{N,P\}$ indexes household type: nuclear ($N$) and patrilocal ($P$)
+    \item $\bar Y^{3}$ and $\bar Y^{5}$ are the mean outcomes in NFHS-3 and NFHS-5
+    \item $Y_j^{3}$ and $Y_j^{5}$ are the mean outcomes within household type $j$ in NFHS-3 and NFHS-5
+    \item $p_j^{3}$ and $p_j^{5}$ are the proportions of women residing in household type $j$ in NFHS-3 and NFHS-5
+\end{itemize}
 
 
 
