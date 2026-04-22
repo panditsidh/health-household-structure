@@ -20,7 +20,7 @@ capture drop facility_birth
 gen facility_birth = (home_birth==0) if !missing(home_birth)
 
 *******************************************************
-* 2) Post results
+* 2) Prepare postfile to store results
 *******************************************************
 
 tempfile results
@@ -32,7 +32,7 @@ postfile hh ///
     using `results', replace
 
 *******************************************************
-* 3) Loop over outcomes and samples
+* 3) Loop over outcomes and samples and run regressions
 *******************************************************
 
 foreach outcome in nosay_healthcare nosay_visits facility_birth anc_four {
@@ -43,14 +43,14 @@ foreach outcome in nosay_healthcare nosay_visits facility_birth anc_four {
         keep if `sample'==1
 
         if inlist("`outcome'","nosay_healthcare","nosay_visits") {
-            local ifcond "pregnant==1"
+            local ifcond "sample==2"
             local wt "[aw=w_state]"
         }
         else {
-            local ifcond "postpartum==1"
+            local ifcond "sample==1"
             local wt "[aw=v005]"
         }
-
+		
         quietly reghdfe `outcome' i.round##i.patrilocal i.wealth_group ///
             `wt' if `ifcond', cluster(psu) absorb(v024)
 
@@ -94,10 +94,10 @@ use `results', clear
 * 4) Labels + formatting
 *******************************************************
 
-replace outcome = "No say in own healthcare"            if outcome=="nosay_healthcare"
-replace outcome = "No say in visits to family/friends"  if outcome=="nosay_visits"
-replace outcome = "Gave birth in a health facility"     if outcome=="facility_birth"
-replace outcome = "Had 4+ prenatal visits"             if outcome=="anc_four"
+replace outcome = "No say in own healthcare$^1$"            if outcome=="nosay_healthcare"
+replace outcome = "No say in visits to family/friends$^1$"  if outcome=="nosay_visits"
+replace outcome = "Gave birth in a health facility$^2$"     if outcome=="facility_birth"
+replace outcome = "Had 4+ prenatal visits$^2$"             if outcome=="anc_four"
 
 gen stars = ""
 replace stars = "***" if p < 0.01
@@ -143,10 +143,10 @@ merge 1:1 outcome using `ses', nogen
 *******************************************************
 
 gen order = .
-replace order = 1 if outcome=="No say in own healthcare"
-replace order = 2 if outcome=="No say in visits to family/friends"
-replace order = 3 if outcome=="Gave birth in a health facility"
-replace order = 4 if outcome=="Had 4+ antenatal visits"
+replace order = 1 if outcome=="No say in own healthcare$^1$"
+replace order = 2 if outcome=="No say in visits to family/friends$^1$"
+replace order = 3 if outcome=="Gave birth in a health facility$^2$"
+replace order = 4 if outcome=="Had 4+ antenatal visits$^2$"
 sort order
 
 * 3 rows per outcome: coef / se / N
