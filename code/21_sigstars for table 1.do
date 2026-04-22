@@ -1,3 +1,5 @@
+* you don't need to run this, 20 calls it
+
 use $all_nfhs_ir, clear
 
 keep if inlist(hh_struc,1,2)

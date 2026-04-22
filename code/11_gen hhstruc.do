@@ -5,6 +5,8 @@ and uses that to figure out what household structure each household is
 (based on who is there and who isn't)
 then it merges this household level information to the stacked woman's individual file
 
+you don't need to run this code, 10 will call it 
+
 */
 
 

@@ -1,4 +1,4 @@
-
+* we don't use any of these variables anymore, they were there for previous analysis. we can move it to "old"
 
 *******************************************************
 * Initialize woman-centric parent-in-law variables

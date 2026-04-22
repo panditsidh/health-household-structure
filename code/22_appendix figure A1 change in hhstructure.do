@@ -1,3 +1,5 @@
+
+
 use $all_nfhs_ir, clear
 
 cap label drop roundlbl
@@ -26,7 +28,7 @@ local red   "maroon%55"
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal patrilocal if pregnant==1 [aw=wt],
-    over(round, label(labsize(medlarge)))
+    over(round, label(labsize(small)))
     stack
     bar(1, color(`blue') lcolor(none))
     bar(2, color(`gray') lcolor(none))
@@ -36,7 +38,7 @@ graph bar (mean) nuclear natal patrilocal if pregnant==1 [aw=wt],
     blabel(bar, format(%4.2f) position(inside) size(medsmall))
     ytitle("Proportion of women", size(medlarge))
     ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
-    title("Pregnant women", size(large))
+    title("A. Pregnant women", size(large))
     graphregion(color(white))
     plotregion(color(white))
     name(g1, replace);
@@ -47,7 +49,7 @@ graph bar (mean) nuclear natal patrilocal if pregnant==1 [aw=wt],
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear patrilocal if allendorf_sample==1 [aw=wt],
-    over(round, label(labsize(medlarge)))
+    over(round, label(labsize(small)))
     stack
     bar(1, color(`blue') lcolor(none))
     bar(2, color(`red')  lcolor(none))
@@ -67,7 +69,7 @@ graph bar (mean) nuclear patrilocal if allendorf_sample==1 [aw=wt],
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal patrilocal if pregnant==0 [aw=wt],
-    over(round, label(labsize(medlarge)))
+    over(round, label(labsize(small)))
     stack
     bar(1, color(`blue') lcolor(none))
     bar(2, color(`gray') lcolor(none))
@@ -75,9 +77,8 @@ graph bar (mean) nuclear natal patrilocal if pregnant==0 [aw=wt],
     legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal")
            cols(3) pos(6) region(lstyle(none)) size(medlarge))
     blabel(bar, format(%4.2f) position(inside) size(medsmall))
-    ytitle("Proportion of women", size(medlarge))
     ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
-    title("Non-pregnant women", size(large))
+    title("B. Non-pregnant women", size(large))
     graphregion(color(white))
     plotregion(color(white))
     name(g3, replace);
@@ -88,7 +89,7 @@ graph bar (mean) nuclear natal patrilocal if pregnant==0 [aw=wt],
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal patrilocal [aw=wt],
-    over(round, label(labsize(medlarge)))
+    over(round, label(labsize(small)))
     stack
     bar(1, color(`blue') lcolor(none))
     bar(2, color(`gray') lcolor(none))
@@ -96,9 +97,8 @@ graph bar (mean) nuclear natal patrilocal [aw=wt],
     legend(order(1 "Nuclear" 2 "Natal" 3 "Patrilocal")
            cols(3) pos(6) region(lstyle(none)) size(medlarge))
     blabel(bar, format(%4.2f) position(inside) size(medsmall))
-    ytitle("Proportion of women", size(medlarge))
     ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
-    title("All women", size(large))
+    title("C. All women", size(large))
     graphregion(color(white))
     plotregion(color(white))
     name(g4, replace);
@@ -107,12 +107,29 @@ graph bar (mean) nuclear natal patrilocal [aw=wt],
 *******************************************************
 * Combine into 2x2 panel
 *******************************************************
-grc1leg g1 g2 g3 g4, ///
-    cols(2) ///
-    imargin(2 2 2 2) ///
-    iscale(0.6) ///
-    graphregion(color(white)) ///
-    legendfrom(g1)
+// grc1leg g1 g2 g3 g4, ///
+//     cols(2) ///
+//     imargin(2 2 2 2) ///
+//     iscale(0.6) ///
+//     graphregion(color(white)) ///
+//     legendfrom(g1)
+
+// grc1leg g1 g3 g4, ///
+//     cols(1) ///
+//     imargin(1 1 1 1) ///
+//     iscale(0.8) ///
+//     graphregion(color(white) margin(0 0 0 0)) ///
+//     legendfrom(g1) ///
+//     name(hh_structure_threepanel, replace) fysize(180) fxsize(75)
+//	
+	
+grc1leg g1 g3 g4, ///
+    cols(3) ///
+    imargin(1 1 1 1) ///
+    iscale(0.8) ///
+    graphregion(color(white) margin(0 0 0 0)) ///
+    legendfrom(g1) ///
+    name(hh_structure_threepanel, replace) fysize(75) fxsize(150)
 
 graph export "figures/apdx bar graph four panel.png", as(png) replace
 

@@ -185,6 +185,13 @@ replace roworder = 4 if group=="Parity 4+"
 replace roworder = 5 if group=="Total"
 sort roworder
 
+
+replace group = "Parity 0" if group=="Parity 1"
+replace group = "Parity 1" if group=="Parity 2"
+replace group = "Parity 2" if group=="Parity 3"
+replace group = "Parity 3+" if group=="Parity 4+"
+
+
 * keep export vars
 keep group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct roworder
 order group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct
@@ -199,7 +206,7 @@ list group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp
 #delimit ;
 listtex ///
     group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct ///
-    using "tables/appendix table_decomp_patrilocal_parity.tex", replace ///
+    using "tables/table A1 household structure decomposition.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{lcccccc}"
          "\toprule"

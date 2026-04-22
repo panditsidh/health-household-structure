@@ -6,32 +6,8 @@ do "code/12_state district match.do"
 
 
 *==============================================================*
-* 4. Sample Restrictions
-*==============================================================*
-
-
-gen ever_married = v501!=0
-
-gen months_ago_last_birth = v008 - b3_01
-gen postpartum = inrange(months_ago_last_birth, 3, 12)
-
-gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1) 
-
-/*
-married
-between ages 15-29
-usual resident
-currently residing with husband
-*/
-
-
-
-
-*==============================================================*
 * 4. Decision-Making Variables
 *==============================================================*
-
-
 
 
 * Own healthcare
@@ -63,9 +39,6 @@ replace nosay_visits = 1 if inlist(v743d,4,5,6) & inlist(round,3,4,5)
 // replace nosay_healthcare = . if missing(v743a) & round==3
 // replace nosay_healthcare = . if v743a==9
 //
-//
-//
-//
 // * Visits to natal family
 // gen nosay_visits = .
 // replace nosay_visits = !inlist(v743d,1,2,3) if !missing(v743d)
@@ -73,40 +46,6 @@ replace nosay_visits = 1 if inlist(v743d,4,5,6) & inlist(round,3,4,5)
 // replace nosay_visits = s512b!=1 if !missing(s512b) & round==2
 // replace nosay_visits = . if v743a==9
 
-
-
-
-
-*==============================================================*
-* 7. Survey Weights (General, State Module, DV Module)
-*==============================================================*
-
-* General weights
-egen strata = group(v000 v024 v025)
-egen psu    = group(v000 v001 v024 v025)
-
-bysort v000: egen totalwt = total(v005)
-gen wt = v005 / totalwt
-
-* State-module (decision, sexual behavior, etc.)
-gen w_state_base = .
-replace w_state_base = v005     if round == 2   // no state module; v005
-replace w_state_base = v005s    if round == 3
-replace w_state_base = sv005    if round == 4
-replace w_state_base = sweight  if round == 5
-
-bysort round: egen total_w_state = total(w_state_base)
-gen w_state = w_state_base / total_w_state
-
-* Domestic violence
-gen w_dv_base = .
-replace w_dv_base = v005      if round == 2
-replace w_dv_base = d005      if round == 3
-replace w_dv_base = sd005     if round == 4
-replace w_dv_base = sdweight  if round == 5
-
-bysort round: egen total_w_dv = total(w_dv_base)
-gen w_dv = w_dv_base / total_w_dv
 
 
 *==============================================================*
@@ -303,6 +242,12 @@ egen wealth_group = group(finished_floor finished_wall finished_roof ///
                          electricity owns_radio owns_tv owns_fridge ///
                          owns_bike owns_car latrine)
 
+						 
+*==============================================================*
+* 12. Other variables
+*==============================================================*
+
+	
 
 gen parity = bord_01
 replace parity = 4 if bord_01>4
@@ -328,6 +273,69 @@ gen no_educ = v106==0
 gen primary = v106==1
 gen secondary = v106==2
 gen higher = v106==3
+
+
+
+*==============================================================*
+* 4. Sample Restrictions
+*==============================================================*
+
+
+gen ever_married = v501!=0
+
+gen months_ago_last_birth = v008 - b3_01
+gen postpartum = inrange(months_ago_last_birth, 3, 12)
+
+gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1) 
+
+/*
+married
+between ages 15-29
+usual resident
+currently residing with husband
+*/
+
+
+gen sample = 1 if inrange(months_ago_last_birth, 3, 12) & !missing(anc_four) & !missing(facility_birth) & ever_married==1 & !missing(wealth_group)
+replace sample = 2 if pregnant==1 & !missing(nosay_visits) & !missing(nosay_healthcare) & ever_married==1 & !missing(wealth_group)
+
+label define samplelbl ///
+    1 "postpartum" ///
+    2 "pregnant" 
+label values sample samplelbl
+
+
+
+*==============================================================*
+* 7. Survey Weights (General, State Module, DV Module)
+*==============================================================*
+
+* General weights
+egen strata = group(v000 v024 v025)
+egen psu    = group(v000 v001 v024 v025)
+
+bysort v000: egen totalwt = total(v005)
+gen wt = v005 / totalwt
+
+* State-module (decision, sexual behavior, etc.)
+gen w_state_base = .
+replace w_state_base = v005     if round == 2   // no state module; v005
+replace w_state_base = v005s    if round == 3
+replace w_state_base = sv005    if round == 4
+replace w_state_base = sweight  if round == 5
+
+bysort round: egen total_w_state = total(w_state_base)
+gen w_state = w_state_base / total_w_state
+
+* Domestic violence
+gen w_dv_base = .
+replace w_dv_base = v005      if round == 2
+replace w_dv_base = d005      if round == 3
+replace w_dv_base = sd005     if round == 4
+replace w_dv_base = sdweight  if round == 5
+
+bysort round: egen total_w_dv = total(w_dv_base)
+gen w_dv = w_dv_base / total_w_dv
 
 	
 

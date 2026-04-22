@@ -1,13 +1,5 @@
 
-************************************************************
-* TABLE: Summary statistics with significance stars
-* - Currently pregnant women
-* - Women with birth 3-12 months before survey
-* - Means by round x hh_struc
-* - Adds N row
-* - Adds significance stars for Nuclear vs Joint within round
-************************************************************
-
+* helper program for later
 cap program drop starify
 program define starify
 	args pval
@@ -30,8 +22,10 @@ end
 
 
 ************************************************************
-* PART 1: WOMEN WHO GAVE BIRTH 3-12 MONTHS BEFORE SURVEY
+* first - WOMEN WHO GAVE BIRTH 3-12 MONTHS BEFORE SURVEY
 ************************************************************
+
+
 use $all_nfhs_ir, clear
 
 * sample restriction
