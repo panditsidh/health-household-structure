@@ -2,7 +2,8 @@ use $all_nfhs_ir, clear
 
 keep if inlist(hh_struc,1,2)
 keep if inlist(round,3,5)
-keep if pregnant==1
+// keep if pregnant==1 
+keep if pregnant==1 & !missing(nosay_healthcare) & !missing(nosay_visits)
 
 *******************************************************
 * starify
@@ -35,7 +36,8 @@ tempfile overall_sig
 
 postfile `post_overall' str150 row_fmt double p using `overall_sig', replace
 
-capture noisily regress patrilocal ib3.round [aw=wt]
+// capture noisily regress patrilocal ib3.round [aw=wt]
+capture noisily regress patrilocal ib3.round [aw=w_state]
 if _rc==0 {
 	test 5.round
 	post `post_overall' ("\textbf{All currently pregnant women}") (r(p))
@@ -76,7 +78,9 @@ foreach overvar in group region v013 parity {
 
 	foreach lvl of local levels {
 
-		capture noisily regress patrilocal ib3.round [aw=wt] if `overvar'==`lvl'
+// 		capture noisily regress patrilocal ib3.round [aw=wt] if `overvar'==`lvl'
+		capture noisily regress patrilocal ib3.round [aw=w_state] if `overvar'==`lvl'
+		
 		if _rc==0 {
 			test 5.round
 			local thisp = r(p)
@@ -138,7 +142,7 @@ append using `final_parity'
 replace row_fmt = "\hspace*{2em}Forward caste"        if row_fmt=="\hspace*{2em}Forward Caste"
 replace row_fmt = "\hspace*{2em}Sikh/Jain/Christian"  if row_fmt=="\hspace*{2em}Sikh, Jain, Christian"
 
-replace row_fmt = "\hspace*{2em}Focus states"         if row_fmt=="\hspace*{2em}UP and Bihar"
+replace row_fmt = "\hspace*{2em}Focus states$^1$"         if row_fmt=="\hspace*{2em}UP and Bihar"
 replace row_fmt = "\hspace*{2em}Central"              if row_fmt=="\hspace*{2em}central"
 replace row_fmt = "\hspace*{2em}East"                 if row_fmt=="\hspace*{2em}east"
 replace row_fmt = "\hspace*{2em}West"                 if row_fmt=="\hspace*{2em}west"
@@ -146,4 +150,5 @@ replace row_fmt = "\hspace*{2em}North"                if row_fmt=="\hspace*{2em}
 replace row_fmt = "\hspace*{2em}South"                if row_fmt=="\hspace*{2em}south"
 replace row_fmt = "\hspace*{2em}Northeast"            if row_fmt=="\hspace*{2em}northeast"
 
-save "tables/table1_rowfmt_sig_only.dta", replace
+// save "tables/table1_rowfmt_sig_only.dta", replace
+save "tables/table1_rowfmt_sig_only w_state.dta", replace
