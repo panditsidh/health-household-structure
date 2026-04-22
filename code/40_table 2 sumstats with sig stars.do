@@ -1,4 +1,3 @@
-use $all_nfhs_ir, clear
 
 ************************************************************
 * TABLE: Summary statistics with significance stars
@@ -165,7 +164,8 @@ use $all_nfhs_ir, clear
 
 keep if inlist(round,3,4,5)
 keep if inlist(hh_struc,1,2)
-keep if pregnant==1 & preg==1
+keep if pregnant==1 & preg==1 & !missing(nosay_healthcare) & !missing(nosay_visits)
+// keep if pregnant==1 & preg==1
 keep if ever_married==1
 
 
@@ -204,10 +204,15 @@ restore
 * 1) Wealth means (wt)
 *-------------------------------
 preserve
+// collapse (mean) ///
+// 	finished_floor electricity owns_radio owns_tv owns_fridge owns_bike owns_car ///
+// 	latrine owns_land ///
+// 	[aw=wt], by(columns)
+
 collapse (mean) ///
 	finished_floor electricity owns_radio owns_tv owns_fridge owns_bike owns_car ///
 	latrine owns_land ///
-	[aw=wt], by(columns)
+	[aw=w_state], by(columns)
 
 rename (finished_floor electricity owns_radio owns_tv owns_fridge owns_bike owns_car ///
 		latrine owns_land) ///
@@ -248,7 +253,8 @@ postfile `post_preg' str30 varname int round double p using `stars_preg', replac
 foreach v in finished_floor electricity owns_radio owns_tv owns_fridge owns_bike owns_car ///
 			 latrine owns_land {
 	foreach r in 3 4 5 {
-		capture noisily regress `v' i.hh_struc [aw=wt] if round==`r' & inlist(hh_struc,1,2)
+		capture noisily regress `v' i.hh_struc [aw=w_state] if round==`r' & inlist(hh_struc,1,2)
+// 		capture noisily regress `v' i.hh_struc [aw=wt] if round==`r' & inlist(hh_struc,1,2)
 		if _rc==0 {
 			test 2.hh_struc
 			post `post_preg' ("`v'") (`r') (r(p))
@@ -481,7 +487,7 @@ listtex ///
 	dispNuclear3 dispPatrilocal3 dispSig3 ///
 	dispNuclear4 dispPatrilocal4 dispSig4 ///
 	dispNuclear5 dispPatrilocal5 dispSig5 ///
-	using "tables/table 1 summary stats.tex", ///
+	using "tables/table 1 summary stats w_state.tex", ///
 	replace rstyle(tabular) ///
 	head( ///
 "\begin{tabular}{lccccccccc}" ///

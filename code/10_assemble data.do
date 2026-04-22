@@ -80,91 +80,154 @@ replace pil_present = . if v150 == 1
 *==============================================================*
 * 3. Attitudes Toward Wife Beating
 *==============================================================*
-
-egen beating_justified = anymatch(s514a-s514f), values(1)
-replace beating_justified = . if missing(s514a)
-
-egen beating_justified_nfhs345 = anymatch(v744a-v744e), values(1)
-replace beating_justified       = beating_justified_nfhs345 if inlist(round,3,4,5)
-replace beating_justified       = . if v044!=1 & inlist(round,3,4,5)
+//
+// egen beating_justified = anymatch(s514a-s514f), values(1)
+// replace beating_justified = . if missing(s514a)
+//
+// egen beating_justified_nfhs345 = anymatch(v744a-v744e), values(1)
+// replace beating_justified       = beating_justified_nfhs345 if inlist(round,3,4,5)
+// replace beating_justified       = . if v044!=1 & inlist(round,3,4,5)
 
 
 *==============================================================*
 * 4. Decision-Making Variables
 *==============================================================*
 
+
+/*
+
+NFHS-5 
+label define V743A   
+     1 "Respondent alone"
+     2 "Respondent and husband/partner"
+     3 "Respondent and other person"
+     4 "Husband/partner alone"
+     5 "Someone else"
+     6 "Other"
+	 
+	 
+NFHS-4
+label define V743A   
+     1 "Respondent alone"
+     2 "Respondent and husband/partner"
+     3 "Respondent and other person"
+     4 "Husband/partner alone"
+     5 "Someone else"
+     6 "Other"
+
+	 
+V743A Final say on own health care              
+	   1  Respondent alone
+	   2  Respondent and husband/partner
+	   3  Respondent and other person
+	   4  Husband/partner alone
+	   5  Someone else
+	   6  other
+	(m) 9  Missing
+	(na)    Not applicable
+	
+	
+*/
+
+
+
 * Own healthcare
-gen nosay_healthcare = 0
-
-* NFHS-2 (everyone asked; husband/others vs respondent/partner)
-replace nosay_healthcare = 1 if inlist(s511b,2,4) & round==2
-
-* NFHS-3–5 (husband alone, someone else, other vs respondent/partner)
+gen nosay_healthcare = .
 replace nosay_healthcare = 1 if inlist(v743a,4,5,6) & inlist(round,3,4,5)
+replace nosay_healthcare = 0 if inlist(v743a,1,2,3) & inlist(round,3,4,5)
 
-* Missing by state module (NFHS-4,5)
-replace nosay_healthcare = . if ssmod==0 & inlist(round,4,5)
-
-* NFHS-3 missing (only where v743a missing)
-replace nosay_healthcare = . if missing(v743a) & round==3
-
-* Own earnings
-gen nosay_ownearnings = .
-replace nosay_ownearnings = !inlist(v739,1,2,3) if !missing(v739)
-
-* Visits to natal family
 gen nosay_visits = .
-replace nosay_visits = !inlist(v743d,1,2,3) if !missing(v743d)
-replace nosay_visits = s512b!=1 if !missing(s512b) & round==2
+replace nosay_visits = 0 if inlist(v743d,1,2,3) & inlist(round,3,4,5)
+replace nosay_visits = 1 if inlist(v743d,4,5,6) & inlist(round,3,4,5)
 
 
-gen nosay_purchases = .
-replace nosay_purchases = !inlist(s511c,1,3,5) if round==2 & !missing(s511c)
-replace nosay_purchases = !inlist(v743b,1,2,3) if !missing(v743b) & inlist(round,3,4,5)
+
+
+
+* OLD CODE
+// * Own healthcare
+// gen nosay_healthcare = 0
+//
+// * NFHS-2 (everyone asked; husband/others vs respondent/partner)
+// replace nosay_healthcare = 1 if inlist(s511b,2,4) & round==2
+//
+// * NFHS-3–5 (husband alone, someone else, other vs respondent/partner)
+// replace nosay_healthcare = 1 if inlist(v743a,4,5,6) & inlist(round,3,4,5)
+//
+// * Missing by state module (NFHS-4,5)
+// replace nosay_healthcare = . if ssmod==0 & inlist(round,4,5)
+//
+// * NFHS-3 missing (only where v743a missing)
+// replace nosay_healthcare = . if missing(v743a) & round==3
+// replace nosay_healthcare = . if v743a==9
+//
+//
+// * Own earnings
+// gen nosay_ownearnings = .
+// replace nosay_ownearnings = !inlist(v739,1,2,3) if !missing(v739)
+//
+// * Visits to natal family
+// gen nosay_visits = .
+// replace nosay_visits = !inlist(v743d,1,2,3) if !missing(v743d)
+//
+// replace nosay_visits = 1 if inlist(v743d,4,5,6) if !missing(v743d) & inlist(round,3,4,5)
+//
+//
+// replace nosay_visits = s512b!=1 if !missing(s512b) & round==2
+//
+// replace nosay_visits = . if v743a==9
+//
+//
+//
+// gen nosay_purchases = .
+// replace nosay_purchases = !inlist(s511c,1,3,5) if round==2 & !missing(s511c)
+// replace nosay_purchases = !inlist(v743b,1,2,3) if !missing(v743b) & inlist(round,3,4,5)
+
+
 *==============================================================*
 * 6. Diet Variables (Meat/Egg/Fish/Dairy)
 *==============================================================*
-
-* Meat weekly
-gen meat_weekly = .
-replace meat_weekly = !inlist(s124g,3,4) if !missing(s124g) & round==2
-replace meat_weekly = inlist(s558g,1,2) if round==3 & !missing(s558g)
-replace meat_weekly = inlist(s726g,1,2) if round==4 & !missing(s726g)
-replace meat_weekly = inlist(s731g,1,2) if round==5 & !missing(s731g)
-
-* Meat daily
-gen meat_daily = .
-replace meat_daily = (s124g==1) if !missing(s124g) & round==2
-replace meat_daily = (s558g==1) if round==3 & !missing(s558g)
-replace meat_daily = (s726g==1) if round==4 & !missing(s726g)
-replace meat_daily = (s731g==1) if round==5 & !missing(s731g)
-
-* Eggs
-gen eggs = s731e if round==5
-replace eggs = s726e if round==4
-replace eggs = s558e if round==3
-replace eggs = s124f if round==2
-gen eggs_weekly = (eggs==1) if eggs!=.
-gen eggs_daily  = (eggs==1) if eggs!=.
-
-* Fish
-gen fish = s731f if round==5
-replace fish = s726f if round==4
-replace fish = s558f if round==3
-replace fish = !inlist(s124g,3,4) if !missing(s124g) & round==2
-gen fish_weekly = inlist(fish,1,2) if fish!=.
-gen fish_daily  = (fish==1) if fish!=.
-
-* Dairy
-gen dairy = s731a if round==5
-replace dairy = s726a if round==4
-replace dairy = s558a if round==3
-replace dairy = s124a if round==2
-gen dairy_daily = (dairy==1) if dairy!=.
-
-* Combined meat/egg/fish
-gen meat_egg_fish_weekly = (meat_weekly==1 | eggs_weekly==1 | fish_weekly==1)
-gen meat_egg_fish_daily  = (meat_daily==1  | eggs_daily==1  | fish_daily==1)
+//
+// * Meat weekly
+// gen meat_weekly = .
+// replace meat_weekly = !inlist(s124g,3,4) if !missing(s124g) & round==2
+// replace meat_weekly = inlist(s558g,1,2) if round==3 & !missing(s558g)
+// replace meat_weekly = inlist(s726g,1,2) if round==4 & !missing(s726g)
+// replace meat_weekly = inlist(s731g,1,2) if round==5 & !missing(s731g)
+//
+// * Meat daily
+// gen meat_daily = .
+// replace meat_daily = (s124g==1) if !missing(s124g) & round==2
+// replace meat_daily = (s558g==1) if round==3 & !missing(s558g)
+// replace meat_daily = (s726g==1) if round==4 & !missing(s726g)
+// replace meat_daily = (s731g==1) if round==5 & !missing(s731g)
+//
+// * Eggs
+// gen eggs = s731e if round==5
+// replace eggs = s726e if round==4
+// replace eggs = s558e if round==3
+// replace eggs = s124f if round==2
+// gen eggs_weekly = (eggs==1) if eggs!=.
+// gen eggs_daily  = (eggs==1) if eggs!=.
+//
+// * Fish
+// gen fish = s731f if round==5
+// replace fish = s726f if round==4
+// replace fish = s558f if round==3
+// replace fish = !inlist(s124g,3,4) if !missing(s124g) & round==2
+// gen fish_weekly = inlist(fish,1,2) if fish!=.
+// gen fish_daily  = (fish==1) if fish!=.
+//
+// * Dairy
+// gen dairy = s731a if round==5
+// replace dairy = s726a if round==4
+// replace dairy = s558a if round==3
+// replace dairy = s124a if round==2
+// gen dairy_daily = (dairy==1) if dairy!=.
+//
+// * Combined meat/egg/fish
+// gen meat_egg_fish_weekly = (meat_weekly==1 | eggs_weekly==1 | fish_weekly==1)
+// gen meat_egg_fish_daily  = (meat_daily==1  | eggs_daily==1  | fish_daily==1)
 
 
 *==============================================================*
@@ -235,27 +298,27 @@ gen c_section_312 = c_section if inrange(mo_since_birth,3,12)
 * 9. Domestic Violence: Physical and Sexual
 *==============================================================*
 
-* Physical DV
-local physvars d105a d105b d105c d105d d105e d105f d105j
-gen dv_phys = .
-foreach x of local physvars {
-    replace dv_phys = 1 if inlist(`x',1,2,3,4)
-    replace dv_phys = 0 if inlist(`x',0)
-}
-label variable dv_phys "Experienced physical domestic violence"
-
-* Sexual DV
-local sexvars d105h d105i d105k
-gen dv_sex = .
-foreach x of local sexvars {
-    replace dv_sex = 1 if inlist(`x',1,2,3,4)
-    replace dv_sex = 0 if inlist(`x',0)
-}
-label variable dv_sex "Experienced sexual domestic violence"
-
-* NFHS-2 special handling
-replace dv_phys = 0 if s515==0 & round==2
-replace dv_phys = 1 if s516i==1 & round==2
+// * Physical DV
+// local physvars d105a d105b d105c d105d d105e d105f d105j
+// gen dv_phys = .
+// foreach x of local physvars {
+//     replace dv_phys = 1 if inlist(`x',1,2,3,4)
+//     replace dv_phys = 0 if inlist(`x',0)
+// }
+// label variable dv_phys "Experienced physical domestic violence"
+//
+// * Sexual DV
+// local sexvars d105h d105i d105k
+// gen dv_sex = .
+// foreach x of local sexvars {
+//     replace dv_sex = 1 if inlist(`x',1,2,3,4)
+//     replace dv_sex = 0 if inlist(`x',0)
+// }
+// label variable dv_sex "Experienced sexual domestic violence"
+//
+// * NFHS-2 special handling
+// replace dv_phys = 0 if s515==0 & round==2
+// replace dv_phys = 1 if s516i==1 & round==2
 
 
 **************************** GESTATIONAL DURATION ******************************
@@ -301,20 +364,20 @@ gen not_pregnant = !pregnant
 *==============================================================*
 * 10. Anemia (Previous WHO Guidelines)
 *==============================================================*
-
-gen anemic = (v457!=4) if v457!=. & inlist(round,3,4,5)
-gen severe = (v457==1) if v457!=. & inlist(round,3,4,5)
-
-* NFHS-2: s902 (Hb × 10)
-replace s902 = s902/10
-
-* Any anemia
-replace anemic = (s902 < 12) if round == 2 & pregnant == 0 & s902 < .   // non-pregnant
-replace anemic = (s902 < 11) if round == 2 & pregnant == 1 & s902 < .   // pregnant
-
-* Severe anemia
-replace severe = (s902 < 8)  if round == 2 & pregnant == 0 & s902 < .   // non-pregnant
-replace severe = (s902 < 7)  if round == 2 & pregnant == 1 & s902 < .   // pregnant
+//
+// gen anemic = (v457!=4) if v457!=. & inlist(round,3,4,5)
+// gen severe = (v457==1) if v457!=. & inlist(round,3,4,5)
+//
+// * NFHS-2: s902 (Hb × 10)
+// replace s902 = s902/10
+//
+// * Any anemia
+// replace anemic = (s902 < 12) if round == 2 & pregnant == 0 & s902 < .   // non-pregnant
+// replace anemic = (s902 < 11) if round == 2 & pregnant == 1 & s902 < .   // pregnant
+//
+// * Severe anemia
+// replace severe = (s902 < 8)  if round == 2 & pregnant == 0 & s902 < .   // non-pregnant
+// replace severe = (s902 < 7)  if round == 2 & pregnant == 1 & s902 < .   // pregnant
 
 
 *==============================================================*
