@@ -394,7 +394,7 @@ replace rows = ""                                                      if order=
 * Healthcare
 replace rows = "\textbf{Healthcare measures (recently given birth sample)}" if order==5
 replace rows = "\hspace*{2em}Birth in a health facility"                    if order==6
-replace rows = "\hspace*{2em}4+ antenatal visits"                           if order==7
+replace rows = "\hspace*{2em}4+ prenatal visits"                           if order==7
 replace rows = ""                                                          if order==8
 
 * Wealth (pregnant)
@@ -481,7 +481,7 @@ listtex ///
 	dispNuclear3 dispPatrilocal3 dispSig3 ///
 	dispNuclear4 dispPatrilocal4 dispSig4 ///
 	dispNuclear5 dispPatrilocal5 dispSig5 ///
-	using "tables/table 1 summary stats updated.tex", ///
+	using "tables/table 1 summary stats.tex", ///
 	replace rstyle(tabular) ///
 	head( ///
 "\begin{tabular}{lccccccccc}" ///

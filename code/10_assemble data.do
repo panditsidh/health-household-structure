@@ -4,7 +4,7 @@ do "code/12_state district match.do"
 
 
 gen ever_married = v501!=0
-gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1)
+gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1) 
 
 
 /*

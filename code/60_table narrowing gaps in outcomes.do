@@ -97,7 +97,7 @@ use `results', clear
 replace outcome = "No say in own healthcare"            if outcome=="nosay_healthcare"
 replace outcome = "No say in visits to family/friends"  if outcome=="nosay_visits"
 replace outcome = "Gave birth in a health facility"     if outcome=="facility_birth"
-replace outcome = "Had 4+ antenatal visits"             if outcome=="anc_four"
+replace outcome = "Had 4+ prenatal visits"             if outcome=="anc_four"
 
 gen stars = ""
 replace stars = "***" if p < 0.01

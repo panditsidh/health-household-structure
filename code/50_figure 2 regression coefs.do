@@ -149,4 +149,4 @@ twoway ///
 
 	
 	
-graph export "figures/figure 1 regression coefficients.png", as(png) name("Graph") replace
+graph export "figures/figure 1 regression coefficients with and without controls.png", as(png) name("Graph") replace

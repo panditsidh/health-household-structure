@@ -140,7 +140,7 @@ gen share_within = 100 - share_hhstruc
 gen outcome_name = ""
 replace outcome_name = "No say in own healthcare"              if outcome=="nosay_healthcare"
 replace outcome_name = "No say in visits to family/friends"    if outcome=="nosay_visits"
-replace outcome_name = "Four or more antenatal visits"         if outcome=="anc_four"
+replace outcome_name = "Four or more prenatal visits"         if outcome=="anc_four"
 replace outcome_name = "Birth in a health facility"            if outcome=="facility_birth"
 
 * 3) Convert total change to percentage points (pp) and round to 2 decimals
@@ -164,7 +164,7 @@ order outcome_name disp_total disp_hh disp_with
 #delimit ;
 
 listtex outcome_name disp_total disp_hh disp_with ///
-    using "tables/table3_decomposition.tex", replace ///
+    using "tables/tableA3 outcomes decomposition.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{lccc}"
          "\toprule"
