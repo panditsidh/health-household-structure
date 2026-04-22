@@ -40,14 +40,14 @@ foreach y in nosay_healthcare nosay_visits {
 		
 		use `round`r'', clear
         * no controls
-        reghdfe `y' i.patrilocal [aw=w_state] if round==`r' & pregnant==1, cluster(psu) absorb(v024)
+        reghdfe `y' i.patrilocal [aw=w_state] if round==`r' & sample==2, cluster(psu) absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
 
         * wealth controls
         reghdfe `y' i.patrilocal i.wealth_group ///
-            [aw=w_state] if round==`r' & pregnant==1, cluster(psu)  absorb(v024)
+            [aw=w_state] if round==`r' & sample==2, cluster(psu)  absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
@@ -61,14 +61,14 @@ foreach y in facility_birth anc_four {
 		use `round`r'', clear
         * no controls
         reghdfe `y' i.patrilocal [aw=wt] ///
-            if round==`r' & postpartum==1, cluster(psu)  absorb(v024)
+            if round==`r' & sample==1, cluster(psu)  absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("no controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
 
         * wealth controls
         reghdfe `y' i.patrilocal i.wealth_group ///
-            [aw=wt] if round==`r' & postpartum==1, cluster(psu)  absorb(v024)
+            [aw=wt] if round==`r' & sample==1, cluster(psu)  absorb(v024)
         matrix M = r(table)
         post h ("`y'") (`r') ("wealth controls") ///
             (M["b","1.patrilocal"]) (M["ll","1.patrilocal"]) (M["ul","1.patrilocal"])
