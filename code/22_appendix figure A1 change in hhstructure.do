@@ -131,7 +131,7 @@ grc1leg g1 g3 g4, ///
     legendfrom(g1) ///
     name(hh_structure_threepanel, replace) fysize(75) fxsize(150)
 
-graph export "figures/apdx bar graph four panel.png", as(png) replace
+graph export "figures/apdx bar graph three panel.png", as(png) replace
 
 
 	

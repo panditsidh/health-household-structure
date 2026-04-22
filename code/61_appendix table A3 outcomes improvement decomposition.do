@@ -26,7 +26,6 @@ use $all_nfhs_ir, clear
 
 keep if ever_married==1
 
-keep if pregnant==1
 
 keep if inlist(hh_struc,1,2)
 
@@ -62,12 +61,12 @@ foreach outcome in nosay_healthcare nosay_visits anc_four facility_birth  {
 	
 	if "`outcome'"=="nosay_healthcare" | "`outcome'"=="nosay_visits" {
 		local outcome_wt w_state
-		keep if pregnant==1
+		keep if sample==2
 		
 	}
 	else {
 		local outcome_wt  wt
-		keep if inrange(months_ago_last_birth,3,12)
+		keep if sample=1
 	} 
 	
 	foreach h in 1 2 {
@@ -138,10 +137,10 @@ gen share_within = 100 - share_hhstruc
 
 * 2) Make outcome labels (nice names)
 gen outcome_name = ""
-replace outcome_name = "No say in own healthcare"              if outcome=="nosay_healthcare"
-replace outcome_name = "No say in visits to family/friends"    if outcome=="nosay_visits"
-replace outcome_name = "Four or more prenatal visits"         if outcome=="anc_four"
-replace outcome_name = "Birth in a health facility"            if outcome=="facility_birth"
+replace outcome_name = "No say in own healthcare$^1$"              if outcome=="nosay_healthcare"
+replace outcome_name = "No say in visits to family/friends$^1$"    if outcome=="nosay_visits"
+replace outcome_name = "Four or more prenatal visits$^2$"         if outcome=="anc_four"
+replace outcome_name = "Birth in a health facility$^2$"            if outcome=="facility_birth"
 
 * 3) Convert total change to percentage points (pp) and round to 2 decimals
 gen total_change_pp = 100*total_change

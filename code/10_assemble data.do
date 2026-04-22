@@ -275,6 +275,101 @@ gen secondary = v106==2
 gen higher = v106==3
 
 
+gen less_edu = inlist(v106,0,1)
+tab less_edu, m
+
+label define lessedulbl ///
+    0 "primary education or higher" ///
+    1 "less than primary education" 
+label values less_edu lessedulbl
+
+
+gen hasboy = v202 >0 & v202!=.
+replace hasboy = 1 if v204 >0 & v204!=.
+gen noboy = hasboy
+recode noboy (1=0) (0=1)
+tab hasboy noboy, m
+
+label define noboylbl ///
+    1 "does not have boy child" ///
+    0 "has at least one boy child" 
+label values noboy noboylbl
+
+*age
+gen agebin = .
+replace agebin = 1 if inrange(v012, 15, 19)     // Teens
+replace agebin = 2 if inrange(v012, 20, 24)     // Highest fertility
+replace agebin = 3 if inrange(v012, 25, 29)     // Lower fertility
+replace agebin = 4 if inrange(v012, 30, 49)     // Lowest fertility
+
+
+label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–49"
+label values agebin agebinlbl
+
+gen age1519 = agebin==1
+gen age2024 = agebin==2
+gen age2529 = agebin==3
+gen age3049 = agebin==4
+
+
+
+//birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
+//it is only defined for women that have had at least one live birth
+//v008 is the date of the interview and b3 is the date of birth of the child
+gen birth_space = (v008 - b3_01) + 9 if preg==0 & !missing(b3_01)
+replace birth_space = (v008 - b3_01) + (9-gestdur) if preg==1 & !missing(b3_01)
+
+gen bs = .
+replace bs = 1 if birth_space < 24
+replace bs = 2 if inrange(birth_space, 24, 36)
+replace bs = 3 if birth_space > 36
+
+gen bs_below2 = bs==1
+gen bs_2to3 = bs==2
+gen bs_above3 = bs==3
+gen bs_noprior = parity<2
+
+label define bslbl /// 
+	1 "under 2 years" ///
+	2 "2-3 years" ///
+	3 "over 3 years" 
+
+label values bs bslbl
+
+//now generate a variable that combines parity and birth spacing
+gen parity_bs = .
+replace parity_bs = 1 if parity==1
+
+local i = 2
+foreach p of numlist 2/4 {
+	
+	foreach b of numlist 1/3 {
+		
+		replace parity_bs = `i' if parity==`p' & bs==`b'		
+		local i = `i' + 1
+	}
+}
+
+
+
+forvalues i = 1/10 {
+    gen parity_bs`i' = parity_bs == `i'
+}
+
+label define parity_bs_lbl ///
+    1 "No births/1 birth, NA spacing" ///
+    2 "1 birth, below 2y spacing" ///
+    3 "1 birth, 2–3y spacing" ///
+    4 "1 birth, 3+y spacing" ///
+    5 "2 births, below 2y spacing" ///
+    6 "2 births, 2–3y spacing" ///
+    7 "2 births, 3+y spacing" ///
+    8 "3+ births, below 2y spacing" ///
+    9 "3+ births, 2–3y spacing" ///
+   10 "3+ births, 3+y spacing"
+label values parity_bs parity_bs_lbl
+
+
 
 *==============================================================*
 * 4. Sample Restrictions
