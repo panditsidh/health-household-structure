@@ -56,8 +56,7 @@ label define columnlbl ///
 	6 "Patrilocal NFHS-5"
 label values columns columnlbl
 
-keep if inrange(months_ago_last_birth, 3, 12)
-
+keep if sample==1
 
 *-------------------------------
 * 0) N by columns (unweighted)
@@ -164,9 +163,8 @@ use $all_nfhs_ir, clear
 
 keep if inlist(round,3,4,5)
 keep if inlist(hh_struc,1,2)
-keep if pregnant==1 & preg==1 & !missing(nosay_healthcare) & !missing(nosay_visits)
-// keep if pregnant==1 & preg==1
 keep if ever_married==1
+keep if sample==2
 
 
 

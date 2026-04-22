@@ -22,7 +22,7 @@ keep if inlist(hh_struc,1,2)
 keep if ever_married==1
 * months since most recent birth (you used b3_01)
 // gen months_ago_last_birth = v008 - b3_01
-keep if inrange(months_ago_last_birth, 3, 12)
+keep if sample==1
 
 svyset psu [pweight=wt], strata(strata) singleunit(centered)
 
@@ -131,6 +131,33 @@ local N2015 : display %7.0fc r(sum)
 quietly summarize N if nfhs_round==5, meanonly
 local N2020 : display %7.0fc r(sum)
 
+// #delimit ;
+// twoway 
+//     (rcap ci_low ci_high survey_year_nuclear if hh_type==1,
+//         lcolor(black) lwidth(medthick)
+//     )
+//     (scatter mean survey_year_nuclear if hh_type==1,
+//         msymbol(Oh) mcolor(black) mfcolor(white) msize(medium)
+//         mlabel(prop_label) mlabpos(9) mlabsize(vsmall) mlabcolor(black)
+//     )
+//     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
+//         lcolor(black) lwidth(medthick)
+//     )
+//     (scatter mean survey_year_sasural if hh_type==2,
+//         msymbol(square) mcolor(black) msize(medium)
+//         mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(vsmall) mlabcolor(black)
+//     )
+// 	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0) nogrid)
+//     ylabel(0(.2)1, labsize(medium) grid)
+//     yscale(range(0 1))
+//     xscale(range(2003 2023))
+//     ytitle("Last birth in a facility", size(medium))
+//     xtitle("Survey year", size(small))
+//     legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medium))
+//     graphregion(color(white))
+//     aspect(0.7);
+// #delimit cr
+
 #delimit ;
 twoway 
     (rcap ci_low ci_high survey_year_nuclear if hh_type==1,
@@ -138,24 +165,23 @@ twoway
     )
     (scatter mean survey_year_nuclear if hh_type==1,
         msymbol(Oh) mcolor(black) mfcolor(white) msize(medium)
-        mlabel(prop_label) mlabpos(9) mlabsize(vsmall) mlabcolor(black)
+        mlabel(prop_label) mlabpos(9) mlabsize(medium) mlabcolor(black)
     )
     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
         lcolor(black) lwidth(medthick)
     )
     (scatter mean survey_year_sasural if hh_type==2,
         msymbol(square) mcolor(black) msize(medium)
-        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(vsmall) mlabcolor(black)
+        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(medium) mlabcolor(black)
     )
-	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0) nogrid)
+	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(medium) angle(0) nogrid)
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))
     xscale(range(2003 2023))
-    ytitle("Last birth in a facility", size(medium))
-    xtitle("Survey year", size(small))
-    legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medium))
+    ytitle("Last birth in a facility", size(medlarge))
+    legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medlarge))
     graphregion(color(white))
-    aspect(0.7);
+    aspect(0.55);
 #delimit cr
 
 restore
@@ -174,6 +200,34 @@ local N2015 : display %7.0fc r(sum)
 
 quietly summarize N if nfhs_round==5, meanonly
 local N2020 : display %7.0fc r(sum)
+//
+// #delimit ;
+// twoway 
+//     (rcap ci_low ci_high survey_year_nuclear if hh_type==1,
+//         lcolor(black) lwidth(medthick)
+//     )
+//     (scatter mean survey_year_nuclear if hh_type==1,
+//         msymbol(Oh) mcolor(black) mfcolor(white) msize(medium)
+//         mlabel(prop_label) mlabpos(9) mlabsize(vsmall) mlabcolor(black)
+//     )
+//     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
+//         lcolor(black) lwidth(medthick)
+//     )
+//     (scatter mean survey_year_sasural if hh_type==2,
+//         msymbol(square) mcolor(black) msize(medium)
+//         mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(vsmall) mlabcolor(black)
+//     ),
+//     xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0) nogrid)
+//     ylabel(0(.2)1, labsize(medium) grid)
+//     yscale(range(0 1))
+//     xscale(range(2003 2023))
+//     ytitle("4+ ANC visits in last pregnancy", size(medium))
+//     xtitle("Survey year", size(small))
+//     legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medium))
+//     graphregion(color(white))
+//     aspect(0.7);
+// #delimit cr
+
 
 #delimit ;
 twoway 
@@ -182,24 +236,23 @@ twoway
     )
     (scatter mean survey_year_nuclear if hh_type==1,
         msymbol(Oh) mcolor(black) mfcolor(white) msize(medium)
-        mlabel(prop_label) mlabpos(9) mlabsize(vsmall) mlabcolor(black)
+        mlabel(prop_label) mlabpos(9) mlabsize(medium) mlabcolor(black)
     )
     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
         lcolor(black) lwidth(medthick)
     )
     (scatter mean survey_year_sasural if hh_type==2,
         msymbol(square) mcolor(black) msize(medium)
-        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(vsmall) mlabcolor(black)
+        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(medium) mlabcolor(black)
     ),
-    xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(small) angle(0) nogrid)
+    xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(medium) angle(0) nogrid)
     ylabel(0(.2)1, labsize(medium) grid)
     yscale(range(0 1))
     xscale(range(2003 2023))
-    ytitle("4+ ANC visits in last pregnancy", size(medium))
-    xtitle("Survey year", size(small))
-    legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medium))
+    ytitle("4+ ANC visits in last pregnancy", size(medlarge))
+    legend(order(2 "Nuclear" 4 "Patrilocal") row(1) pos(6) size(medlarge))
     graphregion(color(white))
-    aspect(0.7);
+    aspect(0.55);
 #delimit cr
 
 restore

@@ -2,7 +2,7 @@ use $all_nfhs_ir, clear
 
 keep if inlist(hh_struc,1,2)
 keep if inlist(round,3,5)
-// keep if pregnant==1 
+
 keep if pregnant==1 & !missing(nosay_healthcare) & !missing(nosay_visits)
 
 *******************************************************
