@@ -1,7 +1,6 @@
 /*
 
-This do file takes awhile to run
-First it stacks  nfhs 1-5 household member recode
+First it stacks  nfhs 3-5 household member recode
 and uses that to figure out what household structure each household is
 (based on who is there and who isn't)
 then it merges this household level information to the stacked woman's individual file
@@ -9,6 +8,7 @@ then it merges this household level information to the stacked woman's individua
 */
 
 
+* stack hmr
 clear 
 
 foreach file in nfhs3hmr nfhs4hmr nfhs5hmr {
@@ -22,6 +22,7 @@ append using "${nfhs4hmr}"
 append using "${nfhs5hmr}"
 
 
+* 1) tag each member's relation to household head
 
 * someone who is not child or spouse of the hh head
 gen non_nuclear_member = !inlist(hv101,1,2,3,11)
@@ -45,10 +46,12 @@ gen sib = hv101==8  & hv105>=18
 * other adult relative
 gen other = hv101==10 & hv105>=18
 
-
 gen nieceneph_adult = inlist(hv101,13,14,16) & hv105>=18
 
 tab hv101, gen(rel)
+
+
+* 2) collapse who is there relative to hh head at the household level
 
 foreach var in non_nuclear_member mother father parent mil fil pil sibil sib other {
 	bysort hv000 hhid: egen has_`var' = max(`var')
@@ -63,7 +66,6 @@ foreach v of varlist rel* {
 rename hv000 v000
 rename hv001 v001 
 rename hv002 v002
-
 
 
 preserve
@@ -85,7 +87,7 @@ save `hr_combined'
 
 
 
-
+* 3) merge this with the individual recode
 
 
 * NFHS-3
@@ -116,13 +118,14 @@ merge m:1 v000 v001 v002 using `hr_combined', generate(hh_merge)
 merge m:1 v000 v001 v002 v034 using `husbands', generate(husband_merge)
 drop if husband_merge==2
 
-***************** start from here ***********************
-*********************************************************
-// gen ever_married = v501!=0
-
 
 * 281k households didn't match to a woman in the IR
 drop if hh_merge==2
+
+
+
+
+* 4) code household structure
 
 
 gen nuclear = 0
@@ -218,3 +221,15 @@ gen round = 3 if v000=="IA5"
 replace round = 4 if v000=="IA6"
 replace round = 5 if v000=="IA7"
 
+
+
+
+
+label define roundlbl ///
+1 "1995-96" ///
+2 "1998-99" ///
+3 "2005-2006" ///
+4 "2015-2016" ///
+5 "2019-2021"
+
+label values round roundlbl
