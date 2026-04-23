@@ -39,7 +39,7 @@ tempfile overall_sig
 postfile `post_overall' str150 row_fmt double p using `overall_sig', replace
 
 // capture noisily regress patrilocal ib3.round [aw=wt]
-capture noisily regress patrilocal ib3.round [aw=w_state]
+capture noisily regress patrilocal ib3.round [aw=wt]
 if _rc==0 {
 	test 5.round
 	post `post_overall' ("\textbf{All currently pregnant women}") (r(p))
@@ -81,7 +81,7 @@ foreach overvar in group region v013 parity {
 	foreach lvl of local levels {
 
 // 		capture noisily regress patrilocal ib3.round [aw=wt] if `overvar'==`lvl'
-		capture noisily regress patrilocal ib3.round [aw=w_state] if `overvar'==`lvl'
+		capture noisily regress patrilocal ib3.round [aw=wt] if `overvar'==`lvl'
 		
 		if _rc==0 {
 			test 5.round
