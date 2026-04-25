@@ -1,7 +1,3 @@
-
-
-
-
 if "`c(username)'" == "sidhpandit" {
 	
 	global nfhs1hmr "/Users/sidhpandit/Desktop/data/nfhs/nfhs1hmr/IAPR23FL.DTA"
@@ -32,7 +28,21 @@ if "`c(username)'" == "sidhpandit" {
 	
 }
 
+if "`c(username)'" == "dc42724" {
 
+	global nfhs3hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\all india household recode\IAHR52FL.dta"
+	global nfhs3hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\hhmr\IAPR52FL.dta"
+	global nfhs3ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\ir\IAIR52FL.dta"
+	
+	global nfhs4hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\hr\IAHR71FL.DTA"
+	global nfhs4hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\hhmr\IAPR71FL.DTA"
+	global nfhs4ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\ir\IAIR71FL.DTA"	
+	
+	global nfhs5ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAIR7DDT\IAIR7DFL.DTA"
+	global nfhs5hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAHR7DDT\IAHR7DFL.DTA"
+	global nfhs5hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAPR7DDT\IAPR7DFL.DTA"
+	global nfhs5br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IABR7EDT\IABR7EFL.DTA"
+}
 
 
 

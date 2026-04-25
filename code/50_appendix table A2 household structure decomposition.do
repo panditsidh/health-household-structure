@@ -21,6 +21,9 @@ set more off
 
 use $all_nfhs_ir, clear
 
+keep if ever_married==1
+keep if inlist(hh_struc,1,2)
+
 drop parity*
 
 * true parity (number of children before current pregnancy)
@@ -59,7 +62,6 @@ keep if inlist(round,3,5)
 keep if inlist(hh_struc,1,2)
 
 *-----------------------------*
-
 
 
 *
@@ -183,6 +185,13 @@ replace roworder = 4 if group=="Parity 4+"
 replace roworder = 5 if group=="Total"
 sort roworder
 
+
+replace group = "Parity 0" if group=="Parity 1"
+replace group = "Parity 1" if group=="Parity 2"
+replace group = "Parity 2" if group=="Parity 3"
+replace group = "Parity 3+" if group=="Parity 4+"
+
+
 * keep export vars
 keep group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct roworder
 order group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct
@@ -195,20 +204,17 @@ list group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp
 *******************************************************
 
 #delimit ;
-
 listtex ///
     group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct ///
-    using "tables/appendix table_decomp_patrilocal_parity.tex", replace ///
+    using "tables/table A1 household structure decomposition.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{lcccccc}"
          "\toprule"
-         "Parity group & \makecell{Share\\NFHS-3 (\%)} & \makecell{Share\\NFHS-5 (\%)} & \makecell{Patrilocal\\rate NFHS-3 (\%)} & \makecell{Patrilocal\\rate NFHS-5 (\%)} & \makecell{Explained\\share of total\\change (\%)} & \makecell{Unexplained\\share of total\\change (\%)} \\"
+         "Parity group & \makecell{Share at parity\\2005--2006 (\%)} & \makecell{Share at parity\\2019--2021 (\%)} & \makecell{Share in patrilocal\\extended households\\2005--2006 (\%)} & \makecell{Share in patrilocal\\extended households\\2019--2021 (\%)} & \makecell{Share of total \\ change explained \\ by parity (\%)} & \makecell{Share of total \\ change unexplained \\ by parity (\%)} \\"
          "\midrule") ///
     foot("\bottomrule"
          "\end{tabular}");
-
-#delimit cr
-
+#delimit cr	 
 *******************************************************
 * Display summary numbers for text
 *******************************************************

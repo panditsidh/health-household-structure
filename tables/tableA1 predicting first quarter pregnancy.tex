@@ -1,0 +1,74 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\toprule
+                    &\multicolumn{3}{c}{Reports 1 or 2 months of pregnancy}           \\\cmidrule(lr){2-4}
+                    &\multicolumn{1}{c}{2005--2006}&\multicolumn{1}{c}{2015--2016}&\multicolumn{1}{c}{2019--2021}\\
+\midrule
+\hspace*{1em}Less than primary education&       0.007         &       0.008         &       0.015\sym{**} \\
+                    &    (0.0098)         &    (0.0045)         &    (0.0051)         \\
+\addlinespace
+rural=1             &      -0.004         &       0.005         &       0.004         \\
+                    &    (0.0098)         &    (0.0052)         &    (0.0056)         \\
+\addlinespace
+\hspace*{1em}Does not have boy child&      -0.034\sym{***}&      -0.013\sym{**} &      -0.016\sym{**} \\
+                    &    (0.0100)         &    (0.0048)         &    (0.0053)         \\
+\addlinespace
+\textbf{Age categories} \\ (15–19 omitted)&                     &                     &                     \\
+\addlinespace
+\hspace*{1em}20–24               &      -0.011         &      -0.013         &      -0.007         \\
+                    &    (0.0129)         &    (0.0071)         &    (0.0075)         \\
+\addlinespace
+\hspace*{1em}25–29               &      -0.032\sym{*}  &      -0.025\sym{**} &      -0.019\sym{*}  \\
+                    &    (0.0142)         &    (0.0077)         &    (0.0081)         \\
+\addlinespace
+\hspace*{1em}30–49               &      -0.051\sym{**} &      -0.039\sym{***}&      -0.030\sym{***}\\
+                    &    (0.0163)         &    (0.0087)         &    (0.0091)         \\
+\addlinespace
+\textbf{Parity \& time since last live birth categories} \\ (No prior births omitted)&                     &                     &                     \\
+\addlinespace
+\hspace*{1em}1 birth, below 2y spacing&      -0.123\sym{***}&      -0.134\sym{***}&      -0.140\sym{***}\\
+                    &    (0.0087)         &    (0.0037)         &    (0.0039)         \\
+\addlinespace
+\hspace*{1em}1 birth, 2–3y spacing&      -0.118\sym{***}&      -0.132\sym{***}&      -0.138\sym{***}\\
+                    &    (0.0089)         &    (0.0038)         &    (0.0039)         \\
+\addlinespace
+\hspace*{1em}1 birth, above 3y spacing&       0.097\sym{***}&       0.137\sym{***}&       0.091\sym{***}\\
+                    &    (0.0225)         &    (0.0096)         &    (0.0092)         \\
+\addlinespace
+\hspace*{1em}2 births, below 2y spacing&      -0.121\sym{***}&      -0.131\sym{***}&      -0.139\sym{***}\\
+                    &    (0.0099)         &    (0.0041)         &    (0.0044)         \\
+\addlinespace
+\hspace*{1em}2 births, 2–3y spacing&      -0.115\sym{***}&      -0.128\sym{***}&      -0.137\sym{***}\\
+                    &    (0.0099)         &    (0.0044)         &    (0.0046)         \\
+\addlinespace
+\hspace*{1em}2 births, above 3y spacing&       0.094\sym{**} &       0.148\sym{***}&       0.117\sym{***}\\
+                    &    (0.0291)         &    (0.0139)         &    (0.0155)         \\
+\addlinespace
+\hspace*{1em}3+ births, below 2y spacing&      -0.107\sym{***}&      -0.125\sym{***}&      -0.136\sym{***}\\
+                    &    (0.0115)         &    (0.0050)         &    (0.0056)         \\
+\addlinespace
+\hspace*{1em}3+ births, 2–3y spacing&      -0.106\sym{***}&      -0.122\sym{***}&      -0.134\sym{***}\\
+                    &    (0.0117)         &    (0.0055)         &    (0.0057)         \\
+\addlinespace
+\hspace*{1em}3+ births, above 3y spacing&       0.008         &       0.027\sym{***}&       0.006         \\
+                    &    (0.0111)         &    (0.0053)         &    (0.0055)         \\
+\addlinespace
+\textbf{Wealth quartiles} \\ (1st quartile omitted)&                     &                     &                     \\
+\addlinespace
+4 quantiles of v191=2&       0.013         &       0.002         &       0.025\sym{*}  \\
+                    &    (0.0130)         &    (0.0071)         &    (0.0113)         \\
+\addlinespace
+4 quantiles of v191=3&       0.022         &       0.007         &       0.012         \\
+                    &    (0.0152)         &    (0.0077)         &    (0.0101)         \\
+\addlinespace
+4 quantiles of v191=4&       0.045\sym{*}  &       0.027\sym{**} &       0.012\sym{*}  \\
+                    &    (0.0219)         &    (0.0102)         &    (0.0049)         \\
+\addlinespace
+\hspace*{1em}Constant            &       0.135\sym{***}&       0.145\sym{***}&       0.145\sym{***}\\
+                    &    (0.0223)         &    (0.0117)         &    (0.0103)         \\
+\midrule
+\textbf{N}          &       5,728         &      31,981         &      28,062         \\
+\bottomrule
+\end{tabular}
+}
