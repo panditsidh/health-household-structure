@@ -2,6 +2,9 @@
 ****************************************************************** OLD CODE BEFORE THE W_STATE STUFF ****************************************************************************************
 
 
+do "code/31_sigstars for table 1.do"
+
+
 use $all_nfhs_ir, clear
 
 keep if inlist(hh_struc, 1, 2)
@@ -162,7 +165,7 @@ input str150 row_fmt
 "\hspace*{2em}3+"
 ""
 "\textbf{All women 3--12 months postpartum}" 
-"\textbf{N}" end
+"\textbf{N (currently pregnant women)}"  end
 
 keep row_fmt patrilocal*
 order row_fmt
@@ -180,10 +183,10 @@ foreach r in 3 4 5 {
 * 2) Fill numeric rows with formatted values (2 decimals)
 foreach r in 3 4 5 {
     replace disp`r' = string(patrilocal`r', "%4.2f") ///
-        if row_fmt != "" & row_fmt!="\textbf{N}"
+        if row_fmt != "" & row_fmt!="\textbf{N (currently pregnant women)}"
 		
 	replace disp`r' = string(patrilocal`r', "%6.0fc") ///
-        if row_fmt=="\textbf{N}"
+        if row_fmt=="\textbf{N (currently pregnant women)}"
 }
 
 * 3) Blank out section headers + spacer rows
@@ -193,7 +196,7 @@ foreach r in 3 4 5 {
         if strpos(row_fmt, "\textbf{") ///
         & row_fmt != "\textbf{All currently pregnant women}" ///
         & row_fmt != "\textbf{All women 3--12 months postpartum}" ///
-		& row_fmt != "\textbf{N}"
+		& row_fmt != "\textbf{N (currently pregnant women)}"
 }
 
 * 4) Also blank explicit spacer rows (row_fmt == "")

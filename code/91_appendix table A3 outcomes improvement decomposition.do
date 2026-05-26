@@ -66,7 +66,7 @@ foreach outcome in nosay_healthcare nosay_visits anc_four facility_birth  {
 	}
 	else {
 		local outcome_wt  wt
-		keep if sample=1
+		keep if sample==1
 	} 
 	
 	foreach h in 1 2 {

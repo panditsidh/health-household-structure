@@ -384,7 +384,7 @@ sort order
 gen str150 rows = ""
 
 * Autonomy
-replace rows = "\textbf{Autonomy measures (currently pregnant sample)}" if order==1
+replace rows = "\textbf{Autonomy measures (pregnant and were asked decision-making questions)}" if order==1
 replace rows = "\hspace*{2em}No say in own healthcare"                  if order==2
 replace rows = "\hspace*{2em}No say in visits to family/friends"        if order==3
 replace rows = ""                                                      if order==4
@@ -396,7 +396,7 @@ replace rows = "\hspace*{2em}4+ prenatal visits"                           if or
 replace rows = ""                                                          if order==8
 
 * Wealth (pregnant)
-replace rows = "\textbf{Wealth measures (currently pregnant sample)}" if order==9
+replace rows = "\textbf{Wealth measures (pregnant and were asked decision-making questions)}" if order==9
 replace rows = "\hspace*{2em}Finished floor"                          if order==10
 replace rows = "\hspace*{2em}Electricity"                             if order==11
 replace rows = "\hspace*{2em}Owns radio"                              if order==12
@@ -422,7 +422,7 @@ replace rows = "\hspace*{2em}Owns land"                                if order=
 replace rows = ""                                                      if order==30
 
 * N rows at bottom with spacing
-replace rows = "\textbf{N (currently pregnant sample)}"            if order==31
+replace rows = "\textbf{N (pregnant and were asked decision-making questions)}"            if order==31
 replace rows = ""                                                 if order==32
 replace rows = "\textbf{N (recently given birth sample)}"          if order==33
 replace rows = ""                                                 if order==34
@@ -443,19 +443,19 @@ foreach r in 3 4 5 {
 
 	* N rows: integers with commas
 	replace dispNuclear`r' = string(round(Nuclear`r'), "%9.0fc") ///
-		if inlist(rows, "\textbf{N (currently pregnant sample)}", "\textbf{N (recently given birth sample)}")
+		if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
 	replace dispPatrilocal`r' = string(round(Patrilocal`r'), "%9.0fc") ///
-		if inlist(rows, "\textbf{N (currently pregnant sample)}", "\textbf{N (recently given birth sample)}")
+		if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
 
 	* Other rows: proportions
 	replace dispNuclear`r' = string(Nuclear`r', "%4.2f") ///
-		if !missing(rows) & !inlist(rows, "\textbf{N (currently pregnant sample)}", "\textbf{N (recently given birth sample)}")
+		if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
 	replace dispPatrilocal`r' = string(Patrilocal`r', "%4.2f") ///
-		if !missing(rows) & !inlist(rows, "\textbf{N (currently pregnant sample)}", "\textbf{N (recently given birth sample)}")
+		if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
 
 	* Significance stars
-	replace dispSig`r' = sig`r' if !missing(rows) & !inlist(rows, "\textbf{N (currently pregnant sample)}", "\textbf{N (recently given birth sample)}")
-	replace dispSig`r' = "" if inlist(rows, "\textbf{N (currently pregnant sample)}", "\textbf{N (recently given birth sample)}")
+	replace dispSig`r' = sig`r' if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+	replace dispSig`r' = "" if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
 }
 
 * Blank out headers / spacer rows
@@ -463,7 +463,7 @@ foreach var in dispNuclear3 dispPatrilocal3 dispSig3 ///
 			   dispNuclear4 dispPatrilocal4 dispSig4 ///
 			   dispNuclear5 dispPatrilocal5 dispSig5 {
 	replace `var' = "" if strpos(rows, "\textbf{")!=0 & ///
-		!inlist(rows, "\textbf{N (currently pregnant sample)}", "\textbf{N (recently given birth sample)}")
+		!inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
 	replace `var' = "" if rows==""
 }
 

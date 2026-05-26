@@ -157,14 +157,14 @@ replace group = 3 if round==3 & inlist(v130,1,4) & s46 == 3
 replace group = 4 if round==3 & v130 == 1 & inlist(s46,4,8)
 
 
-* Labels
 label define grouplbl ///
-    1 "Forward Caste" ///
-    2 "OBC" ///
-    3 "Dalit" ///
-    4 "Adivasi" ///
+    1 "Adivasi" ///
+    2 "Dalit" ///
+    3 "OBC" ///
+    4 "Forward Caste" ///
     5 "Muslim" ///
-    6 "Sikh, Jain, Christian"
+    6 "Sikh, Jain, Christian", replace
+label values group grouplbl
 
 label values group grouplbl
 

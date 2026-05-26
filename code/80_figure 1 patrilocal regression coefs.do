@@ -133,7 +133,7 @@ twoway ///
         legend(pos(6)) ///
         yrescale ///
         xrescale ///
-        imargin(small)) ///
+        imargin(medlarge)) ///
     legend(order(2 "No controls" 4 "Wealth controls") ///
            rows(1) ring(0) pos(6) bplacement(south) ///
            region(lstyle(none))) ///
