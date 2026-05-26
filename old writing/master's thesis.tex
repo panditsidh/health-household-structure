@@ -55,8 +55,34 @@
 \titleformat{\subsubsection}
   {\normalfont\itshape\fontsize{12}{14}\selectfont}  % Italic 12pt
   {}{0pt}{}  % No numbering
+
+  \makeatletter
+\renewenvironment{titlepage}
+  {%
+    \if@twocolumn
+      \@restonecoltrue\onecolumn
+    \else
+      \@restonecolfalse\newpage
+    \fi
+    \thispagestyle{plain}%
+  }%
+  {%
+    \if@restonecol\twocolumn \else \newpage \fi
+  }
+\makeatother
+
+\makeatletter
+\renewcommand\section{\@startsection
+{section}{1}{\z@}
+{-3.5ex \@plus -1ex \@minus -.2ex}
+{2.3ex \@plus.2ex}
+{\centering\normalfont\Large\bfseries}}
+\makeatother
+\renewcommand{\thesection}{}
   
 \begin{document}
+\pagenumbering{arabic}
+
 
 \begin{titlepage}
     \thispagestyle{plain}
@@ -70,6 +96,7 @@
     
     \vspace*{\fill}
 \end{titlepage}
+
 
 \begin{titlepage}
     \thispagestyle{plain}
@@ -92,6 +119,7 @@
     
     \vfill
 \end{titlepage}
+
 
 \begin{titlepage}
     \thispagestyle{plain}
@@ -124,7 +152,8 @@
 \end{titlepage}
 
 
-\chapter *{ACKNOWLEDGMENT}
+\section*{Acknowledgment}
+
 \thispagestyle{plain}
 
 \noindent
@@ -133,9 +162,7 @@ I am deeply grateful to my advisor Professor Diane Coffey, for her constant guid
 \clearpage
 \thispagestyle{plain}
 
-\begin{center}
-\textbf{ABSTRACT}
-\end{center}
+\section*{Abstract}
 
 \vspace{2em}
 
@@ -155,14 +182,17 @@ This paper examines how household structure shapes pregnant women's autonomy and
 \clearpage
 
 \clearpage
+\renewcommand{\contentsname}{Contents}
 \tableofcontents
 \clearpage
 
 
 
 
-\section{Introduction}
 
+
+
+\section{Introduction}
 
 Family relationships play a central role in shaping health and well being. Demographers have investigated the relationships between family structure and relationships among household members, on the one hand, and access to resources, social support, and health outcomes, on the other \citep{lindemann2019family, waite2000family, umberson2010social}. For example, marriage has been found to benefit physical health, psychological well being, and even survival in many contexts \citep{ross1990impact, begashaw2016health, lewis2004conceptualization, soulsby2015marriage, robles2014marital}. Further, research have found that marital quality impacts maternal health through the mechanisms of timely and adequate prenatal care, improved emotional well being during and after pregnancy, and reducing high risk behavior like drinking and smoking during pregnancy (\cite{alipour2019relationship,rosand2011partner}).
 
