@@ -1,5 +1,6 @@
 use $all_nfhs_ir, clear
 
+
 cap label drop roundlbl
 label define roundlbl ///
     3 "2005-2006" ///
@@ -83,7 +84,7 @@ graph bar (mean) nuclear patrilocal if allendorf_sample==1 [aw=wt],
 * Panel 3: Non-pregnant women
 *******************************************************
 #delimit ;
-graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if pregnant==0 [aw=wt],
+graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=1 [aw=wt],
     over(round, label(labsize(small)))
     stack
     bar(1, color(`blue')      lcolor(none))
