@@ -55,6 +55,35 @@
 \titleformat{\subsubsection}
   {\normalfont\itshape\fontsize{12}{14}\selectfont}  % Italic 12pt
   {}{0pt}{}  % No numbering
+
+% Compact abstract environment, local to abstract only
+\newenvironment{compactabstract}{
+  \begingroup
+  \small
+  \setlength{\parskip}{0.35em}
+  \setlength{\parindent}{0pt}
+
+  \titlespacing*{\subsubsection}{0pt}{0.45em}{0.05em}
+  \titleformat{\subsubsection}
+    {\normalfont\bfseries\fontsize{10.5}{12}\selectfont}
+    {}{0pt}{}
+
+  \vspace{-0.5em}
+}{
+  \endgroup
+}
+
+
+\makeatletter
+\renewcommand{\maketitle}{
+  \begin{center}
+    {\Large\bfseries \@title \par}
+    \vspace{0.7cm}
+    {\normalsize \@date \par}
+  \end{center}
+  \vspace{-1em}
+}
+\makeatother
   
 \begin{document}
 
@@ -62,18 +91,43 @@
 \author{}
 \date{\today}
 \maketitle
+
+\vspace{-1.5em}
+
+\begin{compactabstract}
+
+\section*{Abstract}
+
+\subsubsection*{BACKGROUND}
+Household structure impacts the health and well being during pregnancy. Prior research on young women in India documents a shift away from patrilocal extended family residence and toward nuclear households, and suggests trade-offs between autonomy and access to resources in extended vs. nuclear households.
+
+\subsubsection*{OBJECTIVE}
+This paper studies whether pregnant women's decision making power and maternal healthcare use differ by household type, and how these relationships have changed over time.
+
+\subsubsection*{METHOD}
+Using data from the National Family Health Surveys (NFHS 3, 2005--2006; NFHS 4, 2015--2016; NFHS 5, 2019--2021), we analyze nationally representative samples of pregnant and recently postpartum women. We use linear probability models to compare decision making and maternal healthcare use among pregnant women from nuclear and patrilocal extended households, with and without controls for household wealth. We also assess changes in these relationships over time.
+
+\subsubsection*{RESULTS}
+We document a reversal of nuclearization; across the three survey rounds, an increasing proportion of pregnant women in India resides in patrilocal extended households. Across survey rounds, pregnant women in nuclear households have greater decision making power but lower maternal healthcare use than those in patrilocal extended households. Patrilocal extended households have significantly more assets, and differences in asset wealth explain a significant portion of the healthcare advantage. The autonomy gap, however, is not explained by differences in household wealth, and has decreased significantly over time: by 2020 the proportion of pregnant women in patrilocal extended households who reported having no say in their health care, relative to pregnant women in nuclear households, had narrowed to around 6 percentage points, down from 20 percentage points in 2005.
+
+\subsubsection*{CONCLUSION}
+Lower decision making power does not necessarily translate into lower maternal healthcare use. Autonomy and healthcare use operate through distinct mechanisms, with household resources playing a key role in enabling healthcare use.
+
+\subsubsection*{CONTRIBUTION}
+This paper provides new evidence on recent changes in household structure among pregnant women in India and suggests that improvements in maternal healthcare use may be driven more by economic resources than by gains in women's autonomy.
+
+\end{compactabstract}
 \section{Introduction}
 
+Family relationships play a central role in shaping health and well being. Demographers have investigated the relationships between family structure and relationships among household members, on the one hand, and access to resources, social support, and health outcomes, on the other \citep{lindemann2019family, waite2000family, umberson2010social}. For example, marriage has been found to benefit physical health, psychological well being, and even survival in many contexts \citep{ross1990impact, begashaw2016health, lewis2004conceptualization, soulsby2015marriage, robles2014marital}. Further, research finds that marital quality impacts maternal health through the mechanisms of timely and adequate prenatal care, improved emotional well being during and after pregnancy, and reducing high risk behavior like drinking and smoking during pregnancy (\cite{alipour2019relationship,rosand2011partner}).
 
-Family relationships play a central role in shaping health and well being. Demographers have investigated the relationships between family structure and relationships among household members, on the one hand, and access to resources, social support, and health outcomes, on the other \citep{lindemann2019family, waite2000family, umberson2010social}. For example, marriage has been found to benefit physical health, psychological well being, and even survival in many contexts \citep{ross1990impact, begashaw2016health, lewis2004conceptualization, soulsby2015marriage, robles2014marital}. Further, research have found that marital quality impacts maternal health through the mechanisms of timely and adequate prenatal care, improved emotional well being during and after pregnancy, and reducing high risk behavior like drinking and smoking during pregnancy (\cite{alipour2019relationship,rosand2011partner}).
+India, home to one in six of the world’s births, provides an important context to examine how household structure impacts maternal health.  Although pregnancy occurs almost exclusively within the context of marriage \citep{banerji2021does}, there is substantial variation in the household structures in which pregnant women reside. Women may live in nuclear households, consisting of only the couple and their children, or they may live in patrilocal extended family households, also called ``joint households.''  Joint households are those in which a woman resides with her husband’s parents, siblings, and other relatives.  Patrilocal extended residence has historically been the normative family structure in India, with land ownership, the responsibility to provide old-age support, and ritual practices organized along male lines \cite{jayachandran2015roots}.  However, a large and modestly increasing fraction of households in India were nuclear -- consisting of a husband, wife, and children -- during the period from 1983 to 2009 \citep{breton2021modernisation}.  A minority of women live in their natal homes, that is, with their own parents, siblings, or relatives.  Their husbands may or may not reside with them.
 
-India, home to one in six of the world’s births, provides an important context to examine how household structure impacts maternal health.  Although pregnancy occurs almost exclusively within the context of marriage (\citep{banerji2021does}, there is substantial variation in the household structures in which pregnant women reside. Women may live in nuclear households, consisting of only the couple and their children, or they may live in patrilocal extended family households, also called ``joint households.''  Joint households are those in which a woman resides with her husband’s parents, siblings, and other relatives.  Patrilocal extended residence has historically been the normative family structure in India, with land ownership, the responsibility to provide old-age support, and ritual practices organized along male lines \cite{jayachandran2015roots}.  However, a large and modestly increasing fraction of households in India were nuclear -- consisting of a husband, wife, and children -- during the period from 1983 to 2009 \citep{breton2021modernisation}.  A minority of women live in their natal homes, that is, with their own parents, siblings, or relatives.  Their husbands may or may not reside with them.
+These family structures shape the social context in which women live, as well as their social status. Newly married women in patrilocal extended households often occupy the lowest position in both gender and generational hierarchies. Because patrilineal societies are organized along the blood lines of men, daughters-in-law in patrilocal extended households are valued for childbearing and labor, but are ultimately replaceable by other women. Ethnographic and sociological work documents that young daughters-in-law are expected to demonstrate deference to senior family members, take on a disproportionate share of domestic labor, and face restrictions on mobility and decision-making \citep{mandelbaum1988women, jeffery1989labour}. These hierarchies are reinforced in India by limited property rights, low female labor force participation, and inheritance systems that privilege senior male members \cite{jayachandran2015roots}. 
 
-These family structures shape the social context in which women live, as well as their social status. Newly married women in patrilocal households often occupy the lowest position in both gender and generational hierarchies. Because patrilineal societies are organized along the blood lines of men, daughters-in-law in patrilocal extended households are valued for childbearing and labor, but are ultimately replaceable by other women. Ethnographic and sociological work documents that young daughters-in-law are expected to demonstrate deference to senior family members, take on a disproportionate share of domestic labor, and face restrictions on mobility and decision-making \citep{mandelbaum1988women, jeffery1989labour}. These hierarchies are reinforced in India by limited property rights, low female labor force participation, and inheritance systems that privilege senior male members \cite{jayachandran2015roots}. 
+The impact on maternal health of a woman's position as daughter-in-law in an extended-family household can occur through many pathways. Other family members may control spending and not invest adequately in maternal health. Daughters-in-law may have limited ability to take rest or travel for healthcare due to their burden of housework. Daughters-in-law may not get enough to eat when they are pregnant. Mothers facing discrimination and stress may develop mental health problems that affect maternal health. \cite{coffey2022mothers} finds that lower women’s status in patrilocal extended households can be linked to lower survival rates and worse health outcomes for children, likely due to worse nutrition among low-status mothers.
 
-The impact on maternal health of a woman's position as daughter-in-law in an extended-family household can occur through many pathways. Other family members may control spending and not invest adequately in maternal health. Daughters-in-law may have limited ability to take rest or travel for healthcare due to their burden of housework. Daughters-in-law may not get enough to eat when they are pregnant. Mothers facing discrimination and stress in households may develop mental health disorders that affect maternal health. \cite{coffey2022mothers} finds that lower women’s status in patrilocal extended households can be linked to lower survival rates and worse health outcomes for children, likely due to worse nutrition among low-status mothers.
-
-In contrast, in nuclear households married women are less likely to face the same pressures from their in-laws. \cite{desai2008negotiated} finds that many women in India live separately from their migrant husbands, and that a husband's migration increases a woman's autonomy if they live in a nuclear household. That is, if their husband migrates and they live in a patrilocal extended household, the shift of power due to the absence of their husband goes mostly towards their in-laws. Similarly, \cite{mookerjee2019gender} finds that exogenous shifts from patrilocal extended to nuclear households increase women’s mobility and participation in decision-making by reducing the control exerted by extended family members.
+In contrast, in nuclear households married women are less likely to face the same pressures from their in-laws. \cite{desai2008negotiated} find that many women in India live separately from their migrant husbands, and that a husband's migration increases a woman's autonomy if they live in a nuclear household. However, for women living in a patrilocal extended households, the shift of power that may occur due to the absence of their husband, is directed primarily towards their in-laws. Similarly, \cite{mookerjee2019gender} finds that exogenous shifts from patrilocal extended to nuclear households increase women’s mobility and participation in decision-making by reducing the control exerted by extended family members.
 
 However, patrilocal households may also offer certain advantages for women, shaping their well-being through multiple mechanisms.  The presence of other adult family members can provide support in the form of shared domestic labor and childcare, which may free up women’s time for other activities \cite{khanna2024role}. Co-residence with extended family members reduces the likelihood of spousal violence \cite{khanna2024role}. Additionally, mothers-in-law and other female household members may be a valuable resource during pregnancy in ensuring that women are getting the care they need \cite{varghese2019coresidence}.  Patrilocal extended households are often characterized by pooled economic resources, inter generational support, and shared domestic labor \citep{wadley1988karimpur}.  
 
@@ -85,7 +139,7 @@ This paper investigates how household structure shapes pregnant women's autonomy
 
 This paper builds upon and dialogs with prior empirical research by \cite{allendorf2013going}, who uses 1992 to 2005 data from India to show that several women's health outcomes were positively associated with patrilocal extended household, rather than nuclear family, residence.  \cite{allendorf2013going}'s paper noted an approximately 8 percentage point increase in the proportion of young women living in nuclear households between 1992 and 2005, and raised the question of how, considering the patrilocal extended household health advantages that she documented, the shift towards nuclear families might impact women's health in the future.  
 
-In contrast, our research, which specifically focuses on pregnant women, finds that in the last two decades, the trend towards nuclear family residence has reversed.  Pregnant women are 8 percentage points less likely to be living in nuclear households in 2021 than they were in 2005.  Although it is beyond the scope of this research note to investigate reasons for pregnant women's increasing residence in extended families, fertility decline is likely an important factor \footnote{Table \ref{tab:proppatrilocal}) shows the results of a Kitagawa decomposition showing that about half of the increase in nuclear family residence among pregnant women can be explained by the fact that in 2021, pregnant women had fewer prior live births than pregnant women did in 2005.  Lower parity women are more likely to live with their in-laws than higher parity women in both time periods.}. However, one thing that remains consistent with the period \cite{allendorf2013going} studied is that patrilocal extended households are wealthier than nuclear families, and wealth is a mediator that explains part of the observed gap in maternal health care use between patrilocal and nuclear households. 
+In contrast, our research, which specifically focuses on pregnant women, finds that in the last two decades, the trend towards nuclear family residence has reversed. Pregnant women are 8 percentage points less likely to be living in nuclear households in 2021 than they were in 2005.\footnote{If, instead of looking at pregnant women, we use \cite{allendorf2013going}'s sample of married women ages 15-29 residing with their husbands, we find the proportion of women living in nuclear households decreased from 36 percent in 2005-06 to 28 percent in 2015-16 and 25 percent in 2019-21.}  However, one thing that remains consistent with the period \cite{allendorf2013going} studied is that patrilocal extended households are wealthier than nuclear families, and wealth is a mediator that explains part of the observed gap in maternal health care use between patrilocal and nuclear households. 
 
 This paper contributes to the literature by documenting a reversal in the trend towards nuclear household structure among pregnant women in India. It shows that pregnant women in patrilocal extended households consistently have lower decision making power than their counterparts in nuclear households, but use maternal healthcare at higher rates. This provides a notable counterexample to the literature which finds or assumes that women's decision making power determines maternal health care use.  In this context, maternal healthcare use is shaped by other factors, such as by economic resources.
 
@@ -93,9 +147,9 @@ This paper contributes to the literature by documenting a reversal in the trend 
 
 \subsection{Data} \label{sec:data}
 
-We use data from India’s National Family Health Surveys (NFHS) rounds 3 (2005–2006), 4 (2015–2016), and 5 (2019–2021). The NFHS is India’s Demographic and Health Survey, a nationally representative cross-sectional survey of households and women aged 15–49. These data are publicly available from \texit{www.dhsprogram.com}.
+We use data from India’s National Family Health Surveys (NFHS) rounds 3 (2005–2006), 4 (2015–2016), and 5 (2019–2021). The NFHS is India’s Demographic and Health Survey, a nationally representative cross-sectional survey of households and women aged 15–49. These data are publicly available from \textit{www.dhsprogram.com}.
 
-The sample for our primary analysis on trends in household structure and their relationship with autonomy outcomes are those women who are ever married, currently pregnant\footnote{Appendix Table \ref{tab:earlypregnancy} shows that women who report being one or two months pregnant differ systematically from those reporting three or more months of pregnancy. In particular, early pregnancy is more likely to be recognized or reported among more educated and wealthier women. We therefore exclude women reporting one or two months of pregnancy from the analysis.}, and living in either a nuclear or patrilocal household structure. We exclude women living in natal households (about 15 percent of the sample), as this living arrangement represents a substantively different social context from both patrilocal and nuclear households. For example, \cite{dyson1983kinship} explain that closer ties to the natal families indicate higher autonomy for women.\footnote{The prevalence of natal residence among pregnant women is stable across survey rounds, as seen in Appendix figure \ref{fig:bargraph}.  Excluding this group does not affect the interpretation of trends.} For analyses of maternal health care use, instead of focusing on pregnant women, we restrict the sample to ever married women who have given birth in the 3-12 months before the survey.
+The sample for our primary analysis on trends in household structure and their relationship with autonomy outcomes are those women who are ever married, currently pregnant\footnote{Appendix Table \ref{tab:earlypregnancy} shows that women who report being one or two months pregnant differ systematically from those reporting three or more months of pregnancy. In particular, early pregnancy is more likely to be recognized or reported among more educated and wealthier women. We therefore exclude women reporting one or two months of pregnancy from the analysis.}, and living in either a nuclear or patrilocal household structure. We exclude women living in natal households (about 15 percent of the sample), as this living arrangement represents a substantively different social context from both patrilocal and nuclear households. For example, \cite{dyson1983kinship} explain that closer ties to the natal families indicate higher autonomy for women.\footnote{The prevalence of natal residence among pregnant women is stable across survey rounds, as seen in Appendix Figure \ref{fig:bargraph}.  Excluding this group does not affect the interpretation of trends.} For analyses of maternal health care use, instead of focusing on pregnant women, we restrict the sample to ever married women who gave birth in the 3-12 months before the survey.
 
 \subsection{Variables}
 
@@ -119,7 +173,7 @@ To capture differences in wealth across household types, we construct a categori
 \subsection{Analytical Strategy}
 \subsubsection{Patrilocal–nuclear differences and the role of household wealth}
 
-We estimate linear probability models (LPMs) to examine the association between household structure and the four binary outcomes: (1) reporting ``no say'' in decisions about the respondent's own healthcare, (2) reporting ``no say'' in decisions about visits to family or relatives, (3) having an institutional delivery (birth in a health facility), and (4) receiving at least four prenatal visits. We use LPMs because the coefficients can be directly interpreted as percentage point differences, which facilitates comparison across outcomes and survey rounds. In our data, the outcomes are not extremely rare, so linear models provide a reasonable approximation.
+We estimate OLS linear probability models (LPMs) to examine the association between household structure and the four binary outcomes: (1) reporting ``no say'' in decisions about the respondent's own healthcare, (2) reporting ``no say'' in decisions about visits to family or relatives, (3) having an institutional delivery (birth in a health facility), and (4) receiving at least four prenatal visits. We use LPMs because the coefficients can be directly interpreted as percentage point differences, which facilitates comparison across outcomes and survey rounds. In our data, the outcomes are not extremely rare, so linear models provide a reasonable approximation.
 
 For woman $i$ in state $s$, our baseline specification is:
 
@@ -175,61 +229,6 @@ Patrilocal residence increased in all regions except the East. In 2019-2021, pat
 
 Patrilocal residence varies sharply by age and parity. Younger women are substantially more likely to live in patrilocal extended households than older women: in 2019–2021, 83 percent of pregnant women aged 15–19 reside in patrilocal households, compared to less than 40 percent among women aged 40–44. Similarly, women with lower parity are more likely to reside in patrilocal households. These patterns are consistent with the view that patrilocal extended household residence is most common in the early stages of marriage and childbearing. While it declines with age and parity, increases over time are observed across most age and parity groups. 
 
-\subsection{Sample means by household structure}
-
-Table \ref{tab:sumstats} presents summary statistics for autonomy, maternal healthcare use, and wealth outcomes by household structure. Among currently pregnant women, there are large and persistent differences in decision-making power by household type. In 2005–2006, 52 percent of women in patrilocal extended households report having no say in their own healthcare, compared to 32 percent of women in nuclear households. By 2019–2021, these shares decline to 25 percent. While autonomy improves substantially over time for both groups, the gap between household types narrows considerably, from 20 percentage points in 2005–2006 to 7 percentage points in 2019–2021. A similar pattern is observed for women’s ability to visit family and friends, where differences of comparable magnitude persist across all survey rounds.
-
-In contrast, maternal healthcare use is higher for women in patrilocal extended households. Among women who gave birth in the 3–12 months preceding the survey, 45 percent of women in patrilocal households delivered in a health facility in 2005–2006, compared to 34 percent in nuclear households. By 2019–2021, although institutional delivery rates increased dramatically for both groups, to 93 percent in patrilocal households and 86 percent in nuclear households, the advantage for patrilocal households remained. A similar pattern is observed for prenatal care: the share of women receiving four or more visits rises from 40 to 61 percent in patrilocal households and from 31 to 53 percent in nuclear households over the same period. Thus, while overall access to maternal healthcare improved substantially, differences by household structure persist.
-
-Patterns in maternal healthcare use mirror differences in household wealth between household structures. Across all survey rounds and for nearly all indicators, women in patrilocal extended households are more likely to live in households with higher asset ownership and better housing conditions. For example, in 2019–2021, 61 percent of pregnant women in patrilocal households live in homes with finished floors compared to 48 percent in nuclear households, and 81 percent in patrilocal extended household have access to a toilet or latrine compared to 68 percent in nuclear households. Ownership of consumer durables such as televisions and refrigerators is also substantially higher in patrilocal households.
-
-
-\subsection{Patrilocal–nuclear differences and the role of household wealth}
-
-Figure \ref{fig:regresults} presents estimates of the patrilocal coefficient (relative to nuclear households) from equations \ref{eq:nocontrols} and \ref{eq:controls} for each outcome and survey round, with and without wealth controls. These coefficients represent percentage point differences in outcome probabilities between women in patrilocal and nuclear households.
-
-\subsubsection{ Maternal healthcare use outcomes}
-
-In models without wealth controls, women in patrilocal extended households exhibit higher levels of maternal healthcare use across survey rounds. In 2005–2006, women in patrilocal households are 11 percentage points more likely to deliver in a health facility than those in nuclear households. This advantage declines over time, to 7.4 percentage points in 2015–2016 and 5.2 percentage points in 2019–2021. A similar pattern is observed for prenatal care: in 2005–2006, patrilocal residence is associated with a 8.8 percentage point higher likelihood of receiving four or more prenatal visits, declining to 5.4 percentage points by 2019–2021.
-
-Controlling for wealth substantially attenuates these differences, indicating that a large share of the advantage in maternal healthcare use among patrilocal households is explained by differences in household economic resources. For institutional delivery, the coefficient declines from 11 to 4.2 percentage points in 2005–2006, from 7.6 to 3.6 percentage points in 2015–2016, and from 5.2 to 2.9 percentage points in 2019–2021. In other words, accounting for wealth explains a substantial share—roughly half—of the gap in institutional delivery between patrilocal and nuclear households across survey rounds. For prenatal care, the corresponding reductions are from 8.8 to 2.4 percentage points in 2005–2006, from 7.9 to 3.9 percentage points in 2015–2016 and from 5.4 to 3.2 percentage points in 2019–2021.
-
-\subsubsection{Autonomy outcomes}
-
-In contrast, patrilocal residence is consistently and robustly associated with lower levels of decision-making power. In 2005–2006, women in patrilocal extended households are 17 percentage points more likely to report having no say in their own healthcare and 21.5 percentage points more likely to report no say in visits to family and friends. These gaps decline substantially over time but remain non-trivial: by 2019–2021, the corresponding differences are 5.5 percentage points for no say in own healthcare, and 6.7 percentage points for no say in visits to family and friends. 
-
-Controlling for wealth does not attenuate these differences. For both autonomy outcomes, the estimated coefficients remain similar in magnitude with and without wealth controls. This pattern indicates that, unlike maternal healthcare use differences in decision-making power between patrilocal and nuclear households are not explained by differences in household economic resources.
-
-\subsection{Changes in patrilocal–nuclear differences over time}
-
-Table \ref{tab:narrowinggaps} presents estimates of changes in the gap between patrilocal extended and nuclear households over time. Consistent with the descriptive results, differences in women’s autonomy narrow substantially across survey rounds. Between 2005–2006 and 2015–2016, the gap in having no say in healthcare decisions declines by 10.6 percentage points, while the gap in having no say in visiting family and friends declines by 11.7 percentage points. Little additional change occurs between 2015–2016 and 2019–2021 for these autonomy outcomes, but over the full period, the autonomy gaps decline by 13.5 and 17.3 percentage points, respectively.
-
-In contrast, changes in gaps between women in patrilocal extended and nuclear households for maternal healthcare use outcomes are smaller. For institutional delivery, the gap declines by 2.3 percentage points between 2015–2016 and 2019–2021 and by 3.6 percentage points over the full period. For prenatal care, the gap declines by 2.6 percentage points in the later period, but this change is not large enough to generate a statistically significant decline over the full sample period. Overall, convergence in maternal healthcare use across household structures is more limited than for autonomy. 
-
-Appendix table \ref{tab:decomposition} shows that changes in household structure  composition explains little of the improvement in autonomy and maternal health outcomes with most gains driven by within household type changes. Further in appendix table \ref{tab:proppatrilocal} we observe that declining fertility reflected in first parity pregnancies accounts for a significant portion of the increase in patrilocal residence. Together these results suggests that while improvements in outcomes are not driven by shifts in household composition changes in fertility behavior plays an important role in shaping residence pattern.
- 
-\section{Discussion}
-
-Using nationally representative data from India (2005-2021) we document a reversal of the earlier trend towards nuclear households. Pregnant women are increasingly residing in patrilocal extended households. Across these household types pregnant women in patrilocal extended households have less say in their healthcare and mobility decisions. They have better access to maternal health services, like prenatal care and institutional delivery.  This advantage is partly explained by household economic status, as the differences between patrilocal and nuclear households narrow after controlling for wealth. In contrast, the disadvantage in autonomy persists even after controlling for these economic differences.
-
-Decomposition analysis showed that the change over time is driven primarily by within-household differences rather than shifts in the distribution of women across household types. This indicates that broader transformations such as improvements in healthcare access, expansion of public health programs and changing social norms are also playing a role in the observed trends. These findings align with existing literature on the role of economic resources in shaping patrilocal extended family advantages (\cite{allendorf2013going} \cite{breton2021modernisation}). Rather than reflecting an inherent benefit of patrilocal extended residence the maternal healthcare advantage appears closely tied to the greater material resources of these households alongside evidence that economically less stable couples are more likely to live in nuclear households, reinforcing the observed disparities.
-
-Despite the growing trend towards patrilocal extended household it is important to note that the gap in autonomy between nuclear and patrilocal extended households have narrowed over a 15 year period. Thus reiterating that modernization is not only achieved through an overall movement towards nuclear household stucture. \cite{pesando2019rethinking} in their review of \cite{goode1963world} theories on family patterns pointed out that the belief that nuclear families are best fitted for industrialized societies was empirically found to be false. Further, they also showed extensive evidence of diverging family patterns across socioeconomic groups within the societies. Thus, the shift might be in tandem with the socio-economic and structural transformation.  But at the same time our findings also indicate that 53 percent (ref: appendix table) of the shift to patrilocal extended households can be explained by the composition of women at lower parities. This occurs as women move into their husband’s familial home soon after marriage \cite{breton2021modernisation} and are expected to begin childbearing after co-habitation begins \cite{ibarra2020desire}. Declining fertility also further reinforces this pattern by reducing the number of siblings who would be otherwise competing for residence in patrilocal households. Together this suggests that the observed shift towards patrilocal extended households does not simply reflect a general process of social progress but is also shaped by changing parity composition.  
-
-Though material pathways explain maternal healthcare use among women in patrilocal extended and nuclear households,difference in women's autonomy continued to persist. This is a sign of an existing hierarchical structure within patrilocal extended families. Historically, newly married women in these households occupied the subordinate position within multi-generational families where senior members exercised greater authority. Our findings of persistently lower reported decision making power among women in patrilocal households are consistent with long standing gender and age hierarchy. However, at the same time the decision making power gap for pregnant women between nuclear and patrilocal extended households have been reducing this can be a result of improvement in quality of relationship between daughter in law and their in-laws. This relationship can shape women’s lived experiences within patrilocal extended families, as positive relational ties are associated with greater perceived autonomy in patrilocal settings \cite{char2010influence}.  
-
-This study has important limitations. Our measures capture use but not quality of maternal healthcare. Four or more prenatal visits do not guarantee adequate, continuous or comprehensive care. Similarly institutional delivery varies across facilities and does not reflect difference in quality of care, mode of delivery or patient experience. Further, measures of autonomy rely on self-reported decision making authority and may not fully capture informal influence or relational dimensions of power within households.  Finally, as NFHS data are cross sectional and measured at the time of the survey, they may not capture the fluid and transitional nature of residence arrangements surrounding marriage and childbirth, as women may move between the different households during this period. This can lead to misclassifications of household structure and obscure how residence shapes autonomy and maternal healthcare outcome.
-
-Together, these findings are consistent with increasing women's empowerment over time but not with a rise in nuclearization. This might be driven by the reduction in overall fertility which might enable more sons to continue living with their parents even after marrying as a result of which there would be less competition for family resources across multiple sons. As we notice despite historically being the less egalitarian, resurgence of patrilocal extended residence does not uniformly disadvantage pregnant women, nor does it independently explain improvements in maternal healthcare. Rather, household structure appears to be closely linked to differences in economic resources and evolving relationships within households. Autonomy and healthcare use operate through different pathways, underscoring the need to examine family forms not as fixed categories but as evolving institutional contexts. Understanding how economic resources and relational dynamics intersect within households remains central to explaining contemporary shifts in women’s well-being.
-
-
-
-
-
-
-\newpage
-\section{Tables and figures}
-
 \begin{table}[!htbp]
     \centering
     \begin{threeparttable}[t]
@@ -250,6 +249,14 @@ Together, these findings are consistent with increasing women's empowerment over
         \end{tablenotes}
     \end{threeparttable}
 \end{table}
+
+\subsection{Sample means by household structure}
+
+Table \ref{tab:sumstats} presents summary statistics for autonomy, maternal healthcare use, and wealth outcomes by household structure. Among currently pregnant women, there are large and persistent differences in decision-making power by household type. In 2005–2006, 52 percent of women in patrilocal extended households report having no say in their own healthcare, compared to 32 percent of women in nuclear households. By 2019–2021, these shares decline to 25 percent. While autonomy improves substantially over time for both groups, the gap between household types narrows considerably, from 20 percentage points in 2005–2006 to 7 percentage points in 2019–2021. A similar pattern is observed for women’s ability to visit family and friends, where differences of comparable magnitude persist across all survey rounds.
+
+In contrast, maternal healthcare use is higher for women in patrilocal extended households. Among women who gave birth in the 3–12 months preceding the survey, 45 percent of women in patrilocal households delivered in a health facility in 2005–2006, compared to 34 percent in nuclear households. By 2019–2021, although institutional delivery rates increased dramatically for both groups, to 93 percent in patrilocal households and 86 percent in nuclear households, the advantage for patrilocal households remained. A similar pattern is observed for prenatal care: the share of women receiving four or more visits rises from 40 to 61 percent in patrilocal households and from 31 to 53 percent in nuclear households over the same period. Thus, while overall access to maternal healthcare improved substantially, differences by household structure persist.
+
+Patterns in maternal healthcare use mirror differences in household wealth between household structures. Across all survey rounds and for nearly all indicators, women in patrilocal extended households are more likely to live in households with higher asset ownership and better housing conditions. For example, in 2019–2021, 61 percent of pregnant women in patrilocal households live in homes with finished floors compared to 48 percent in nuclear households, and 81 percent in patrilocal extended household have access to a toilet or latrine compared to 68 percent in nuclear households. Ownership of consumer durables such as televisions and refrigerators is also substantially higher in patrilocal households.
 
 \begin{landscape}
 \begin{table}[!htbp]
@@ -275,6 +282,22 @@ Together, these findings are consistent with increasing women's empowerment over
 
 
 
+\subsection{Patrilocal–nuclear differences and the role of household wealth}
+
+Figure \ref{fig:regresults} presents estimates of the patrilocal coefficient (relative to nuclear households) from equations \ref{eq:nocontrols} and \ref{eq:controls} for each outcome and survey round, with and without wealth controls. These coefficients represent percentage point differences in outcome probabilities between women in patrilocal and nuclear households.
+
+\subsubsection{ Maternal healthcare use outcomes}
+
+In models without wealth controls, women in patrilocal extended households exhibit higher levels of maternal healthcare use across survey rounds. In 2005–2006, women in patrilocal households are 11 percentage points more likely to deliver in a health facility than those in nuclear households. This advantage declines over time, to 7.4 percentage points in 2015–2016 and 5.2 percentage points in 2019–2021. A similar pattern is observed for prenatal care: in 2005–2006, patrilocal residence is associated with a 8.8 percentage point higher likelihood of receiving four or more prenatal visits, declining to 5.4 percentage points by 2019–2021.
+
+Controlling for wealth substantially attenuates these differences, indicating that a large share of the advantage in maternal healthcare use among patrilocal households is explained by differences in household economic resources. For institutional delivery, the coefficient declines from 11 to 4.2 percentage points in 2005–2006, from 7.6 to 3.6 percentage points in 2015–2016, and from 5.2 to 2.9 percentage points in 2019–2021. In other words, accounting for wealth explains a substantial share—roughly half—of the gap in institutional delivery between patrilocal and nuclear households across survey rounds. For prenatal care, the corresponding reductions are from 8.8 to 2.4 percentage points in 2005–2006, from 7.9 to 3.9 percentage points in 2015–2016 and from 5.4 to 3.2 percentage points in 2019–2021.
+
+\subsubsection{Autonomy outcomes}
+
+In contrast, patrilocal residence is consistently and robustly associated with lower levels of decision-making power. In 2005–2006, women in patrilocal extended households are 17 percentage points more likely to report having no say in their own healthcare and 21.5 percentage points more likely to report no say in visits to family and friends. These gaps decline substantially over time but remain non-trivial: by 2019–2021, the corresponding differences are 5.5 percentage points for no say in own healthcare, and 6.7 percentage points for no say in visits to family and friends. 
+
+Controlling for wealth does not attenuate these differences. For both autonomy outcomes, the estimated coefficients remain similar in magnitude with and without wealth controls. This pattern indicates that, unlike maternal healthcare use differences in decision-making power between patrilocal and nuclear households are not explained by differences in household economic resources.
+
 \begin{landscape}
 \begin{figure}[H]
     \centering
@@ -288,6 +311,14 @@ Together, these findings are consistent with increasing women's empowerment over
 
 \end{landscape}
 
+
+\subsection{Changes in patrilocal–nuclear differences over time}
+
+Table \ref{tab:narrowinggaps} presents estimates of changes in the gap between patrilocal extended and nuclear households over time. Consistent with the descriptive results, differences in women’s autonomy narrow substantially across survey rounds. Between 2005–2006 and 2015–2016, the gap in having no say in healthcare decisions declines by 10.6 percentage points, while the gap in having no say in visiting family and friends declines by 11.7 percentage points. Little additional change occurs between 2015–2016 and 2019–2021 for these autonomy outcomes, but over the full period, the autonomy gaps decline by 13.5 and 17.3 percentage points, respectively.
+
+In contrast, changes in gaps between women in patrilocal extended and nuclear households for maternal healthcare use outcomes are smaller. For institutional delivery, the gap declines by 2.3 percentage points between 2015–2016 and 2019–2021 and by 3.6 percentage points over the full period. For prenatal care, the gap declines by 2.6 percentage points in the later period, but this change is not large enough to generate a statistically significant decline over the full sample period. Overall, convergence in maternal healthcare use across household structures is more limited than for autonomy. 
+
+Appendix table \ref{tab:decomposition} shows that changes in household structure  composition explains little of the improvement in autonomy and maternal health outcomes with most gains driven by within household type changes. Further in appendix table \ref{tab:proppatrilocal} we observe that declining fertility reflected in first parity pregnancies accounts for a significant portion of the increase in patrilocal residence. Together these results suggests that while improvements in outcomes are not driven by shifts in household composition changes in fertility behavior plays an important role in shaping residence pattern.
 
 \begin{table}[!htbp]
     \centering
@@ -309,6 +340,114 @@ Together, these findings are consistent with increasing women's empowerment over
         \end{tablenotes}
     \end{threeparttable}
 \end{table}
+
+
+
+
+\newpage 
+\section{Discussion}
+
+We use the most recent three waves of NFHS data to document a reversal in the trend towards nuclear family residence that \cite{allendorf2013going} documented for the period 1991 to 2005.  This trend is driven by an increase in the proportion of pregnant women living in patrilocal extended households, rather than an increase in the proportion of women living in natal households. Our results are surprising in the context of an influential prior literature that associates modernization with a shift towards nuclear households.  They are consistent with \cite{pesando2018global} who find that in more recent data, there is no association between a country's level of human development and the share of women living in nuclear households.
+
+The prior literature on family in India finds that extended families are less egalitarian than nuclear families; indeed, newly married women in patrilocal households occupy subordinate positions relative to their in-laws and their husbands older brothers and their wives. Senior family members often dictate the details of the daily lives of co-resident daughters-in-law. Our findings are consistent with these long-standing gender and age hierarchies: pregnant women in extended families have less say in their own healthcare and visits to family and friends than pregnant women in nuclear households, even controlling for wealth differences across these households. Yet, pregnant women in extended families are more likely to use prenatal care and give birth in a health facility.  Differences in household level wealth do explain much of this gap. 
+
+Our results should be interpreted in the context of broad improvements in the availability of healthcare and of changes in the underlying determinants of women's status.  The time window we study begins in 2005, when the central government launched the National Rural Health Mission to expand contraceptive, prenatal, birth, and postnatal services.  As an illustration of these programs' reach, between 2005 and 2021, the proportion of women who gave birth in health facilities increased from about 40\% to about 90\% \cite{IIPS2007NFHS3,IIPS2021NFHS5}.  \cite{char2010influence} post that these programs not only shaped access to reproductive healthcare, but also reduced the influence of mothers-in-law over the child-bearing patterns of their sons and daughters-in-law.  Over the same period, the median pregnant woman's years of schooling increased from 3 years to 9 years, and the average gap between her education and her husband's decreased from 2.1 year in 2005-06 to 0.6 years in 2019-2021.  This is not to say that education necessarily increases a woman's autonomy within the home: \cite{srivastava2020time} compares women who are more or less educated than their co-resident mothers-in-law and finds that more educated women do not do less housework.  Households also got richer during this period in ways that shaped women's work: in 2005, 17.09\% of extended households in which a pregnant woman resided primarily used lpg gas  for cooking, compared to 48\% in 2021.  The consequences of increasing patrilocal extended family residence would almost certainly have been different in the absence of these important society-level changes.
+
+This study has a few limitations. Our measures capture use, but not the quality, of maternal healthcare. Four or more prenatal visits do not guarantee adequate, continuous, or comprehensive care. Similarly, the quality of institutional delivery varies across facilities.  In some settings, home birth is associated with lower neonatal mortality than private hospital birth \cite{coffey2025excess}. Further, our measures of autonomy rely on self-reported decision-making authority. They may not capture informal influence or everyday negotiations within the household. NFHS data are cross-sectional and capture household structure only at the time of the survey. However, residence arrangements around marriage and childbirth can be fluid. Women may move between households frequently during this period. This movement could lead to error in our measurement household structure.  The fact that natal family residence among pregnant women changes little across the three survey waves gives us more confidence in our results.
+
+Although it is beyond the scope of this paper to investigate the reasons for pregnant women's increasing residence in patrilocal extended families, we note that fertility decline is likely an important factor.  Table \ref{tab:proppatrilocal}) shows the results of a Kitagawa decomposition that finds that about half of the increase in nuclear family residence among pregnant women can be explained by the fact that in 2021, pregnant women had fewer prior live births than pregnant women did in 2005.  Lower parity women are more likely to live with their in-laws than higher parity women in both time periods.  This pattern is likely due to the fact that women often move into their husband's parental houses soon after marriage \cite{breton2021modernisation} and are expected to begin childbearing soon after cohabitation begins \cite{ibarra2020desire}. Couples may separate from the extended household as they age and progress in parity. This is especially true if a woman's husband's younger brother marries and a new daughter-in-law joins the household.  Therefore, another way in which declining fertility may be causing increasing patrilocal residence for pregnant women has to do with lower fertility in their in-laws' generation.  If in-laws' expect to be cared for by at least one son, and their sons have few or no brothers, the couple will face more pressure to continue living in an extended household.  Future research may seek to disentangle the extent to which increasing patrilocal extended family residence can be explained by lower parity progression among pregnant women, by lower fertility among their mothers-in-law, and by lower mortality among parents-in-law. 
+
+This research also suggests that future research investigate how relationships within households are changing. Does being more ``needed'' by their in-laws give young women more autonomy?  How does the greater availability of healthcare and the increasing resources with which to pay for it change the experiences of pregnancy and birth?  How can we explain the greater use of healthcare among women in extended households relative to nuclear families of the same wealth?  Could in-laws be providing logistical or moral support to use healthcare that makes a difference?  Perhaps in-laws are willing to spend resources on the care of their daughters-in-law that couples are not.  Understanding how economic resources and family relationships shape women's lives remains important for understanding women's well-being. 
+
+
+
+
+
+
+
+
+%\newpage
+%\section{Tables and figures}
+
+%\begin{table}[!htbp]
+ %   \centering
+%  \begin{threeparttable}[t]
+ %       \caption{:  Proportion of pregnant women in patrilocal extended households is increasing among all subgroups}
+  %      \label{tab:patrilocal_subgroups}
+
+%     \scriptsize
+%       \setlength{\tabcolsep}{6pt}
+ %       \renewcommand{\arraystretch}{1.2}
+
+%        \input{tables/table1_patrilocal_by_subgroup}
+%
+%       \begin{tablenotes}
+ %           \item Data is from NFHS rounds 3, 4, and 5.
+  %          \item *$p<0.1$, **$p<0.05$, ***$p<0.001$
+%         \item The sample is restricted to women in either nuclear or patrilocal extended household structures, and women who report being three or more months pregnant at the time of the survey.
+    %       \item $^1$ Focus states refer to Uttar Pradesh and Bihar, two Indian states that have a large burden of poor maternal health outcomes.
+     %   \end{tablenotes}
+    %\end{threeparttable}
+%\end{table}
+
+%\begin{landscape}
+%\begin{table}[!htbp]
+%    \centering
+ %   \begin{threeparttable}[t]
+  %      \caption{:  Pregnant women in patrilocal extended households are advantaged in wealth and maternal healthcare use, but disadvantaged in autonomy outcomes}
+   %     \label{tab:sumstats}
+
+    %    \scriptsize
+     %   \setlength{\tabcolsep}{6pt}
+     %   \renewcommand{\arraystretch}{1.1}
+      %  \label{tab:sumstats}
+       % \input{tables/table 1 summary stats w_state}
+
+    %    \begin{tablenotes}
+     %       \item Data is from NFHS rounds 3, 4, and 5. *$p<0.1$, **$p<0.05$, ***$p<0.001$
+      %      \item The sample of women who are "pregnant and were asked decision-making questions") includes ever-married women who report being three or more months pregnant at the time of the survey, and those who were asked the questions ``Who usually makes decisions about healthcare for yourself?"  and: ``Who usually makes decisions about visits to your family or relatives?'' from which we construct the outcomes "No say in own healthcare" and "No say in visits to family/friends". 
+       %     \item The recently given birth sample includes ever-married women who gave birth 3-12 months before the survey. 
+       % \end{tablenotes}
+    %\end{threeparttable}
+% \end{table}
+%\end{landscape}
+
+
+
+%\begin{landscape}
+%\begin{figure}[H]
+ %   \centering
+ %   \includegraphics[width=0.85\textwidth] 
+ %   {figures/figure 1 regression coefficients with and without controls.png}
+  %  \caption{: Estimated differences in autonomy and healthcare use outcomes for women living in patrilocal extended households relative to nuclear households}
+   % \label{fig:regresults}
+    %\parbox{1\linewidth}{\footnotesize Data is from NFHS rounds 3, 4, and 5. Points represent the coefficient $\beta$ on the patrilocal household indicator from linear probability models shown in equations \ref{eq:nocontrols} and \ref{eq:controls}. Intervals represent 95\% confidence intervals on $\beta$. All four panels drop women who are not in either nuclear or patrilocal extended household structures. Panels A and B use the sample of ever-married women who gave birth 3-12 months before the survey. Panels C and D use the sample of women who report being three or more months pregnant at the time of the survey, and who were asked the questions ``Who usually makes decisions about healthcare for yourself?"  and: ``Who usually makes decisions about visits to your family or relatives?'' from which we construct the outcomes "No say in own healthcare" and "No say in visits to family/friends". Sample sizes for each regression match the number of women in the relevant subsample described in Table \ref{tab:sumstats}}
+%\end{figure}
+
+
+%\end{landscape}
+
+
+%\begin{table}[!htbp]
+ %   \centering
+  %  \begin{threeparttable}[t]
+   %     \caption{: The gap between patrilocal extended and nuclear households in women's autonomy and health care use in narrowing across survey rounds}
+    %    \label{tab:narrowinggaps}
+
+     %   \scriptsize
+      %  \setlength{\tabcolsep}{6pt}
+       % \renewcommand{\arraystretch}{1.6}
+
+        %\input{tables/table 3 narrowing gaps}
+
+       % \begin{tablenotes}
+        %    \item Data is from NFHS rounds 3, 4, and 5.
+         %   \item *$p<0.1$, **$p<0.05$, ***$p<0.001$
+          %  \item $^1$ Uses the sample of ever-married women who report being 3 or more months pregnant at the time of the survey.
+        %    \item $^2$ Uses the sample of ever-married women who report having given birth 3 to 12 months before the survey.
+        %\end{tablenotes}
+    %\end{threeparttable}
+%\end{table}
 
 
 
@@ -347,47 +486,6 @@ Together, these findings are consistent with increasing women's empowerment over
   {\normalfont\itshape\fontsize{12}{14}\selectfont}
   {\thesubsubsection}{1em}{}
     
-\subsection{Justification of decision to drop women reporting 1 or 2 months of 
-pregnancy}
-
-The main sample of pregnant women used in the paper excludes those who report being 1 or 2 months pregnant at the time of the survey, 
-to avoid biasing the results due to selection into early detection and reporting of pregnancy.
-
-To confirm that this the sample of women who report being 1 or 2 months pregnant is systematically different than those reporting 3 or more months of pregnancy, we estimate the following regression on the entire sample of women who report being currently pregnant:
-
-\begin{equation}
-Y_i=\beta X_i+\epsilon_i
-\end{equation}
-
-where for woman $i$, 
-\begin{itemize}
-    \item $Y_i$ is an indicator for reporting 1 or 2 months of pregnancy (as opposed to 3 or more)
-    \item $X_i$ is a set of indicators for less than primary education, rural residence, whether the woman does not have any sons, 4 age bins, 10 parity and time since last birth categories, and wealth quartiles. 
-\end{itemize}
-
-We report the estimated coefficients $\beta$ in table \ref{tab:earlypregnancy} to check the balance of variables in $X_i$ across women reporting 1 or 2 months of pregnancy and women reporting 3 or more.
-
-\begin{table}[H]
-    \centering
-    \begin{threeparttable}[t]
-        \caption{:  Predicting early pregnancy}
-
-        \label{tab:earlypregnancy}
-        \scriptsize
-        \setlength{\tabcolsep}{10pt}
-        \renewcommand{\arraystretch}{1}
-
-        \input{tables/tableA1_predicting_first_quarter_pregnancy1}
-
-        \begin{tablenotes}
-            \item Data is from the NFHS rounds 3, 4, and 5.
-            \item The sample is of all women who self-report being pregnant at the time of the survey. 
-            \item Gestational duration is defined for women who report being pregnant at the time of the survey using the reported number of months since the start of the woman's last menstrual period.  If that was not reported for a woman, we her answer to the question, ``How many months pregnant are you?'' to measure gestational duration instead. This substitution is made for 5\% of the women who report being currently pregnant. 
-            \item The sample is restricted to women residing in either nuclear or patrilocal extended household structures. 
-            
-        \end{tablenotes}
-    \end{threeparttable}
-\end{table}
 
 \subsection{Kitagawa decomposition of changes in family structure}
 
@@ -442,6 +540,47 @@ For the proportion of women living in patrilocal extended households, $Y$, the c
 
 \end{landscape}
 
+\subsection{Justification of decision to drop women reporting 1 or 2 months of 
+pregnancy}
+
+The main sample of pregnant women used in the paper excludes those who report being 1 or 2 months pregnant at the time of the survey, 
+to avoid biasing the results due to selection into early detection and reporting of pregnancy.
+
+To confirm that this the sample of women who report being 1 or 2 months pregnant is systematically different than those reporting 3 or more months of pregnancy, we estimate the following regression on the entire sample of women who report being currently pregnant:
+
+\begin{equation}
+Y_i=\beta X_i+\epsilon_i
+\end{equation}
+
+where for woman $i$, 
+\begin{itemize}
+    \item $Y_i$ is an indicator for reporting 1 or 2 months of pregnancy (as opposed to 3 or more)
+    \item $X_i$ is a set of indicators for less than primary education, rural residence, whether the woman does not have any sons, 4 age bins, 10 parity and time since last birth categories, and wealth quartiles. 
+\end{itemize}
+
+We report the estimated coefficients $\beta$ in table \ref{tab:earlypregnancy} to check the balance of variables in $X_i$ across women reporting 1 or 2 months of pregnancy and women reporting 3 or more.
+
+\begin{table}[H]
+    \centering
+    \begin{threeparttable}[t]
+        \caption{:  Predicting early pregnancy}
+
+        \label{tab:earlypregnancy}
+        \scriptsize
+        \setlength{\tabcolsep}{10pt}
+        \renewcommand{\arraystretch}{1}
+
+        \input{tables/tableA1_predicting_first_quarter_pregnancy1}
+
+        \begin{tablenotes}
+            \item Data is from the NFHS rounds 3, 4, and 5.
+            \item The sample is of all women who self-report being pregnant at the time of the survey. 
+            \item Gestational duration is defined for women who report being pregnant at the time of the survey using the reported number of months since the start of the woman's last menstrual period.  If that was not reported for a woman, we her answer to the question, ``How many months pregnant are you?'' to measure gestational duration instead. This substitution is made for 5\% of the women who report being currently pregnant. 
+            \item The sample is restricted to women residing in either nuclear or patrilocal extended household structures. 
+            
+        \end{tablenotes}
+    \end{threeparttable}
+\end{table}
 
 
     
