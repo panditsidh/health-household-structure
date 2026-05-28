@@ -130,4 +130,4 @@ grc1leg g1 g3 g4, ///
     name(hh_structure_threepanel, replace) ///
     fysize(110) fxsize(160)
 
-graph export "figures/apdx bar graph three panel.png", as(pdf) replace
+graph export "/Users/sidhpandit/Documents/GitHub/health-household-structure/figures/apdx bar graph three panel.pdf", as(pdf) name("hh_structure_threepanel")

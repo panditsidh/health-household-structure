@@ -276,3 +276,5 @@ graph bar (mean) hm_other hm_visitor hm_wifenatal hm_nuc hm_pat [aw=mv005] ///
     bar(2, color(gs10) fintensity(35) lcolor(none)) ///
     bar(1, color(gs6)  fintensity(45) lcolor(none)) ///
     ysize(9) xsize(5)
+
+graph export "figures/apdx bar graph three panel men.png", as(png) replace
