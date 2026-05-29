@@ -64,4 +64,4 @@ graph bar (mean) nuclear patrilocal if allendorf_sample==1 [aw=wt],
 #delimit cr
 
 
-graph save "g2" "figures/DR/allendorf sample bar graph.gph"
+graph export "figures/DR/allendorf sample bar graph.png", as(png) name("g2")

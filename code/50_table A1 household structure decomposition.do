@@ -204,17 +204,32 @@ list group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp
 *******************************************************
 
 #delimit ;
+
 listtex ///
     group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct ///
-    using "tables/table A1 household structure decomposition.tex", replace ///
+    using "tables/DR/table A1 household structure decomposition.tex", replace ///
     rstyle(tabular) ///
-    head("\begin{tabular}{lcccccc}"
+    head("\begin{tabular}{>{\raggedright\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.25cm}>{\centering\arraybackslash}p{1.25cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}}"
          "\toprule"
-         "Parity group & \makecell{Share at parity\\2005--2006 (\%)} & \makecell{Share at parity\\2019--2021 (\%)} & \makecell{Share in patrilocal\\extended households\\2005--2006 (\%)} & \makecell{Share in patrilocal\\extended households\\2019--2021 (\%)} & \makecell{Share of total \\ change explained \\ by parity (\%)} & \makecell{Share of total \\ change unexplained \\ by parity (\%)} \\"
+         "Parity group & \makecell{Parity\\share\\2005--2006\\(\%)} & \makecell{Parity\\share\\2019--2021\\(\%)} & \makecell{Patrilocal\\share\\2005--2006\\(\%)} & \makecell{Patrilocal\\share\\2019--2021\\(\%)} & \makecell{Explained\\change\\share\\(\%)} & \makecell{Unexplained\\change\\share\\(\%)} \\"
          "\midrule") ///
     foot("\bottomrule"
          "\end{tabular}");
-#delimit cr	 
+
+#delimit cr
+
+// #delimit ;
+// listtex ///
+//     group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct ///
+//     using "tables/table A1 household structure decomposition.tex", replace ///
+//     rstyle(tabular) ///
+//     head("\begin{tabular}{lcccccc}"
+//          "\toprule"
+//          "Parity group & \makecell{Share at parity\\2005--2006 (\%)} & \makecell{Share at parity\\2019--2021 (\%)} & \makecell{Share in patrilocal\\extended households\\2005--2006 (\%)} & \makecell{Share in patrilocal\\extended households\\2019--2021 (\%)} & \makecell{Share of total \\ change explained \\ by parity (\%)} & \makecell{Share of total \\ change unexplained \\ by parity (\%)} \\"
+//          "\midrule") ///
+//     foot("\bottomrule"
+//          "\end{tabular}");
+// #delimit cr	 
 *******************************************************
 * Display summary numbers for text
 *******************************************************

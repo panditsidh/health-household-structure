@@ -53,7 +53,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if pregna
                  3 "Natal: visitor" 
                  4 "Patrilocal")
            cols(4) pos(6) region(lstyle(none)) size(small))
-    blabel(bar, format(%4.2f) position(inside) size(vsmall))
+    blabel(bar, format(%4.2f) position(center) size(vsmall))
     ytitle("Proportion of women", size(medsmall))
     ylabel(0(.2)1, labsize(medsmall) angle(horizontal))
     title("(a) Pregnant women", size(medium))
@@ -80,7 +80,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=
                  3 "Natal: visitor" 
                  4 "Patrilocal")
            cols(4) pos(6) region(lstyle(none)) size(small))
-    blabel(bar, format(%4.2f) position(inside) size(vsmall))
+    blabel(bar, format(%4.2f) position(center) size(vsmall))
     ylabel(0(.2)1, labsize(medsmall) angle(horizontal))
     title("(b) Non-pregnant women", size(medium))
     graphregion(color(white))
@@ -106,7 +106,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal [aw=wt],
                  3 "Natal: visitor" 
                  4 "Patrilocal")
            cols(4) pos(6) region(lstyle(none)) size(small))
-    blabel(bar, format(%4.2f) position(inside) size(vsmall))
+    blabel(bar, format(%4.2f) position(center) size(vsmall))
     ylabel(0(.2)1, labsize(medsmall) angle(horizontal))
     title("(c) All women", size(medium))
     graphregion(color(white))
