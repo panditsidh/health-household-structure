@@ -96,10 +96,13 @@ replace gestdur = v214 if missing(moperiod) & v213==1
 
 gen preg = v213
 replace preg = . if gestdur<3 & v213==1
+
+* this variable is only defined for pregnant women 
 gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
 
+gen pregnant = v213 
+replace pregnant = gestdur_3plus if v213==1
 
-gen pregnant     = gestdur_3plus
 gen not_pregnant = !pregnant
 
 
