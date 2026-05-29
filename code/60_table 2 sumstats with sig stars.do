@@ -564,25 +564,24 @@ list rows disp*, noobs clean
 * PART 5: EXPORT TO LATEX
 ************************************************************
 listtex ///
-	rows ///
-	dispNuclear3 dispPatrilocal3 dispSig3 ///
-	dispNuclear4 dispPatrilocal4 dispSig4 ///
-	dispNuclear5 dispPatrilocal5 dispSig5 ///
-	using "tables/DR/table 1 summary stats by hhstruc.tex", ///
-	replace rstyle(tabular) ///
-	head( ///
+    rows ///
+    dispNuclear3 dispPatrilocal3 dispSig3 ///
+    dispNuclear4 dispPatrilocal4 dispSig4 ///
+    dispNuclear5 dispPatrilocal5 dispSig5 ///
+    using "tables/DR/table 1 summary stats by hhstruc.tex", ///
+    replace rstyle(tabular) ///
+    head( ///
 "\begin{tabular}{lccccccccc}" ///
 "\toprule" ///
-" & \multicolumn{3}{c}{NFHS-3 (2005--2006)} & \multicolumn{3}{c}{NFHS-4 (2015--2016)} & \multicolumn{3}{c}{NFHS-5 (2019--2021)} \\\\" ///
+" & \multicolumn{3}{c}{2005--2006} & \multicolumn{3}{c}{2015--2016} & \multicolumn{3}{c}{2019--2021} \\" ///
 "\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}" ///
-" & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. \\\\" ///
+" & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. \\" ///
 "\midrule" ///
 ) ///
-	foot( ///
-		"\bottomrule" ///
-		"\end{tabular}" ///
-	)
-
+    foot( ///
+        "\bottomrule" ///
+        "\end{tabular}" ///
+    )
 
 // use $all_nfhs_ir, clear
 //
