@@ -383,90 +383,179 @@ sort order
 
 gen str150 rows = ""
 
+// * Autonomy
+// replace rows = "\textbf{Autonomy measures (pregnant and were asked decision-making questions)}" if order==1
+// replace rows = "\hspace*{2em}No say in own healthcare"                  if order==2
+// replace rows = "\hspace*{2em}No say in visits to family/friends"        if order==3
+// replace rows = ""                                                      if order==4
+//
+// * Healthcare
+// replace rows = "\textbf{Healthcare measures (recently given birth sample)}" if order==5
+// replace rows = "\hspace*{2em}Birth in a health facility"                    if order==6
+// replace rows = "\hspace*{2em}4+ prenatal visits"                           if order==7
+// replace rows = ""                                                          if order==8
+//
+// * Wealth (pregnant)
+// replace rows = "\textbf{Wealth measures (pregnant and were asked decision-making questions)}" if order==9
+// replace rows = "\hspace*{2em}Finished floor"                          if order==10
+// replace rows = "\hspace*{2em}Electricity"                             if order==11
+// replace rows = "\hspace*{2em}Owns radio"                              if order==12
+// replace rows = "\hspace*{2em}Owns TV"                                 if order==13
+// replace rows = "\hspace*{2em}Owns refrigerator"                       if order==14
+// replace rows = "\hspace*{2em}Owns bicycle"                            if order==15
+// replace rows = "\hspace*{2em}Owns car"                                if order==16
+// replace rows = "\hspace*{2em}Uses toilet/latrine"                     if order==17
+// replace rows = "\hspace*{2em}Owns land"                               if order==18
+// replace rows = ""                                                     if order==19
+//
+// * Wealth (postpartum)
+// replace rows = "\textbf{Wealth measures (recently given birth sample)}" if order==20
+// replace rows = "\hspace*{2em}Finished floor"                           if order==21
+// replace rows = "\hspace*{2em}Electricity"                              if order==22
+// replace rows = "\hspace*{2em}Owns radio"                               if order==23
+// replace rows = "\hspace*{2em}Owns TV"                                  if order==24
+// replace rows = "\hspace*{2em}Owns refrigerator"                        if order==25
+// replace rows = "\hspace*{2em}Owns bicycle"                             if order==26
+// replace rows = "\hspace*{2em}Owns car"                                 if order==27
+// replace rows = "\hspace*{2em}Uses toilet/latrine"                      if order==28
+// replace rows = "\hspace*{2em}Owns land"                                if order==29
+// replace rows = ""                                                      if order==30
+//
+// * N rows at bottom with spacing
+// replace rows = "\textbf{N (pregnant and were asked decision-making questions)}"            if order==31
+// replace rows = ""                                                 if order==32
+// replace rows = "\textbf{N (recently given birth sample)}"          if order==33
+// replace rows = ""                                                 if order==34
+//
+// order rows
+
 * Autonomy
-replace rows = "\textbf{Autonomy measures (pregnant and were asked decision-making questions)}" if order==1
-replace rows = "\hspace*{2em}No say in own healthcare"                  if order==2
-replace rows = "\hspace*{2em}No say in visits to family/friends"        if order==3
-replace rows = ""                                                      if order==4
+replace rows = "\textbf{\shortstack[l]{Autonomy measures\\(pregnant sample)}}" if order==1
+replace rows = "No say in own healthcare"                  if order==2
+replace rows = "No say in visits to family/friends"        if order==3
+replace rows = ""                                          if order==4
 
 * Healthcare
-replace rows = "\textbf{Healthcare measures (recently given birth sample)}" if order==5
-replace rows = "\hspace*{2em}Birth in a health facility"                    if order==6
-replace rows = "\hspace*{2em}4+ prenatal visits"                           if order==7
-replace rows = ""                                                          if order==8
+replace rows = "\textbf{\shortstack[l]{Healthcare measures\\(recent birth sample)}}" if order==5
+replace rows = "Birth in a health facility"                 if order==6
+replace rows = "4+ prenatal visits"                         if order==7
+replace rows = ""                                           if order==8
 
 * Wealth (pregnant)
-replace rows = "\textbf{Wealth measures (pregnant and were asked decision-making questions)}" if order==9
-replace rows = "\hspace*{2em}Finished floor"                          if order==10
-replace rows = "\hspace*{2em}Electricity"                             if order==11
-replace rows = "\hspace*{2em}Owns radio"                              if order==12
-replace rows = "\hspace*{2em}Owns TV"                                 if order==13
-replace rows = "\hspace*{2em}Owns refrigerator"                       if order==14
-replace rows = "\hspace*{2em}Owns bicycle"                            if order==15
-replace rows = "\hspace*{2em}Owns car"                                if order==16
-replace rows = "\hspace*{2em}Uses toilet/latrine"                     if order==17
-replace rows = "\hspace*{2em}Owns land"                               if order==18
-replace rows = ""                                                     if order==19
+replace rows = "\textbf{\shortstack[l]{Wealth measures\\(pregnant sample)}}" if order==9
+replace rows = "Finished floor"           if order==10
+replace rows = "Electricity"              if order==11
+replace rows = "Owns radio"               if order==12
+replace rows = "Owns TV"                  if order==13
+replace rows = "Owns refrigerator"        if order==14
+replace rows = "Owns bicycle"             if order==15
+replace rows = "Owns car"                 if order==16
+replace rows = "Uses toilet/latrine"      if order==17
+replace rows = "Owns land"                if order==18
+replace rows = ""                         if order==19
 
-* Wealth (postpartum)
-replace rows = "\textbf{Wealth measures (recently given birth sample)}" if order==20
-replace rows = "\hspace*{2em}Finished floor"                           if order==21
-replace rows = "\hspace*{2em}Electricity"                              if order==22
-replace rows = "\hspace*{2em}Owns radio"                               if order==23
-replace rows = "\hspace*{2em}Owns TV"                                  if order==24
-replace rows = "\hspace*{2em}Owns refrigerator"                        if order==25
-replace rows = "\hspace*{2em}Owns bicycle"                             if order==26
-replace rows = "\hspace*{2em}Owns car"                                 if order==27
-replace rows = "\hspace*{2em}Uses toilet/latrine"                      if order==28
-replace rows = "\hspace*{2em}Owns land"                                if order==29
-replace rows = ""                                                      if order==30
+* Wealth (recent birth)
+replace rows = "\textbf{\shortstack[l]{Wealth measures\\(recent birth sample)}}" if order==20
+replace rows = "Finished floor"           if order==21
+replace rows = "Electricity"              if order==22
+replace rows = "Owns radio"               if order==23
+replace rows = "Owns TV"                  if order==24
+replace rows = "Owns refrigerator"        if order==25
+replace rows = "Owns bicycle"             if order==26
+replace rows = "Owns car"                 if order==27
+replace rows = "Uses toilet/latrine"      if order==28
+replace rows = "Owns land"                if order==29
+replace rows = ""                         if order==30
 
-* N rows at bottom with spacing
-replace rows = "\textbf{N (pregnant and were asked decision-making questions)}"            if order==31
-replace rows = ""                                                 if order==32
-replace rows = "\textbf{N (recently given birth sample)}"          if order==33
-replace rows = ""                                                 if order==34
+* N rows
+replace rows = "\textbf{N (pregnant sample)}"      if order==31
+replace rows = ""                                  if order==32
+replace rows = "\textbf{N (recent birth sample)}"  if order==33
+replace rows = ""                                  if order==34
 
 order rows
 
+************************************************************
+* PART 4: DISPLAY STRINGS
+************************************************************
+// keep rows Nuclear* Patrilocal* sig*
+//
+// foreach r in 3 4 5 {
+//
+// 	gen str12 dispNuclear`r'    = ""
+// 	gen str12 dispPatrilocal`r' = ""
+// 	gen str5  dispSig`r'        = ""
+//
+// 	* N rows: integers with commas
+// 	replace dispNuclear`r' = string(round(Nuclear`r'), "%9.0fc") ///
+// 		if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+// 	replace dispPatrilocal`r' = string(round(Patrilocal`r'), "%9.0fc") ///
+// 		if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+//
+// 	* Other rows: proportions
+// 	replace dispNuclear`r' = string(Nuclear`r', "%4.2f") ///
+// 		if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+// 	replace dispPatrilocal`r' = string(Patrilocal`r', "%4.2f") ///
+// 		if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+//
+// 	* Significance stars
+// 	replace dispSig`r' = sig`r' if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+// 	replace dispSig`r' = "" if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+// }
+//
+// * Blank out headers / spacer rows
+// foreach var in dispNuclear3 dispPatrilocal3 dispSig3 ///
+// 			   dispNuclear4 dispPatrilocal4 dispSig4 ///
+// 			   dispNuclear5 dispPatrilocal5 dispSig5 {
+// 	replace `var' = "" if strpos(rows, "\textbf{")!=0 & ///
+// 		!inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+// 	replace `var' = "" if rows==""
+// }
+//
+// keep rows disp*
+//
+// list rows disp*, noobs clean
 
 ************************************************************
 * PART 4: DISPLAY STRINGS
 ************************************************************
 keep rows Nuclear* Patrilocal* sig*
 
+gen byte isNrow = inlist(rows, ///
+    "\textbf{N (pregnant sample)}", ///
+    "\textbf{N (recent birth sample)}")
+
 foreach r in 3 4 5 {
 
-	gen str12 dispNuclear`r'    = ""
-	gen str12 dispPatrilocal`r' = ""
-	gen str5  dispSig`r'        = ""
+    gen str12 dispNuclear`r'    = ""
+    gen str12 dispPatrilocal`r' = ""
+    gen str5  dispSig`r'        = ""
 
-	* N rows: integers with commas
-	replace dispNuclear`r' = string(round(Nuclear`r'), "%9.0fc") ///
-		if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
-	replace dispPatrilocal`r' = string(round(Patrilocal`r'), "%9.0fc") ///
-		if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+    * N rows: integers with commas
+    replace dispNuclear`r' = string(round(Nuclear`r'), "%9.0fc") if isNrow
+    replace dispPatrilocal`r' = string(round(Patrilocal`r'), "%9.0fc") if isNrow
 
-	* Other rows: proportions
-	replace dispNuclear`r' = string(Nuclear`r', "%4.2f") ///
-		if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
-	replace dispPatrilocal`r' = string(Patrilocal`r', "%4.2f") ///
-		if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+    * Other non-header, non-spacer rows: proportions
+    replace dispNuclear`r' = string(Nuclear`r', "%4.2f") ///
+        if rows!="" & !isNrow & strpos(rows, "\textbf{")==0
 
-	* Significance stars
-	replace dispSig`r' = sig`r' if !missing(rows) & !inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
-	replace dispSig`r' = "" if inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
+    replace dispPatrilocal`r' = string(Patrilocal`r', "%4.2f") ///
+        if rows!="" & !isNrow & strpos(rows, "\textbf{")==0
+
+    * Significance stars
+    replace dispSig`r' = sig`r' ///
+        if rows!="" & !isNrow & strpos(rows, "\textbf{")==0
 }
 
-* Blank out headers / spacer rows
+* Blank out section header rows and spacer rows
 foreach var in dispNuclear3 dispPatrilocal3 dispSig3 ///
-			   dispNuclear4 dispPatrilocal4 dispSig4 ///
-			   dispNuclear5 dispPatrilocal5 dispSig5 {
-	replace `var' = "" if strpos(rows, "\textbf{")!=0 & ///
-		!inlist(rows, "\textbf{N (pregnant and were asked decision-making questions)}", "\textbf{N (recently given birth sample)}")
-	replace `var' = "" if rows==""
+               dispNuclear4 dispPatrilocal4 dispSig4 ///
+               dispNuclear5 dispPatrilocal5 dispSig5 {
+    replace `var' = "" if strpos(rows, "\textbf{")!=0 & !isNrow
+    replace `var' = "" if rows==""
 }
 
+drop isNrow
 keep rows disp*
 
 list rows disp*, noobs clean
@@ -479,7 +568,7 @@ listtex ///
 	dispNuclear3 dispPatrilocal3 dispSig3 ///
 	dispNuclear4 dispPatrilocal4 dispSig4 ///
 	dispNuclear5 dispPatrilocal5 dispSig5 ///
-	using "tables/table 1 summary stats w_state.tex", ///
+	using "tables/DR/table 1 summary stats by hhstruc.tex", ///
 	replace rstyle(tabular) ///
 	head( ///
 "\begin{tabular}{lccccccccc}" ///
