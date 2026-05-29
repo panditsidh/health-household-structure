@@ -100,20 +100,25 @@ replace x = 2 if round==4
 replace x = 3 if round==5
 
 * --- smaller stagger ---
+// gen double xoff = x
+// replace xoff = x - 0.04 if spec=="no controls"
+// replace xoff = x + 0.04 if spec=="wealth controls"
+
 gen double xoff = x
-replace xoff = x - 0.04 if spec=="no controls"
-replace xoff = x + 0.04 if spec=="wealth controls"
+replace xoff = x - 0.025 if spec=="no controls"
+replace xoff = x + 0.025 if spec=="wealth controls"
 
 * --- nicer outcome titles for by-panels ---
 gen str40 outcome_title = outcome
-replace outcome_title = "C. No say in own healthcare"              if outcome=="nosay_healthcare"
-replace outcome_title = "D. No say in visits to family/friends"    if outcome=="nosay_visits"
-replace outcome_title = "A. Gave birth in a health facility"       if outcome=="facility_birth"
-replace outcome_title = "B. Had 4+ prenatal visits"               if outcome=="anc_four"
+replace outcome_title = "(c) No say in own healthcare"              if outcome=="nosay_healthcare"
+replace outcome_title = "(d) No say in visits to family/friends"    if outcome=="nosay_visits"
+replace outcome_title = "(a) Gave birth in a health facility"       if outcome=="facility_birth"
+replace outcome_title = "(b) Had 4+ prenatal visits"               if outcome=="anc_four"
 
 * --- marker labels: coef with stars if you have them; else just b formatted ---
 * If you already have stars in a variable, swap mlabel() to that.
 gen str12 mlabel = string(b, "%4.3f")
+
 
 
 twoway ///
@@ -131,22 +136,58 @@ twoway ///
         note("") ///
         graphregion(color(white)) ///
         legend(pos(6)) ///
+		subtitle(, size(vsmall) nobexpand) ///
         yrescale ///
         xrescale ///
-        imargin(medlarge)) ///
+        imargin(small) iscale(0.6)) ///
     legend(order(2 "No controls" 4 "Wealth controls") ///
-           rows(1) ring(0) pos(6) bplacement(south) ///
-           region(lstyle(none))) ///
-    xlabel(0.7 `"2005-2006"' 2 `"2015-2016"' 3.3 `"2019-2021"', ///
+           rows(1) ring(1) pos(6) ///
+           region(lstyle(none)) size(small)) ///
+    xlabel(1 `"2005-2006"' 2 `"2015-2016"' 3 `"2019-2021"', ///
            noticks nogrid labsize(small)) ///
-	ylabel(,labsize(small)) ///
-    xscale(range(0.5 3.5)) ///
+    ylabel(, labsize(small) angle(0)) ///
+    xscale(range(0.85 3.15)) ///
     xtitle("") ///
-    ytitle("Coefficient on indicator for patrilocal extended households", margin(medsmall)) ///
+    ytitle("Coefficient on patrilocal extended household", size(small) margin(small)) ///
     yline(0, lpattern(solid) lcolor(gs10)) ///
-    graphregion(color(white) margin(b+10 l+6 r+6 t+4)) ///
-    plotregion(color(white) margin(l+4 r+4 t+4 b+4)) 
+    graphregion(color(white) margin(l+3 r+3 t+3 b+3)) ///
+    plotregion(color(white) margin(l+1 r+1 t+2 b+2)) ///
+    xsize(7) ysize(5.8)
+	
+graph export "figures/DR/figure 1 regression coefficients with and without controls.png", as(png) name("Graph") replace
+
+//
+// twoway ///
+//     (rcap ul ll xoff if spec=="no controls", lcolor(black) legend(off)) ///
+//     (scatter b xoff if spec=="no controls", ///
+//         msymbol(Oh) mcolor(black) mfc(none) ///
+//         mlabel(mlabel) mlabpos(9) mlabsize(vsmall) mlabcolor(black)) ///
+//     (rcap ul ll xoff if spec=="wealth controls", lcolor(gs8) legend(off)) ///
+//     (scatter b xoff if spec=="wealth controls", ///
+//         msymbol(Th) mcolor(gs8) mfc(none) ///
+//         mlabel(mlabel) mlabpos(3) mlabsize(vsmall) mlabcolor(black)) ///
+//     , ///
+//     by(outcome_title, ///
+//         cols(2) ///
+//         note("") ///
+//         graphregion(color(white)) ///
+//         legend(pos(6)) ///
+//         yrescale ///
+//         xrescale ///
+//         imargin(medlarge)) ///
+//     legend(order(2 "No controls" 4 "Wealth controls") ///
+//            rows(1) ring(0) pos(6) bplacement(south) ///
+//            region(lstyle(none))) ///
+//     xlabel(0.7 `"2005-2006"' 2 `"2015-2016"' 3.3 `"2019-2021"', ///
+//            noticks nogrid labsize(small)) ///
+// 	ylabel(,labsize(small)) ///
+//     xscale(range(0.5 3.5)) ///
+//     xtitle("") ///
+//     ytitle("Coefficient on indicator for patrilocal extended households", margin(medsmall)) ///
+//     yline(0, lpattern(solid) lcolor(gs10)) ///
+//     graphregion(color(white) margin(b+10 l+6 r+6 t+4)) ///
+//     plotregion(color(white) margin(l+4 r+4 t+4 b+4)) 
 
 	
 	
-graph export "figures/figure 1 regression coefficients with and without controls.png", as(png) name("Graph") replace
+// graph export "figures/figure 1 regression coefficients with and without controls.png", as(png) name("Graph") replace
