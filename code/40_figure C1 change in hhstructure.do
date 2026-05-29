@@ -3,9 +3,9 @@ use $all_nfhs_ir, clear
 
 cap label drop roundlbl
 label define roundlbl ///
-    3 "2005-2006" ///
-    4 "2015-2016" ///
-    5 "2019-2021"
+    3 "2005--2006" ///
+    4 "2015--2016" ///
+    5 "2019--2021"
 label values round roundlbl
 label values group grouplbl
 
@@ -40,7 +40,7 @@ local red       "maroon%55"
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if pregnant==1 [aw=wt],
-    over(round, label(labsize(small)))
+    over(round, label(labsize(vsmall)))
     stack
     bar(1, color(`blue')      lcolor(none))
     bar(2, color(`gray')      lcolor(none))
@@ -54,7 +54,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if pregna
     blabel(bar, format(%4.2f) position(inside) size(small))
     ytitle("Proportion of women", size(medlarge))
     ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
-    title("A. Pregnant women", size(large))
+    title("(a) Pregnant women", size(large))
     graphregion(color(white))
     plotregion(color(white))
     name(g1, replace);
@@ -65,7 +65,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if pregna
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear patrilocal if allendorf_sample==1 [aw=wt],
-    over(round, label(labsize(small)))
+    over(round, label(labsize(vsmall)))
     stack
     bar(1, color(`blue') lcolor(none))
     bar(2, color(`red')  lcolor(none))
@@ -85,7 +85,7 @@ graph bar (mean) nuclear patrilocal if allendorf_sample==1 [aw=wt],
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=1 [aw=wt],
-    over(round, label(labsize(small)))
+    over(round, label(labsize(vsmall)))
     stack
     bar(1, color(`blue')      lcolor(none))
     bar(2, color(`gray')      lcolor(none))
@@ -98,7 +98,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=
            cols(4) pos(6) region(lstyle(none)) size(medlarge))
     blabel(bar, format(%4.2f) position(inside) size(small))
     ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
-    title("B. Non-pregnant women", size(large))
+    title("(b) Non-pregnant women", size(large))
     graphregion(color(white))
     plotregion(color(white))
     name(g3, replace);
@@ -109,7 +109,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal [aw=wt],
-    over(round, label(labsize(small)))
+    over(round, label(labsize(vsmall)))
     stack
     bar(1, color(`blue')      lcolor(none))
     bar(2, color(`gray')      lcolor(none))
@@ -122,7 +122,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal [aw=wt],
            cols(4) pos(6) region(lstyle(none)) size(medlarge))
     blabel(bar, format(%4.2f) position(inside) size(small))
     ylabel(0(.2)1, labsize(medlarge) angle(horizontal))
-    title("C. All women", size(large))
+    title("(c) All women", size(large))
     graphregion(color(white))
     plotregion(color(white))
     name(g4, replace);
