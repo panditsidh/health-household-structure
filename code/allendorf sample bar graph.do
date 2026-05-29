@@ -1,6 +1,18 @@
 
 use $all_nfhs_ir, clear
 
+cap drop allendorf_sample
+
+gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1) 
+
+/*
+married
+between ages 15-29
+usual resident
+currently residing with husband
+*/
+
+
 
 cap label drop roundlbl
 label define roundlbl ///
@@ -44,23 +56,24 @@ local patrilocal_gray   "gs6%70"
 * Panel 2: Allendorf sample
 *******************************************************
 #delimit ;
-
-graph bar (mean) nuclear patrilocal if allendorf_sample==1 [aw=wt],
-    over(round, label(angle(0) labsize(small)))
+graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=1 [aw=wt],
+    over(round, label(labsize(vsmall) angle(0)))
     stack
-    ytitle("Percent", size(medium))
-    ylabel(0 "0" .2 "20" .4 "40" .6 "60" .8 "80" 1 "100", angle(0) labsize(small))
-    blabel(bar, format(%4.2f) size(vsmall) position(center))
-    legend(order(2 "Patrilocal extended"
-                 1 "Nuclear")
-           rows(2) size(small) pos(6) region(lstyle(none)))
-    bar(2, color(gs8)  fintensity(75) lcolor(none))
-    bar(1, color(gs11) fintensity(65) lcolor(none))
+    bar(1, color(`nuclear_gray')    lcolor(none))
+    bar(2, color(`natal_ur_gray')   lcolor(none))
+    bar(3, color(`natal_vis_gray')  lcolor(none))
+    bar(4, color(`patrilocal_gray') lcolor(none))
+    legend(order(1 "Nuclear" 
+                 2 "Natal: usual resident" 
+                 3 "Natal: visitor" 
+                 4 "Patrilocal")
+           cols(2) pos(6) region(lstyle(none)) size(small))
+    blabel(bar, format(%4.2f) position(center) size(small))
+    ylabel(0(.2)1, labsize(medsmall) angle(horizontal))
     graphregion(color(white))
     plotregion(color(white))
-    ysize(9) xsize(5)
-    name(g2, replace);
-
+    ysize(9) xsize(4.5)
+    name(g3, replace);
 #delimit cr
 
 
