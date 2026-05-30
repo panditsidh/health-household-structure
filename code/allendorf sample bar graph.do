@@ -26,8 +26,6 @@ keep if ever_married==1
 keep if nuclear | natal | patrilocal
 keep if inlist(round, 3, 4, 5)
 
-replace allendorf_sample = . if natal==1
-
 *******************************************************
 * Split natal women into usual residents and visitors
 *******************************************************
@@ -56,7 +54,7 @@ local patrilocal_gray   "gs6%70"
 * Panel 2: Allendorf sample
 *******************************************************
 #delimit ;
-graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=1 [aw=wt],
+graph bar (mean) nuclear natal_visitor patrilocal if allendorf_sample==1 [aw=wt],
     over(round, label(labsize(vsmall) angle(0)))
     stack
     bar(1, color(`nuclear_gray')    lcolor(none))
@@ -77,4 +75,4 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=
 #delimit cr
 
 
-graph export "figures/DR/allendorf sample bar graph.png", as(png) name("g2")
+graph export "figures/DR/allendorf sample bar graph.png", as(png) replace 
