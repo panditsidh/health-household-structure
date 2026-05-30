@@ -238,16 +238,38 @@ label var hh_struc_men "Household structure among men with pregnant wives"
 
 bys round: tab hh_struc_men [aw=mv005] if wife_pregnant == 1
 
+*******************************************************
+* Sample sizes for figure note
+*******************************************************
+local N3 ""
+local N4 ""
+local N5 ""
+
+foreach r in 3 4 5 {
+    quietly count if wife_pregnant==1 & round==`r' ///
+        & !missing(hh_struc_men)
+
+    local Nraw = r(N)
+    local Nfmt : display %12.0fc `Nraw'
+    local Nfmt = strtrim("`Nfmt'")
+
+    if `r' == 3 local N3 "`Nfmt'"
+    if `r' == 4 local N4 "`Nfmt'"
+    if `r' == 5 local N5 "`Nfmt'"
+}
+
+
+
 
 /*********************************************************************
 10. Create 0/100 indicators for stacked bar figure
 *********************************************************************/
 
-gen hm_pat = 100 * (hh_struc_men == 1) if wife_pregnant == 1
-gen hm_nuc = 100 * (hh_struc_men == 2) if wife_pregnant == 1
-gen hm_wifenatal = 100 * (hh_struc_men == 3) if wife_pregnant == 1
-gen hm_visitor = 100 * (hh_struc_men == 4) if wife_pregnant == 1
-gen hm_other = 100 * (hh_struc_men == 5) if wife_pregnant == 1
+gen hm_pat = (hh_struc_men == 1) if wife_pregnant == 1
+gen hm_nuc = (hh_struc_men == 2) if wife_pregnant == 1
+gen hm_wifenatal = (hh_struc_men == 3) if wife_pregnant == 1
+gen hm_visitor = (hh_struc_men == 4) if wife_pregnant == 1
+gen hm_other = (hh_struc_men == 5) if wife_pregnant == 1
 
 
 /*********************************************************************
@@ -256,6 +278,7 @@ gen hm_other = 100 * (hh_struc_men == 5) if wife_pregnant == 1
 Variables are ordered so that the legend order matches the visual
 top-to-bottom order of the stacked bars.
 *********************************************************************/
+
 
 graph bar (mean) hm_other hm_visitor hm_wifenatal hm_nuc hm_pat [aw=mv005] ///
     if wife_pregnant == 1, ///
@@ -275,6 +298,6 @@ graph bar (mean) hm_other hm_visitor hm_wifenatal hm_nuc hm_pat [aw=mv005] ///
     bar(3, color(gs15) fintensity(100) lcolor(none)) ///
     bar(2, color(gs10) fintensity(35) lcolor(none)) ///
     bar(1, color(gs6)  fintensity(45) lcolor(none)) ///
-    ysize(9) xsize(5)
+    ysize(9) xsize(5) note("Sample sizes: N=`N3' in 2005—2006, N=`N4' in 2015—2016," "                        N=`N5' in 2019-2021");
 
 graph export "figures/apdx bar graph three panel men.png", as(png) replace
