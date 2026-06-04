@@ -47,7 +47,7 @@ if "`c(username)'" == "dc42724" {
 	
 	global all_nfhs_ir "C:\Users\dc42724\Dropbox\Data\combined nfhs for hh structure paper.dta"
 	
-	global paths "C:\Users\dc42724\Documents\GitHub\health-household-structure\code\00_paths.do"
+	global paths ""C:\Users\dc42724\Documents\GitHub\health-household-structure\code\00_paths.do""
 	
 	cd "C:\Users\dc42724\Documents\GitHub\health-household-structure"
 
