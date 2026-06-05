@@ -21,7 +21,7 @@ You need to have defined all required paths in 00_paths.do for this file to work
 
 
 do "$paths"
-do "code/31_significance stars for table 1.do"
+do "code/31_helper significance stars for table1.do"
 
 
 

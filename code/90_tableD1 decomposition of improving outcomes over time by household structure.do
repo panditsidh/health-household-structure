@@ -159,7 +159,7 @@ order outcome_name disp_total disp_hh disp_with
 #delimit ;
 
 listtex outcome_name disp_total disp_hh disp_with ///
-    using "tables/tableA3_outcomes_decomposition.tex", replace ///
+    using "tables/tableD1_outcomes_decomposition.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{lccc}"
          "\toprule"

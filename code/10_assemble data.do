@@ -17,9 +17,9 @@ You need to have defined all required paths in 00_paths.do for this file to work
 
 do "$paths"
 
-do "code/11_determine household structure.do"
+do "code/11_helper determine household structure.do"
 
-do "code/12_harmonize state variable across survey rounds.do"
+do "code/12_helper harmonize state variable across survey rounds.do"
 
 
 
@@ -279,7 +279,7 @@ replace agebin = 4 if inrange(v012, 30, 49)     // Lowest fertility
 
 
 label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–49"
-label values agebin agebinlbl
+label values agebiwealn agebinlbl
 
 gen age1519 = agebin==1
 gen age2024 = agebin==2
@@ -287,10 +287,24 @@ gen age2529 = agebin==3
 gen age3049 = agebin==4
 
 
-xtile wealth = v190 [aw=wt], nq(4)
-label define wealthlbl  1 "1st quartile"  2 "2nd quartile"  3 "3rd quartile"  4 "4th quartile", replace 
-label values wealth wealthlbl
 
+gen wealth = .
+
+levelsof round, local(rounds)
+
+foreach r of local rounds {
+    xtile wealth_r = v190 [aw=v005] if round == `r', nq(4)
+    replace wealth = wealth_r if round == `r'
+    drop wealth_r
+}
+
+label define wealthlbl ///
+    1 "1st quartile" ///
+    2 "2nd quartile" ///
+    3 "3rd quartile" ///
+    4 "4th quartile", replace
+
+label values wealth wealthlbl
 //birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
 //it is only defined for women that have had at least one live birth
 //v008 is the date of the interview and b3 is the date of birth of the child
@@ -368,8 +382,8 @@ currently residing with husband
 */
 
 
-gen sample = 1 if inrange(months_ago_last_birth, 3, 12) & !missing(anc_four) & !missing(facility_birth) & ever_married==1 & !missing(wealth_group)
-replace sample = 2 if pregnant==1 & !missing(nosay_visits) & !missing(nosay_healthcare) & ever_married==1 & !missing(wealth_group)
+gen sample = 1 if inrange(months_ago_last_birth, 3, 12) & !missing(anc_four) & !missing(facility_birth) & ever_married==1 
+replace sample = 2 if pregnant==1 & !missing(nosay_visits) & !missing(nosay_healthcare) & ever_married==1 
 
 label define samplelbl ///
     1 "postpartum" ///
