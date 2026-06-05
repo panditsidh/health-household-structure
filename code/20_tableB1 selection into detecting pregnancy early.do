@@ -32,6 +32,8 @@ keep if inlist(round, 3, 4, 5)
 gen gestdur_1or2 = inlist(gestdur, 1, 2) // self-reports 1 or 2 months pregnant
 
 
+drop if group==6
+
 *---------------------------------
 * Run separately by NFHS round
 *---------------------------------
@@ -49,7 +51,7 @@ foreach r in 3 4 5 {
         i.group
         [aw=v005]
         if round == `r',
-        cluster(psu);
+        cluster(psu) absorb(state);
     #delimit cr
 
     eststo model_`r'
@@ -92,8 +94,7 @@ esttab model_3 model_4 model_5 using "tables/tableB1_predicting_early_pregnancy.
         3.group    "\hspace*{1em}OBC" ///
         4.group    "\hspace*{1em}Forward caste" ///
         5.group    "\hspace*{1em}Muslim" ///
-        6.group    "\hspace*{1em}Sikh/Jain/Christian" ///
-        _cons      "\hspace*{1em}Constant")
+        _cons      "\hspace*{1em}Constant") ///
     refcat( ///
         2.agebin "\textbf{Age categories} \\ (15--19 omitted)" ///
         2.parity "\textbf{Parity (live births)} \\ (0 omitted)" ///
