@@ -1,9 +1,39 @@
+/*
+
+This file creates the appendix figure on household structure among men whose
+wives are pregnant.
+
+The file first stacks the NFHS-3, NFHS-4, and NFHS-5 household member recode
+files. It uses the household member files to identify which relatives are present
+in each household.
+
+It then stacks the NFHS men's recode files and merges the household-level
+information onto the men's file.
+
+Using the man's relationship to the household head and the relatives present in
+the household, the file classifies men into five categories:
+1. usual resident in a patrilocal extended household,
+2. usual resident in a nuclear household,
+3. usual resident in the wife's natal household,
+4. visitor to the interviewed household, and
+5. other.
+
+The figure shows the weighted share of men in each household-structure category
+among men who report that their wife is currently pregnant.
+
+This file uses raw NFHS household member recode files and men's recode files.
+You need to have defined all required paths in 00_paths.do for this file to work.
+
+*/
+
 
 /*********************************************************************
 0. Stack household member recode files
 *********************************************************************/
 
 clear
+
+do "$paths"
 
 foreach file in nfhs3hmr nfhs4hmr nfhs5hmr {
     use hvidx hv000 hv001 hv002 hhid hv101 hv104 hv105 hv115 using "${`file'}", clear
@@ -83,17 +113,17 @@ save `hr_combined', replace
 *********************************************************************/
 
 * NFHS-5
-use "/Users/sidhpandit/Desktop/data/nfhs/nfhs5mr/IAMR7EFL.DTA", clear
+use "$nfhs5mr", clear
 tempfile nfhs5mr
 save `nfhs5mr', replace
 
 * NFHS-4
-use "/Users/sidhpandit/Desktop/data/nfhs/nfhs4mr/IAMR74FL.DTA", clear
+use "$nfhs4mr", clear
 tempfile nfhs4mr
 save `nfhs4mr', replace
 
 * NFHS-3
-use "/Users/sidhpandit/Desktop/data/nfhs/nfhs3mr/IAMR52FL.dta", clear
+use "$nfhs3mr", clear
 append using `nfhs4mr'
 append using `nfhs5mr'
 
@@ -238,6 +268,20 @@ label var hh_struc_men "Household structure among men with pregnant wives"
 
 bys round: tab hh_struc_men [aw=mv005] if wife_pregnant == 1
 
+
+
+
+
+/*********************************************************************
+10. Create 0/100 indicators for stacked bar figure
+*********************************************************************/
+
+gen hm_pat = 100*(hh_struc_men == 1) if wife_pregnant == 1
+gen hm_nuc = 100*(hh_struc_men == 2) if wife_pregnant == 1
+gen hm_wifenatal = 100*(hh_struc_men == 3) if wife_pregnant == 1
+gen hm_visitor = 100*(hh_struc_men == 4) if wife_pregnant == 1
+gen hm_other = 100*(hh_struc_men == 5) if wife_pregnant == 1
+
 *******************************************************
 * Sample sizes for figure note
 *******************************************************
@@ -257,19 +301,6 @@ foreach r in 3 4 5 {
     if `r' == 4 local N4 "`Nfmt'"
     if `r' == 5 local N5 "`Nfmt'"
 }
-
-
-
-
-/*********************************************************************
-10. Create 0/100 indicators for stacked bar figure
-*********************************************************************/
-
-gen hm_pat = (hh_struc_men == 1) if wife_pregnant == 1
-gen hm_nuc = (hh_struc_men == 2) if wife_pregnant == 1
-gen hm_wifenatal = (hh_struc_men == 3) if wife_pregnant == 1
-gen hm_visitor = (hh_struc_men == 4) if wife_pregnant == 1
-gen hm_other = (hh_struc_men == 5) if wife_pregnant == 1
 
 
 /*********************************************************************
@@ -298,6 +329,6 @@ graph bar (mean) hm_other hm_visitor hm_wifenatal hm_nuc hm_pat [aw=mv005] ///
     bar(3, color(gs15) fintensity(100) lcolor(none)) ///
     bar(2, color(gs10) fintensity(35) lcolor(none)) ///
     bar(1, color(gs6)  fintensity(45) lcolor(none)) ///
-    ysize(9) xsize(5) note("Sample sizes: N=`N3' in 2005—2006, N=`N4' in 2015—2016," "                        N=`N5' in 2019-2021");
+    ysize(9) xsize(5) note("Sample sizes: N=`N3' in 2005—2006, N=`N4' in 2015—2016," "                        N=`N5' in 2019-2021")
 
-graph export "figures/apdx bar graph three panel men.png", as(png) replace
+graph export "figures/figureC2_hhstruc_composition_husbands.pdf", as(pdf) replace

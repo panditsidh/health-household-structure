@@ -1,6 +1,25 @@
-do "code/11_gen hhstruc.do"
+/*******************************************************************************
+This file creates the final analytic dataset.
 
-do "code/12_state district match.do"
+It calls on 11_gen_hhstruc.do to stack NFHS rounds and merge the individual
+recode and household member recode datasets.
+
+It calls on 12_state_district_match.do to create a harmonized state variable
+across NFHS rounds.
+
+After those files run, this file defines the other variables needed for the
+analysis.
+
+You need to have defined all required paths in 00_paths.do for this file to work.
+*******************************************************************************/
+
+
+
+do "$paths"
+
+do "code/11_determine household structure.do"
+
+do "code/12_harmonize state variable across survey rounds.do"
 
 
 
@@ -8,7 +27,7 @@ do "code/12_state district match.do"
 
 
 *==============================================================*
-* 4. Decision-Making Variables
+* Decision-Making Variables
 *==============================================================*
 
 
@@ -24,34 +43,9 @@ replace nosay_visits = 1 if inlist(v743d,4,5,6) & inlist(round,3,4,5)
 
 
 
-// * OLD CODE
-// * Own healthcare
-// gen nosay_healthcare = 0
-//
-// * NFHS-2 (everyone asked; husband/others vs respondent/partner)
-// replace nosay_healthcare = 1 if inlist(s511b,2,4) & round==2
-//
-// * NFHS-3–5 (husband alone, someone else, other vs respondent/partner)
-// replace nosay_healthcare = 1 if inlist(v743a,4,5,6) & inlist(round,3,4,5)
-//
-// * Missing by state module (NFHS-4,5)
-// replace nosay_healthcare = . if ssmod==0 & inlist(round,4,5)
-//
-// * NFHS-3 missing (only where v743a missing)
-// replace nosay_healthcare = . if missing(v743a) & round==3
-// replace nosay_healthcare = . if v743a==9
-//
-// * Visits to natal family
-// gen nosay_visits = .
-// replace nosay_visits = !inlist(v743d,1,2,3) if !missing(v743d)
-// replace nosay_visits = 1 if inlist(v743d,4,5,6) if !missing(v743d) & inlist(round,3,4,5)
-// replace nosay_visits = s512b!=1 if !missing(s512b) & round==2
-// replace nosay_visits = . if v743a==9
-
-
 
 *==============================================================*
-* 8. Birth Place
+* Birth Place
 *==============================================================*
 
 gen home_birth = inlist(m15_1,10,11,12,13) if !missing(m15_1)
@@ -60,14 +54,12 @@ gen mo_since_birth = v008-b3_01
 
 gen home_birth_312 = home_birth if inrange(mo_since_birth,3,12)
 
-
-* Outcomes
 gen facility_birth = (home_birth==0) if !missing(home_birth)
 
 
 
 *==============================================================*
-* 8. Pregnancy
+* Pregnancy
 *==============================================================*
 
 //generate months since last period in order to exclude women who are 1 or 2 months pregnant from the analysis.
@@ -94,8 +86,6 @@ replace moperiod = 11 if v215==311
 gen gestdur = moperiod if v213==1
 replace gestdur = v214 if missing(moperiod) & v213==1
 
-gen preg = v213
-replace preg = . if gestdur<3 & v213==1
 
 * this variable is only defined for pregnant women 
 gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
@@ -110,7 +100,6 @@ gen not_pregnant = !pregnant
 * 12. Social Group Coding (group)
 *==============================================================*
 
-* Base coding (NFHS-4/5 style: s116 + v130)
 gen group = .
 replace group = 1 if s116 == 2                                     // Adivasi
 replace group = 2 if s116 == 1                                     // Dalit
@@ -119,25 +108,6 @@ replace group = 5 if v130 == 2 & group==.                          // Muslims (n
 replace group = 3 if inlist(v130,1,4) & s116 == 3                  // OBC Hindu or Sikh
 replace group = 4 if v130 == 1 & inlist(s116,4,8,.)                // Forward caste Hindus
 
-*---------- NFHS-2-specific extension (round == 2) ----------*
-
-* 1 = Adivasi (ST)
-replace group = 1 if round==2 & v131 == 2
-
-* 2 = Dalit (SC)
-replace group = 2 if round==2 & v131 == 1
-
-* 6 = Christian / Sikh / Jain
-replace group = 6 if round==2 & inlist(v130,3,4,6) & group==.
-
-* 5 = Muslims (non SC/ST)
-replace group = 5 if round==2 & v130 == 2 & group==.
-
-* 3 = OBC that are Hindu or Sikh
-replace group = 3 if round==2 & inlist(v130,1,4) & v131 == 3
-
-* 4 = Forward caste Hindus
-replace group = 4 if round==2 & v130 == 1 & v131 == 4
 
 *---------- NFHS-3-specific extension (round == 3) ----------*
 
@@ -317,7 +287,6 @@ gen age2529 = agebin==3
 gen age3049 = agebin==4
 
 
-
 //birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
 //it is only defined for women that have had at least one live birth
 //v008 is the date of the interview and b3 is the date of birth of the child
@@ -354,7 +323,6 @@ foreach p of numlist 2/4 {
 		local i = `i' + 1
 	}
 }
-
 
 
 forvalues i = 1/10 {

@@ -1,17 +1,24 @@
 /*
 
-First it stacks  nfhs 3-5 household member recode
-and uses that to figure out what household structure each household is
-(based on who is there and who isn't)
-then it merges this household level information to the stacked woman's individual file
+This file stacks the NFHS 3–5 household member recode files and uses them to
+classify each household's structure based on which household members are present.
 
-you don't need to run this code, 10 will call it 
+It then merges this household-level information onto the stacked women's
+individual recode file.
+
+You do not need to run this file directly. It is called by 10_assemble_data.do.
 
 */
 
 
+
 * stack hmr
 clear 
+
+do "$paths"
+
+
+
 
 foreach file in nfhs3hmr nfhs4hmr nfhs5hmr {
 	use hvidx hv000 hv001 hv002 hhid hv101 hv104 hv105 hv115 using "${`file'}"
@@ -22,6 +29,11 @@ foreach file in nfhs3hmr nfhs4hmr nfhs5hmr {
 use hvidx hv000 hv001 hv002 hhid hv101 hv104 hv105 hv115 using "${nfhs3hmr}", clear
 append using "${nfhs4hmr}"
 append using "${nfhs5hmr}"
+
+
+
+
+gen woman_1549 = hv104==2 & hv105>=15 & hv105<=49
 
 
 * 1) tag each member's relation to household head
@@ -55,7 +67,7 @@ tab hv101, gen(rel)
 
 * 2) collapse who is there relative to hh head at the household level
 
-foreach var in non_nuclear_member mother father parent mil fil pil sibil sib other {
+foreach var in non_nuclear_member mother father parent mil fil pil sibil sib other woman_1549 {
 	bysort hv000 hhid: egen has_`var' = max(`var')
 }
 
@@ -127,8 +139,7 @@ drop if hh_merge==2
 
 
 
-* 4) code household structure
-
+* 4) code household structure based on who is in the household relative to the woman
 
 gen nuclear = 0
 gen patrilocal = 0

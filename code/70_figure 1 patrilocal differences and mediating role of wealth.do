@@ -1,9 +1,34 @@
+/*
+
+This file creates Figure 1.
+
+Figure 1 shows the estimated difference in outcomes between women in patrilocal
+extended households and women in nuclear households.
+
+The file runs regressions separately by NFHS round for four outcomes:
+birth in a health facility, 4+ prenatal visits, no say in own healthcare, and
+no say in visits to family or friends.
+
+For each outcome and round, the file estimates two regressions:
+one with state fixed effects only, and one with state fixed effects plus wealth
+controls. The plotted coefficient is the coefficient on patrilocal extended
+household residence. Standard errors are clustered at the PSU level.
+
+The autonomy outcomes use the pregnant sample and state-module weights. The
+healthcare-use outcomes use the recent birth sample and regular women's weights.
+
+This file uses the final analytic dataset created by 10_assemble_data.do.
+You need to have defined all required paths in 00_paths.do for this file to work.
+
+*/
 
 
 clear
 set more off
 
-use $all_nfhs_ir, clear
+
+do "$paths"
+use "$all_nfhs_ir", clear
 
 keep if inlist(round,3,4,5)
 
@@ -12,7 +37,7 @@ keep if inlist(hh_struc,1,2)
 keep if ever_married==1
 
 
-* this just helps it run faster
+* this just helps it run faster, load tempfiles of each round instead of the entire file 
 foreach r in 3 4 5 {
 	
 	preserve
@@ -35,6 +60,7 @@ postfile h ///
     using `results', replace
 
 * -------- Pregnant outcomes --------
+* we use w_state here because these are state module outcomes that require different weights be used
 foreach y in nosay_healthcare nosay_visits {
     foreach r in 3 4 5 {
 		
@@ -82,16 +108,7 @@ use `results', clear
 
 *============================================================*
 * Figure: coefficients across NFHS rounds (4 panels)
-*  - no grid
-*  - mlabels
-*  - smaller stagger
-*  - x-axis shows 2005-06 / 2015-16 / 2019-21 (not 1 2 3)
-*  - NO connecting lines
-*  - legend: circle = no controls, triangle = wealth controls
 *============================================================*
-
-* If b is missing but ll/ul exist, uncomment midpoint fallback:
-* gen double b = (ll + ul)/2 if missing(b) & !missing(ll) & !missing(ul)
 
 * --- x-axis positions ---
 gen byte x = .
@@ -99,11 +116,8 @@ replace x = 1 if round==3
 replace x = 2 if round==4
 replace x = 3 if round==5
 
-* --- smaller stagger ---
-// gen double xoff = x
-// replace xoff = x - 0.04 if spec=="no controls"
-// replace xoff = x + 0.04 if spec=="wealth controls"
 
+* stagger the points on the x axis so they don't overlap 
 gen double xoff = x
 replace xoff = x - 0.025 if spec=="no controls"
 replace xoff = x + 0.025 if spec=="wealth controls"
@@ -155,39 +169,3 @@ twoway ///
     xsize(7) ysize(5.8)
 	
 graph export "figures/DR/figure 1 regression coefficients with and without controls.png", as(png) name("Graph") replace
-
-//
-// twoway ///
-//     (rcap ul ll xoff if spec=="no controls", lcolor(black) legend(off)) ///
-//     (scatter b xoff if spec=="no controls", ///
-//         msymbol(Oh) mcolor(black) mfc(none) ///
-//         mlabel(mlabel) mlabpos(9) mlabsize(vsmall) mlabcolor(black)) ///
-//     (rcap ul ll xoff if spec=="wealth controls", lcolor(gs8) legend(off)) ///
-//     (scatter b xoff if spec=="wealth controls", ///
-//         msymbol(Th) mcolor(gs8) mfc(none) ///
-//         mlabel(mlabel) mlabpos(3) mlabsize(vsmall) mlabcolor(black)) ///
-//     , ///
-//     by(outcome_title, ///
-//         cols(2) ///
-//         note("") ///
-//         graphregion(color(white)) ///
-//         legend(pos(6)) ///
-//         yrescale ///
-//         xrescale ///
-//         imargin(medlarge)) ///
-//     legend(order(2 "No controls" 4 "Wealth controls") ///
-//            rows(1) ring(0) pos(6) bplacement(south) ///
-//            region(lstyle(none))) ///
-//     xlabel(0.7 `"2005-2006"' 2 `"2015-2016"' 3.3 `"2019-2021"', ///
-//            noticks nogrid labsize(small)) ///
-// 	ylabel(,labsize(small)) ///
-//     xscale(range(0.5 3.5)) ///
-//     xtitle("") ///
-//     ytitle("Coefficient on indicator for patrilocal extended households", margin(medsmall)) ///
-//     yline(0, lpattern(solid) lcolor(gs10)) ///
-//     graphregion(color(white) margin(b+10 l+6 r+6 t+4)) ///
-//     plotregion(color(white) margin(l+4 r+4 t+4 b+4)) 
-
-	
-	
-// graph export "figures/figure 1 regression coefficients with and without controls.png", as(png) name("Graph") replace

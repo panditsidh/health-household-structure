@@ -1,28 +1,32 @@
-*******************************************************
-* Kitagawa decomposition of increase in patrilocal residence
-* explained by parity composition
-* NFHS-3 vs NFHS-5
-*
-* Assumes in $all_nfhs_ir:
-*   - round == 3 or 5
-*   - pregnant == 1 for currently pregnant women
-*   - hh_struc: 1 = nuclear, 2 = patrilocal
-*   - parity variable is named parity
-*   - wt is analysis weight
+/*
 
+This file creates Appendix Table A-1.
 
+The table decomposes the increase in patrilocal extended household residence
+among pregnant women between NFHS-3 and NFHS-5.
 
+It uses a Kitagawa decomposition to separate the total change into two parts:
+1. the share explained by changes in the parity distribution of pregnant women,
+   and
+2. the share unexplained by parity composition, reflecting changes in
+   patrilocal residence within parity groups.
 
+The sample is restricted to women in either nuclear or patrilocal extended
+households who are in the pregnant-women analytic sample.
 
-*******************************************************
+This file uses the final analytic dataset created by 10_assemble_data.do.
+You need to have defined all required paths in 00_paths.do for this file to work.
+
+*/
 
 clear
 set more off
 
-use $all_nfhs_ir, clear
+do "$paths"
+use "$all_nfhs_ir", clear
 
-keep if ever_married==1
-keep if inlist(hh_struc,1,2)
+
+
 
 drop parity*
 
@@ -50,7 +54,6 @@ gen parity2 = parity==2
 gen parity3 = parity==3
 gen parity4 = parity==4
 
-
 drop if missing(parity)
 
 
@@ -60,13 +63,14 @@ drop if missing(parity)
 keep if pregnant==1
 keep if inlist(round,3,5)
 keep if inlist(hh_struc,1,2)
+keep if ever_married==1
 
 *-----------------------------*
 
 
 *
 *-----------------------------*
-* Overall patrilocal rates
+* Overall patrilocal rates for each survey round
 *-----------------------------*
 foreach r in 3 5 {
     quietly sum patrilocal [aw=wt] if round==`r'
@@ -92,7 +96,7 @@ foreach j in 1 2 3 4 {
     * weighted share in each round
     quietly sum parity`j' [aw=wt] if round==3
     local share3_`j' = r(mean)
-
+	
     quietly sum parity`j' [aw=wt] if round==5
     local share5_`j' = r(mean)
 
@@ -103,7 +107,7 @@ foreach j in 1 2 3 4 {
     quietly sum patrilocal [aw=wt] if round==5 & parity==`j'
     local rate5_`j' = r(mean)
 
-    * Kitagawa components
+    * components of the gap
     local explained_`j'   = (`share5_`j'' - `share3_`j'') * ///
                             ((`rate5_`j'' + `rate3_`j'')/2)
 
@@ -218,18 +222,7 @@ listtex ///
 
 #delimit cr
 
-// #delimit ;
-// listtex ///
-//     group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct ///
-//     using "tables/table A1 household structure decomposition.tex", replace ///
-//     rstyle(tabular) ///
-//     head("\begin{tabular}{lcccccc}"
-//          "\toprule"
-//          "Parity group & \makecell{Share at parity\\2005--2006 (\%)} & \makecell{Share at parity\\2019--2021 (\%)} & \makecell{Share in patrilocal\\extended households\\2005--2006 (\%)} & \makecell{Share in patrilocal\\extended households\\2019--2021 (\%)} & \makecell{Share of total \\ change explained \\ by parity (\%)} & \makecell{Share of total \\ change unexplained \\ by parity (\%)} \\"
-//          "\midrule") ///
-//     foot("\bottomrule"
-//          "\end{tabular}");
-// #delimit cr	 
+
 *******************************************************
 * Display summary numbers for text
 *******************************************************

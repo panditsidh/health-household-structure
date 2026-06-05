@@ -1,4 +1,24 @@
-use $all_nfhs_ir, clear
+/*
+
+This file creates Appendix Figure C-1.
+
+The figure shows changes across NFHS-3, NFHS-4, and NFHS-5 in the distribution
+of women's household structure. Household structure is split into four
+categories: nuclear, natal usual resident, natal visitor, and patrilocal
+extended household.
+
+The file creates three stacked bar graph panels: pregnant women, non-pregnant
+women, and all women. It then combines the three panels into one figure and
+exports the figure as a PDF.
+
+This file uses the final analytic dataset created by 10_assemble_data.do.
+You need to have defined all required paths in 00_paths.do for this file to work.
+
+*/
+
+
+do "$paths"
+use "$all_nfhs_ir", clear
 
 
 cap label drop roundlbl
@@ -68,7 +88,7 @@ graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if pregna
 * Panel 2: Non-pregnant women
 *******************************************************
 #delimit ;
-graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if preg!=1 [aw=wt],
+graph bar (mean) nuclear natal_usual_resident natal_visitor patrilocal if pregnant!=1 [aw=wt],
     over(round, label(labsize(vsmall) angle(0)))
     stack
     bar(1, color(`nuclear_gray')    lcolor(none))
@@ -128,4 +148,4 @@ grc1leg g1 g3 g4, ///
     name(hh_structure_threepanel, replace) ///
     fysize(110) fxsize(160)
 
-graph export "figures/apdx bar graph three panel.pdf", replace as(pdf) name("hh_structure_threepanel")
+graph export "figures/figureC1_hhstruc_composition_allwomen.pdf", replace as(pdf) name("hh_structure_threepanel")

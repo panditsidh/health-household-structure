@@ -1,9 +1,14 @@
-* you don't need to run this code, 10 will call it
+/*
 
-*Match states across surveys
-*--------------------------------------*
-* Harmonize state to NFHS-5 codes      *
-*--------------------------------------*
+This file creates harmonized state and district variables across NFHS rounds.
+
+State and district codes are not fully consistent across survey rounds, so this
+file standardizes them for use in pooled analyses and regional classifications.
+
+You do not need to run this file directly. It is called by 10_assemble_data.do.
+
+*/
+
 
 * NFHS-4 (IA6) in terms of NFHS-5 codes
 gen state = .  
@@ -141,59 +146,6 @@ replace state = 12 if v024 == 34 & v000 == "IA3"
 * Tripura (35) -> 16
 replace state = 16 if v024 == 35 & v000 == "IA3"
 
-
-*Match districts across surveys 
-//
-// gen district = .
-// replace district = sdist if v000=="IA7"
-// replace district = sdistri if v000=="IA6"
-// replace district = 2000 if inlist(sdist,879,880) | inlist(sdistri,43)
-// replace district = 2001 if inlist(sdist,881,882) | inlist(sdistri,35)
-// replace district = 2002 if inlist(sdist,865,866) | inlist(sdistri,81)
-// replace district = 2003 if inlist(sdist,837,838,839,840,841,842,843,844,845,846,847) | inlist(sdistri,90,91,92,93,94,95,96,97,98)
-// replace district = 2004 if inlist(sdist,921,927,930) | inlist(sdistri,158,179)
-// replace district = 2005 if inlist(sdist,923,924) | inlist(sdistri,140)
-// replace district = 2006 if inlist(sdist,922,925,928) | inlist(sdistri,135,149)
-// replace district = 2007 if inlist(sdist,926,929) | inlist(sdistri,133)
-// replace district = 2008 if inlist(sdist,802,803) | inlist(sdistri,256)
-// replace district = 2009 if inlist(sdist,804,806) | inlist(sdistri,259)
-// replace district = 2010 if inlist(sdist,805,808) | inlist(sdistri,254)
-// replace district = 2011 if inlist(sdist,801,807,809) | inlist(sdistri,250,251)
-// replace district = 2012 if inlist(sdist,915,917,920) | inlist(sdistri,289)
-// replace district = 2013 if inlist(sdist,914,918) | inlist(sdistri,290)
-// replace district = 2014 if inlist(sdist,916,919) | inlist(sdistri,292)
-// replace district = 2015 if inlist(sdist,871,873) | inlist(sdistri,294)
-// replace district = 2016 if inlist(sdist,872,877) | inlist(sdistri,299)
-// replace district = 2017 if inlist(sdist,875,878) | inlist(sdistri,296)
-// replace district = 2018 if inlist(sdist,874,876) | inlist(sdistri,293)
-// replace district = 2019 if inlist(sdist,810,819) | inlist(sdistri,306)
-// replace district = 2020 if inlist(sdist,811,818) | inlist(sdistri,311)
-// replace district = 2021 if inlist(sdist,813,817) | inlist(sdistri,305)
-// replace district = 2022 if inlist(sdist,812,820) | inlist(sdistri,301)
-// replace district = 2023 if inlist(sdist,815,821) | inlist(sdistri,314)
-// replace district = 2024 if inlist(sdist,814,816) | inlist(sdistri,312)
-// replace district = 2025 if inlist(sdist,931,932) | inlist(sdistri,335)
-// replace district = 2026 if inlist(sdist,822,826,829) | inlist(sdistri,409)
-// replace district = 2027 if inlist(sdist,823,830,833) | inlist(sdistri,410)
-// replace district = 2028 if inlist(sdist,824,835,836) | inlist(sdistri,401)
-// replace district = 2029 if inlist(sdist,825,831) | inlist(sdistri,414)
-// replace district = 2030 if inlist(sdist,827,832) | inlist(sdistri,406)
-// replace district = 2031 if inlist(sdist,828,834) | inlist(sdistri,416)
-// replace district = 2032 if inlist(sdist,867,868) | inlist(sdistri,436)
-// replace district = 2033 if inlist(sdist,849,862) | inlist(sdistri,472)
-// replace district = 2034 if inlist(sdist,848,850,851) | inlist(sdistri,474,481)
-// replace district = 2035 if inlist(sdist,852,864) | inlist(sdistri,486)
-// replace district = 2036 if inlist(sdist,857,858,860) | inlist(sdistri,483,484)
-// replace district = 2037 if inlist(sdist,853,855,859,861,863) | inlist(sdistri,475,476,477)
-// replace district = 2038 if inlist(sdist,854,856) | inlist(sdistri,479)
-// replace district = 2039 if inlist(sdist,869,870) | inlist(sdistri,517)
-// replace district = 2040 if inlist(sdist,883,893,896,901) | inlist(sdistri,532)
-// replace district = 2041 if inlist(sdist,884,886,887,888,891,892,894,897) | inlist(sdist,900,903,904,906,907,908,911,912,913) | inlist(sdistri,534,535,539,540,541)
-// replace district = 2042 if inlist(sdist,885) | inlist(sdistri,536)
-// replace district = 2043 if inlist(sdist,898,905,909) | inlist(sdistri,537)
-// replace district = 2044 if inlist(sdist,889,895,899,910) | inlist(sdistri,538)
-// replace district = 2045 if inlist(sdist,890,902) | inlist(sdistri,533)
-//
 
 
 label define state_lbl ///

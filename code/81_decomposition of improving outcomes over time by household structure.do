@@ -1,20 +1,19 @@
-
 /*
 
+This file creates Appendix Table A-3.
 
-total difference = outcome5 - outcome3
+The table decomposes the total change in each outcome between NFHS-3 and NFHS-5.
 
-within nuclear = (outcome5_nuclear - outcome3_nuclear) * (weight5_nuclear + weight3_nuclear)/2
+For each outcome, the total change is split into two parts:
+1. the part explained by changes in the share of women living in nuclear versus
+   patrilocal extended households, and
+2. the part due to changes in outcomes within household structure categories.
 
+The autonomy outcomes use the pregnant sample and state-module weights. The
+healthcare-use outcomes use the recent birth sample and regular women's weights.
 
-within patrilocal = (outcome5_patrilocal - outcome3_patrilocal) * (weight5_patrilocal + weight3_patrilocal)/2
-
-
-
-between nuclear = (outcome5_nuclear + outcome3_nuclear)/2 * (weight5_nuclear - weight3_nuclear)/2
-
-
-between patrilocal = (outcome5_patrilocal + outcome3_patrilocal)/2 * (weight5_patrilocal - weight3_patrilocal)/2
+This file uses the final analytic dataset created by 10_assemble_data.do.
+You need to have defined all required paths in 00_paths.do for this file to work.
 
 */
 
@@ -22,7 +21,9 @@ between patrilocal = (outcome5_patrilocal + outcome3_patrilocal)/2 * (weight5_pa
 clear
 set more off
 
-use $all_nfhs_ir, clear
+do "$paths"
+
+use "$all_nfhs_ir", clear
 
 keep if ever_married==1
 
@@ -38,20 +39,6 @@ postfile h ///
     str25 outcome ///
     double total_gap pct_explained pct_unexplained ///
     using `results', replace
-
-
-foreach r in 3 5 {
-	
-	
-	sum nuclear [aw=wt] if round==`r'
-	local wt_1`r' = r(mean)
-	
-	sum patrilocal [aw=wt] if round==`r'
-	local wt_2`r' = r(mean)
-	
-	
-	
-}
 
 
 
@@ -74,6 +61,15 @@ foreach outcome in nosay_healthcare nosay_visits anc_four facility_birth  {
 		
 		foreach r in 3 5 {
 			
+			* weights for the decomposition, shares of women in each sample x round in each household structure
+			sum nuclear [aw=wt] if round==`r'
+			local wt_1`r' = r(mean)
+			
+			sum patrilocal [aw=wt] if round==`r'
+			local wt_2`r' = r(mean)
+			
+			
+			* outcomes for the decomposition, within round x hhstructure
 			sum `outcome' [aw=`outcome_wt'] if hh_struc==`h' & round==`r'
 			local outcome_`h'`r' = r(mean)
 			
@@ -87,7 +83,7 @@ foreach outcome in nosay_healthcare nosay_visits anc_four facility_birth  {
 		
 		
 		
-		
+		* components of the gap
 		local within_`h' = (`outcome_`h'5' - `outcome_`h'3') * (`wt_`h'3' + `wt_`h'5')/2
 		
 		

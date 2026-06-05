@@ -1,5 +1,24 @@
+/*
 
-use $all_nfhs_ir, clear
+This file creates Appendix Figure C-3.
+
+The figure shows changes across NFHS-3, NFHS-4, and NFHS-5 in household
+structure among women in the sample defined as currently married women ages 15-29 who are
+usual residents and currently living with their husbands.
+
+This is the same sample used in Allendorf (2013) except that paper restricts to only nuclear and patrilocal households
+
+We keep usual residents in natal households too for comparison
+
+The figure shows the weighted share of women living in nuclear households,
+natal households as usual residents, and patrilocal extended households.
+
+This file uses the final analytic dataset created by 10_assemble_data.do.
+You need to have defined all required paths in 00_paths.do for this file to work.
+
+*/
+
+use "$all_nfhs_ir", clear
 
 cap drop allendorf_sample
 
@@ -96,4 +115,4 @@ graph bar (mean) nuclear natal_usual_resident patrilocal if allendorf_sample==1 
 #delimit cr
 
 
-graph export "figures/DR/allendorf sample bar graph.png", as(png) replace 
+graph export "figures/figure_C3_hhstruc_composition_allendorf2012sample.pdf", as(pdf) replace 
