@@ -1,3 +1,22 @@
+/*
+
+This file defines all paths needed to run the replication code.
+
+Before running the replication files, users should edit the paths below so that
+they point to the NFHS/DHS data files and project folders on their own computer.
+
+The raw NFHS/DHS data are not included in this replication package. They must be
+downloaded separately from the DHS Program. After downloading the required files,
+replace the placeholder paths below with the local paths to those files.
+
+All other do-files call this file to locate the raw data, the final analytic
+dataset, and the folders where tables and figures are saved.
+
+*/
+
+
+
+
 // global nfhs3hr  "INSERT PATH TO NFHS-3 HOUSEHOLD RECODE FILE: IAHR52FL.DTA"
 // global nfhs3hmr "INSERT PATH TO NFHS-3 HOUSEHOLD MEMBER RECODE FILE: IAPR52FL.DTA"
 // global nfhs3ir  "INSERT PATH TO NFHS-3 INDIVIDUAL RECODE FILE: IAIR52FL.DTA"

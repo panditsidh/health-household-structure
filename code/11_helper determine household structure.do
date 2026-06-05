@@ -12,12 +12,10 @@ You do not need to run this file directly. It is called by 10_assemble_data.do.
 
 
 
-* stack hmr
+* first stack the household member recode datasets
 clear 
 
 do "$paths"
-
-
 
 
 foreach file in nfhs3hmr nfhs4hmr nfhs5hmr {
@@ -32,11 +30,12 @@ append using "${nfhs5hmr}"
 
 
 
-
+* indicator for whether the household member is a woman ages 15-49 (who is eligible to be interviewed with the woman's questionnaire)
 gen woman_1549 = hv104==2 & hv105>=15 & hv105<=49
 
 
-* 1) tag each member's relation to household head
+
+* 1) tag each household member's relation to household head
 
 * someone who is not child or spouse of the hh head
 gen non_nuclear_member = !inlist(hv101,1,2,3,11)
@@ -65,7 +64,7 @@ gen nieceneph_adult = inlist(hv101,13,14,16) & hv105>=18
 tab hv101, gen(rel)
 
 
-* 2) collapse who is there relative to hh head at the household level
+* 2) collapse the members of the household relative to hh head at the household level
 
 foreach var in non_nuclear_member mother father parent mil fil pil sibil sib other woman_1549 {
 	bysort hv000 hhid: egen has_`var' = max(`var')
@@ -102,7 +101,6 @@ save `hr_combined'
 
 
 * 3) merge this with the individual recode
-
 
 * NFHS-3
 use caseid s824b w124 v044 d* s46* v* s558a-s558g m15* d105* b3* bord* m14* using "${nfhs3ir}", clear
@@ -233,9 +231,6 @@ gen missing_hhstruc = missing(hh_struc)
 gen round = 3 if v000=="IA5"
 replace round = 4 if v000=="IA6"
 replace round = 5 if v000=="IA7"
-
-
-
 
 
 label define roundlbl ///

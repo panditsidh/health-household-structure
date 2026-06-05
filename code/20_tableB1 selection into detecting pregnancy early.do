@@ -25,6 +25,7 @@ use "$all_nfhs_ir", clear
 
 eststo clear
 
+
 keep if v213 == 1
 keep if !missing(gestdur)
 keep if inlist(round, 3, 4, 5)
@@ -35,7 +36,8 @@ gen gestdur_1or2 = inlist(gestdur, 1, 2) // self-reports 1 or 2 months pregnant
 drop if group==6
 
 *---------------------------------
-* Run separately by NFHS round
+* Regress an indicator "reports being 1 or 2 months pregnant" on sociodemographic characteristics
+* the coefficients on each variable will tell if women who report being 1 or 2 months pregnant are different than other pregnant women
 *---------------------------------
 
 foreach r in 3 4 5 {

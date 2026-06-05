@@ -1,33 +1,24 @@
-/*******************************************************************************
-This file creates the final analytic dataset.
-
-It calls on 11_gen_hhstruc.do to stack NFHS rounds and merge the individual
-recode and household member recode datasets.
-
-It calls on 12_state_district_match.do to create a harmonized state variable
-across NFHS rounds.
-
-After those files run, this file defines the other variables needed for the
-analysis.
-
-You need to have defined all required paths in 00_paths.do for this file to work.
-*******************************************************************************/
 
 
 
 do "$paths"
 
+
+* first call 11_gen_hhstruc.do to stack NFHS rounds and merge the individual recode and household member recode datasets.
+
 do "code/11_helper determine household structure.do"
 
+
+* then defines the other variables needed for the analysis.
 do "code/12_helper harmonize state variable across survey rounds.do"
 
 
 
 
 
-
 *==============================================================*
-* Decision-Making Variables
+* Decision-Making outcomes
+* these are asked of women selected for the state module
 *==============================================================*
 
 
@@ -45,7 +36,7 @@ replace nosay_visits = 1 if inlist(v743d,4,5,6) & inlist(round,3,4,5)
 
 
 *==============================================================*
-* Birth Place
+* Place of birth outcome
 *==============================================================*
 
 gen home_birth = inlist(m15_1,10,11,12,13) if !missing(m15_1)
@@ -62,7 +53,7 @@ gen facility_birth = (home_birth==0) if !missing(home_birth)
 * Pregnancy
 *==============================================================*
 
-//generate months since last period in order to exclude women who are 1 or 2 months pregnant from the analysis.
+//generate months since last period to use instead of self reported months pregnant
 gen moperiod = .
 replace moperiod = 1 if v215>=101 & v215 <= 128 
 replace moperiod = 2 if v215>=129 & v215 <= 156 
@@ -86,10 +77,9 @@ replace moperiod = 11 if v215==311
 gen gestdur = moperiod if v213==1
 replace gestdur = v214 if missing(moperiod) & v213==1
 
-
-* this variable is only defined for pregnant women 
+* redefine pregnant to be those women who are 3+ months gestational duration
+* this is because early detectors of pregnancy is a select sample 
 gen gestdur_3plus = gestdur>=3 if !missing(gestdur) & v213==1
-
 gen pregnant = v213 
 replace pregnant = gestdur_3plus if v213==1
 
@@ -100,6 +90,7 @@ gen not_pregnant = !pregnant
 * 12. Social Group Coding (group)
 *==============================================================*
 
+* this follows the social group coding used in the India Human Development Survey
 gen group = .
 replace group = 1 if s116 == 2                                     // Adivasi
 replace group = 2 if s116 == 1                                     // Dalit
@@ -109,7 +100,7 @@ replace group = 3 if inlist(v130,1,4) & s116 == 3                  // OBC Hindu 
 replace group = 4 if v130 == 1 & inlist(s116,4,8,.)                // Forward caste Hindus
 
 
-*---------- NFHS-3-specific extension (round == 3) ----------*
+* NFHS-3 uses different variables 
 
 * 1 = Adivasi (ST)
 replace group = 1 if round==3 & s46 == 2
@@ -142,6 +133,12 @@ label values group grouplbl
 label values group grouplbl
 
 
+gen forward = group==1
+gen obc = group==2
+gen dalit = group==3
+gen adivasi = group==4
+gen muslim = group==5
+gen sjc = group==6
 
 
 *==============================================================*
@@ -149,12 +146,6 @@ label values group grouplbl
 *==============================================================*
 
 
-gen forward = group==1
-gen obc = group==2
-gen dalit = group==3
-gen adivasi = group==4
-gen muslim = group==5
-gen sjc = group==6
 
 
 gen poorest = v190==1
@@ -169,7 +160,6 @@ gen tv = v121==1 if inlist(v121,0,1)
 gen motorcycle = v124==1 if inlist(v124,0,1)
 
 
-* Wealth controls
 gen finished_floor = (v127>=30 & v127<=96) if !missing(v127)
 gen latrine        = !inlist(v116,30,31) if !missing(v116)
 gen electricity    = v119==1 if !missing(v119)
@@ -217,12 +207,32 @@ egen wealth_group = group(finished_floor finished_wall finished_roof ///
                          electricity owns_radio owns_tv owns_fridge ///
                          owns_bike owns_car latrine)
 
-						 
+	
+	
+
+gen wealth = .
+
+levelsof round, local(rounds)
+
+foreach r of local rounds {
+    xtile wealth_r = v190 [aw=v005] if round == `r', nq(4)
+    replace wealth = wealth_r if round == `r'
+    drop wealth_r
+}
+
+label define wealthlbl ///
+    1 "1st quartile" ///
+    2 "2nd quartile" ///
+    3 "3rd quartile" ///
+    4 "4th quartile", replace
+
+label values wealth wealthlbl
+
 *==============================================================*
 * 12. Other variables
 *==============================================================*
 
-	
+
 
 gen parity = bord_01
 replace parity = 4 if bord_01>4
@@ -270,7 +280,7 @@ label define noboylbl ///
     0 "has at least one boy child" 
 label values noboy noboylbl
 
-*age
+
 gen agebin = .
 replace agebin = 1 if inrange(v012, 15, 19)     // Teens
 replace agebin = 2 if inrange(v012, 20, 24)     // Highest fertility
@@ -288,23 +298,6 @@ gen age3049 = agebin==4
 
 
 
-gen wealth = .
-
-levelsof round, local(rounds)
-
-foreach r of local rounds {
-    xtile wealth_r = v190 [aw=v005] if round == `r', nq(4)
-    replace wealth = wealth_r if round == `r'
-    drop wealth_r
-}
-
-label define wealthlbl ///
-    1 "1st quartile" ///
-    2 "2nd quartile" ///
-    3 "3rd quartile" ///
-    4 "4th quartile", replace
-
-label values wealth wealthlbl
 //birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
 //it is only defined for women that have had at least one live birth
 //v008 is the date of the interview and b3 is the date of birth of the child
@@ -372,9 +365,12 @@ gen ever_married = v501!=0
 gen months_ago_last_birth = v008 - b3_01
 gen postpartum = inrange(months_ago_last_birth, 3, 12)
 
+
+
 gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1) 
 
 /*
+this is the sample used in Allendorf (2013) Going Nuclear?
 married
 between ages 15-29
 usual resident
@@ -403,7 +399,7 @@ egen psu    = group(v000 v001 v024 v025)
 bysort v000: egen totalwt = total(v005)
 gen wt = v005 / totalwt
 
-* State-module (decision, sexual behavior, etc.)
+* State-module
 gen w_state_base = .
 replace w_state_base = v005     if round == 2   // no state module; v005
 replace w_state_base = v005s    if round == 3
