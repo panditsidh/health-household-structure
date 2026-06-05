@@ -448,18 +448,19 @@ sort master_order
 drop master_order
 
 
+
 *******************************************************
 * Export Table 1
 *******************************************************
 #delimit ;
 listtex ///
-    row_fmt disp3 disp4 disp5 ///
+    row_fmt disp3 disp4 disp5 sig ///
     using "tables/table1_patrilocal_increasing_inall_subgroups.tex", replace ///
     rstyle(tabular) ///
     head( ///
         "\begin{tabular}{lcccc}" ///
         "\toprule" ///
-        " & \multicolumn{1}{c}{2005--2006} & \multicolumn{1}{c}{2015--2016} & \multicolumn{1}{c}{2019--2021} \\" ///
+        " & \multicolumn{1}{c}{2005--2006} & \multicolumn{1}{c}{2015--2016} & \multicolumn{1}{c}{2019--2021} & \multicolumn{1}{c}{\shortstack{$p$-value\\2005--2006 vs.\\2019--2021}} \\" ///
         "\midrule" ///
     ) ///
     foot( ///
@@ -467,5 +468,3 @@ listtex ///
         "\end{tabular}" ///
     );
 #delimit cr
-
-

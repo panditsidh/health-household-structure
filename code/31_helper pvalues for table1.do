@@ -19,7 +19,7 @@ program define formatp
         c_local pval_fmt ""
     }
     else {
-        c_local pval_fmt = string(`pval', "%5.3f")
+        c_local pval_fmt = string(`pval', "%5.2f")
     }
 end
 
