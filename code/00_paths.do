@@ -92,27 +92,6 @@ if "`c(username)'" == "dc42724" {
 
 
 
-if "`c(username)'" == "bipasabanerjee" {
-	global nfhs5hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS-5/Household/IAHR7EFL.DTA"
-	global nfhs4hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS 4/Individual recode/IAIR74FL.DTA"
-	global nfhs3hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS3/Individual/IAIR52FL.dta"
-	
-	
-	global nfhs3hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS3/Household member recode/IAPR52FL.DTA"
-	global nfhs4hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS 4/Household member recode/IAPR74FL.DTA"
-	global nfhs5hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS-5/Household member/IAPR7EFL.DTA"
-	
-	global nfhs3ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS3/Individual/IAIR52FL.dta"
-	global nfhs4ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS 4/Individual recode/IAIR74FL.DTA"
-	global nfhs5ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester 3, Fall 2025/Research/NFHS-5/Individual/IAIR7EFL.DTA"
-	
-
-	
-	cd"/Users/bipasabanerjee/Documents/GitHub/health-household-structure" 
-	
-	
-}
-
 
 if "`c(username)'" == "bipasabanerjee" {
 	global nfhs1hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS 1/NFHS1_Householdmemberrecode/IAPR23FL.DTA"
@@ -136,8 +115,12 @@ if "`c(username)'" == "bipasabanerjee" {
 	global nfhs5hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS-5/Household member/IAPR7EFL.DTA"
 	global nfhs5br "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS-5/Birth/IABR7EFL.DTA"
 	
+	global nfhs5mr "ADD"
+	global nfhs4mr "ADD"
+	global nfhs3mr "ADD"
+	
 	global all_nfhs_ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/all_nfhs_ir.dta"
 	
-	
+	cd"/Users/bipasabanerjee/Documents/GitHub/health-household-structure" 
 	
 }
