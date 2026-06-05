@@ -115,4 +115,4 @@ graph bar (mean) nuclear natal_usual_resident patrilocal if allendorf_sample==1 
 #delimit cr
 
 
-graph export "figures/figure_C3_hhstruc_composition_allendorf2012sample.pdf", as(pdf) replace 
+graph export "figures/figureC3_hhstruc_composition_allendorf2013sample.pdf", as(pdf) replace 
