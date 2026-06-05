@@ -210,7 +210,7 @@ sort order rowsort
 #delimit ;
 
 listtex rowlabel c_y0506vs1516 c_y1516vs1921 c_stack0506vs1516 c_stack0506vs1921 
-    using "tables/table 3 narrowing gaps.tex", replace 
+    using "tables/table3_narrowing_gaps.tex", replace 
     rstyle(tabular) 
     head(
         "\begin{tabular}{lcccc}"
@@ -224,11 +224,3 @@ listtex rowlabel c_y0506vs1516 c_y1516vs1921 c_stack0506vs1516 c_stack0506vs1921
     );
 
 #delimit cr
-
-*******************************************************
-* 8) Display in Stata
-*******************************************************
-
-list rowlabel ///
-    c_y0506vs1516 c_y1516vs1921 c_stack0506vs1516 c_stack0506vs1921, ///
-    noobs sepby(order)// clear

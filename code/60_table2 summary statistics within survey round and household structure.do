@@ -488,6 +488,8 @@ keep rows disp*
 
 list rows disp*, noobs clean
 
+
+drop if rows=="Owns land"
 ************************************************************
 * EXPORT TO LATEX
 ************************************************************
@@ -496,7 +498,7 @@ listtex ///
     dispNuclear3 dispPatrilocal3 dispSig3 ///
     dispNuclear4 dispPatrilocal4 dispSig4 ///
     dispNuclear5 dispPatrilocal5 dispSig5 ///
-    using "tables/DR/table 2 summary stats by hhstruc.tex", ///
+    using "tables/table2_summarystats_byhhstruc.tex", ///
     replace rstyle(tabular) ///
     head( ///
 "\begin{tabular}{lccccccccc}" ///

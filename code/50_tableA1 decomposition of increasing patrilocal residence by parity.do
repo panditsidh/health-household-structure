@@ -211,7 +211,7 @@ list group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp
 
 listtex ///
     group disp_share3 disp_share5 disp_rate3 disp_rate5 disp_explained_pct disp_unexplained_pct ///
-    using "tables/DR/table A1 household structure decomposition.tex", replace ///
+    using "tables/DR/tableA1_hhstruc_decomposition.tex", replace ///
     rstyle(tabular) ///
     head("\begin{tabular}{>{\raggedright\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.25cm}>{\centering\arraybackslash}p{1.25cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}}"
          "\toprule"

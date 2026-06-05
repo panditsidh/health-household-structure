@@ -168,4 +168,4 @@ twoway ///
     plotregion(color(white) margin(l+1 r+1 t+2 b+2)) ///
     xsize(7) ysize(5.8)
 	
-graph export "figures/DR/figure 1 regression coefficients with and without controls.png", as(png) name("Graph") replace
+graph export "figures/figure1_patrilocaldiffs_wealthcontrols.png", as(png) name("Graph") replace

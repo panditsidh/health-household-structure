@@ -287,6 +287,10 @@ gen age2529 = agebin==3
 gen age3049 = agebin==4
 
 
+xtile wealth = v190 [aw=wt], nq(4)
+label define wealthlbl  1 "1st quartile"  2 "2nd quartile"  3 "3rd quartile"  4 "4th quartile", replace 
+label values wealth wealthlbl
+
 //birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
 //it is only defined for women that have had at least one live birth
 //v008 is the date of the interview and b3 is the date of birth of the child
