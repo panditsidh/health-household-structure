@@ -30,6 +30,7 @@ set more off
 do "$paths"
 use "$all_nfhs_ir", clear
 
+
 keep if inlist(round,3,4,5)
 
 keep if inlist(hh_struc,1,2)

@@ -279,7 +279,7 @@ replace agebin = 4 if inrange(v012, 30, 49)     // Lowest fertility
 
 
 label define agebinlbl 1 "15–19" 2 "20–24" 3 "25–29" 4 "30–49"
-label values agebiwealn agebinlbl
+label values agebin agebinlbl
 
 gen age1519 = agebin==1
 gen age2024 = agebin==2

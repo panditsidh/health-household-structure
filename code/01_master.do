@@ -11,7 +11,7 @@ set more off
 * or from inside the code folder.
 
 
-do "00_paths.do"
+do "$paths"
 
 
 *******************************************************
