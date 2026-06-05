@@ -254,7 +254,7 @@ listtex ///
     head( ///
         "\begin{tabular}{lcccc}" ///
         "\toprule" ///
-        " & \multicolumn{1}{c}{2005--2006} & \multicolumn{1}{c}{2015--2016} & \multicolumn{1}{c}{2019--2021} & \multicolumn{1}{c}{\shortstack{$p$-value\\2005--2006 vs.\\2019--2021}} \\" ///
+        " & \multicolumn{1}{c}{2005--2006} & \multicolumn{1}{c}{2015--2016} & \multicolumn{1}{c}{2019--2021} & \multicolumn{1}{c}{\shortstack{p-value\\2005--2006 vs.\\2019--2021}} \\" ///
         "\midrule" ///
     ) ///
     foot( ///

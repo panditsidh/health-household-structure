@@ -13,26 +13,38 @@ estimates representative at the state level, so for the "pregnant sample" in thi
 
 */
 
+
 * helper program for later
-cap program drop starify
-program define starify
+cap program drop formatp
+program define formatp
 	args pval
 	if missing(`pval') {
-		c_local stars ""
-	}
-	else if `pval' < 0.01 {
-		c_local stars "***"
-	}
-	else if `pval' < 0.05 {
-		c_local stars "**"
-	}
-	else if `pval' < 0.10 {
-		c_local stars "*"
+		c_local pval_fmt ""
 	}
 	else {
-		c_local stars ""
+		c_local pval_fmt = string(`pval', "%5.3f")
 	}
 end
+
+// cap program drop starify
+// program define starify
+// 	args pval
+// 	if missing(`pval') {
+// 		c_local stars ""
+// 	}
+// 	else if `pval' < 0.01 {
+// 		c_local stars "***"
+// 	}
+// 	else if `pval' < 0.05 {
+// 		c_local stars "**"
+// 	}
+// 	else if `pval' < 0.10 {
+// 		c_local stars "*"
+// 	}
+// 	else {
+// 		c_local stars ""
+// 	}
+// end
 
 
 ************************************************************
@@ -126,17 +138,32 @@ foreach v in facility_birth anc_four ///
 }
 postclose `post_pp'
 
+// use `stars_pp', clear
+// gen stars = ""
+// forvalues i = 1/`=_N' {
+// 	quietly starify p[`i']
+// 	replace stars = "`stars'" in `i'
+// }
+// keep varname round stars
+// reshape wide stars, i(varname) j(round)
+// rename stars3 sig3
+// rename stars4 sig4
+// rename stars5 sig5
+// gen sample = "3-12 months ago last birth"
+// tempfile stars_postpartum
+// save `stars_postpartum', replace
+
 use `stars_pp', clear
-gen stars = ""
+gen pval = ""
 forvalues i = 1/`=_N' {
-	quietly starify p[`i']
-	replace stars = "`stars'" in `i'
+	quietly formatp p[`i']
+	replace pval = "`pval_fmt'" in `i'
 }
-keep varname round stars
-reshape wide stars, i(varname) j(round)
-rename stars3 sig3
-rename stars4 sig4
-rename stars5 sig5
+keep varname round pval
+reshape wide pval, i(varname) j(round)
+rename pval3 sig3
+rename pval4 sig4
+rename pval5 sig5
 gen sample = "3-12 months ago last birth"
 tempfile stars_postpartum
 save `stars_postpartum', replace
@@ -285,17 +312,31 @@ foreach v in nosay_healthcare nosay_visits {
 }
 postclose `post_preg'
 
+// use `stars_preg', clear
+// gen stars = ""
+// forvalues i = 1/`=_N' {
+// 	quietly starify p[`i']
+// 	replace stars = "`stars'" in `i'
+// }
+// keep varname round stars
+// reshape wide stars, i(varname) j(round)
+// rename stars3 sig3
+// rename stars4 sig4
+// rename stars5 sig5
+// gen sample = "pregnant"
+// tempfile stars_pregnant
+// save `stars_pregnant', replace
 use `stars_preg', clear
-gen stars = ""
+gen pval = ""
 forvalues i = 1/`=_N' {
-	quietly starify p[`i']
-	replace stars = "`stars'" in `i'
+	quietly formatp p[`i']
+	replace pval = "`pval_fmt'" in `i'
 }
-keep varname round stars
-reshape wide stars, i(varname) j(round)
-rename stars3 sig3
-rename stars4 sig4
-rename stars5 sig5
+keep varname round pval
+reshape wide pval, i(varname) j(round)
+rename pval3 sig3
+rename pval4 sig4
+rename pval5 sig5
 gen sample = "pregnant"
 tempfile stars_pregnant
 save `stars_pregnant', replace
@@ -505,7 +546,7 @@ listtex ///
 "\toprule" ///
 " & \multicolumn{3}{c}{2005--2006} & \multicolumn{3}{c}{2015--2016} & \multicolumn{3}{c}{2019--2021} \\" ///
 "\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}" ///
-" & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. & Nuclear & \shortstack{Patrilocal\\Extended} & Sig. \\" ///
+" & Nuclear & \shortstack{Patrilocal\\Extended} & p-value & Nuclear & \shortstack{Patrilocal\\Extended} & p-value & Nuclear & \shortstack{Patrilocal\\Extended} & p-value \\" ///
 "\midrule" ///
 ) ///
     foot( ///
