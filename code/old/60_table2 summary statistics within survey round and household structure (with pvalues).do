@@ -1,29 +1,50 @@
 
 /*
 
-This file creates Table 2.
+This file creates Table 2 which reports summary statistics by household structure separately for
+NFHS-3, NFHS-4, and NFHS-5. Within each survey round, the table compares women
+in nuclear households to women in patrilocal extended households.
 
-Table 2 shows means for outcomes and wealth variables by household structure
-in NFHS-3, NFHS-4, and NFHS-5. The two household types shown are nuclear
-households and patrilocal extended households.
+We get autonomy outcomes in the currently pregnant sample, healthcare utilization outcomes in the
+recently given birth sample
 
-The file first makes the part of the table for the recent birth sample. This is
-the sample of ever-married women who gave birth 3 to 12 months before the survey.
-
-It then makes the part of the table for the pregnant sample. This is the sample
-of ever-married women who report being 3 or more months pregnant at the time of
-the survey.
-
-For each variable and survey round, the file calculates weighted means for
-nuclear and patrilocal extended households.
-
-At the end, the file combines the pregnant sample and recent birth sample
-results, formats the rows, and exports the LaTeX table.
-
-This file uses the final analytic dataset created by 10_assemble_data.do.
-You need to have defined all required paths in 00_paths.do for this file to work.
+The autonomy questions were only asked to women in the "state module" which have weights that make
+estimates representative at the state level, so for the "pregnant sample" in this table we use those weights
 
 */
+
+
+* helper program for later
+cap program drop formatp
+program define formatp
+	args pval
+	if missing(`pval') {
+		c_local pval_fmt ""
+	}
+	else {
+		c_local pval_fmt = string(`pval', "%5.3f")
+	}
+end
+
+// cap program drop starify
+// program define starify
+// 	args pval
+// 	if missing(`pval') {
+// 		c_local stars ""
+// 	}
+// 	else if `pval' < 0.01 {
+// 		c_local stars "***"
+// 	}
+// 	else if `pval' < 0.05 {
+// 		c_local stars "**"
+// 	}
+// 	else if `pval' < 0.10 {
+// 		c_local stars "*"
+// 	}
+// 	else {
+// 		c_local stars ""
+// 	}
+// end
 
 
 ************************************************************
@@ -95,7 +116,60 @@ save `collapsed_main_pp', replace
 restore
 
 *-------------------------------
-* 2) Stack + wide
+* 2) Significance tests: Nuclear vs Joint within round
+*-------------------------------
+tempname post_pp
+tempfile stars_pp
+postfile `post_pp' str30 varname int round double p using `stars_pp', replace
+
+foreach v in facility_birth anc_four ///
+			 finished_floor electricity owns_radio owns_tv owns_fridge owns_bike owns_car ///
+			 latrine owns_land {
+	foreach r in 3 4 5 {
+		capture noisily regress `v' i.hh_struc [aw=wt] if round==`r' & inlist(hh_struc,1,2), cluster(psu)
+		if _rc==0 {
+			test 2.hh_struc
+			post `post_pp' ("`v'") (`r') (r(p))
+		}
+		else {
+			post `post_pp' ("`v'") (`r') (.)
+		}
+	}
+}
+postclose `post_pp'
+
+// use `stars_pp', clear
+// gen stars = ""
+// forvalues i = 1/`=_N' {
+// 	quietly starify p[`i']
+// 	replace stars = "`stars'" in `i'
+// }
+// keep varname round stars
+// reshape wide stars, i(varname) j(round)
+// rename stars3 sig3
+// rename stars4 sig4
+// rename stars5 sig5
+// gen sample = "3-12 months ago last birth"
+// tempfile stars_postpartum
+// save `stars_postpartum', replace
+
+use `stars_pp', clear
+gen pval = ""
+forvalues i = 1/`=_N' {
+	quietly formatp p[`i']
+	replace pval = "`pval_fmt'" in `i'
+}
+keep varname round pval
+reshape wide pval, i(varname) j(round)
+rename pval3 sig3
+rename pval4 sig4
+rename pval5 sig5
+gen sample = "3-12 months ago last birth"
+tempfile stars_postpartum
+save `stars_postpartum', replace
+
+*-------------------------------
+* 3) Stack + wide
 *-------------------------------
 use `collapsed_main_pp', clear
 append using `collapsed_N_pp'
@@ -109,6 +183,10 @@ rename mean5 Nuclear5
 rename mean6 Patrilocal5
 
 gen sample = "3-12 months ago last birth"
+merge 1:1 varname sample using `stars_postpartum', nogen
+replace sig3 = "" if varname=="n"
+replace sig4 = "" if varname=="n"
+replace sig5 = "" if varname=="n"
 
 tempfile postpartum_sample
 save `postpartum_sample', replace
@@ -117,13 +195,14 @@ save `postpartum_sample', replace
 ************************************************************
 * CURRENTLY PREGNANT WOMEN
 ************************************************************
-
-use "$all_nfhs_ir", clear
+use $all_nfhs_ir, clear
 
 keep if inlist(round,3,4,5)
 keep if inlist(hh_struc,1,2)
 keep if ever_married==1
 keep if sample==2
+
+
 
 gen columns = 1 if round==3 & hh_struc==1
 replace columns = 2 if round==3 & hh_struc==2
@@ -156,13 +235,11 @@ save `collapsed_N', replace
 restore
 
 *-------------------------------
-* 1) Wealth means (w_state)
+* 1) Wealth means (wt)
 *-------------------------------
 preserve
 
-* The pregnant sample is restricted to women who were asked the decision-making
-* questions, which are in the state module. For this table, pregnant-sample
-* estimates use state-module weights.
+* the sample is pregnant women who were asked decision making questions which is in the state module, so we have to use state module weights (w_state)
 
 collapse (mean) ///
 	finished_floor electricity owns_radio owns_tv owns_fridge owns_bike owns_car ///
@@ -198,7 +275,74 @@ save `collapsed_auto', replace
 restore
 
 *-------------------------------
-* 3) Stack + wide
+* 3) Significance tests
+*-------------------------------
+tempname post_preg
+tempfile stars_preg
+postfile `post_preg' str30 varname int round double p using `stars_preg', replace
+
+* wt-weighted vars
+foreach v in finished_floor electricity owns_radio owns_tv owns_fridge owns_bike owns_car ///
+			 latrine owns_land {
+	foreach r in 3 4 5 {
+		capture noisily regress `v' i.hh_struc [aw=w_state] if round==`r' & inlist(hh_struc,1,2), cluster(psu)
+// 		capture noisily regress `v' i.hh_struc [aw=wt] if round==`r' & inlist(hh_struc,1,2),
+		if _rc==0 {
+			test 2.hh_struc
+			post `post_preg' ("`v'") (`r') (r(p))
+		}
+		else {
+			post `post_preg' ("`v'") (`r') (.)
+		}
+	}
+}
+
+* w_state-weighted vars
+foreach v in nosay_healthcare nosay_visits {
+	foreach r in 3 4 5 {
+		capture noisily regress `v' i.hh_struc [aw=w_state] if round==`r' & inlist(hh_struc,1,2), cluster(psu)
+		if _rc==0 {
+			test 2.hh_struc
+			post `post_preg' ("`v'") (`r') (r(p))
+		}
+		else {
+			post `post_preg' ("`v'") (`r') (.)
+		}
+	}
+}
+postclose `post_preg'
+
+// use `stars_preg', clear
+// gen stars = ""
+// forvalues i = 1/`=_N' {
+// 	quietly starify p[`i']
+// 	replace stars = "`stars'" in `i'
+// }
+// keep varname round stars
+// reshape wide stars, i(varname) j(round)
+// rename stars3 sig3
+// rename stars4 sig4
+// rename stars5 sig5
+// gen sample = "pregnant"
+// tempfile stars_pregnant
+// save `stars_pregnant', replace
+use `stars_preg', clear
+gen pval = ""
+forvalues i = 1/`=_N' {
+	quietly formatp p[`i']
+	replace pval = "`pval_fmt'" in `i'
+}
+keep varname round pval
+reshape wide pval, i(varname) j(round)
+rename pval3 sig3
+rename pval4 sig4
+rename pval5 sig5
+gen sample = "pregnant"
+tempfile stars_pregnant
+save `stars_pregnant', replace
+
+*-------------------------------
+* 4) Stack + wide
 *-------------------------------
 use `collapsed_auto', clear
 append using `collapsed_wealth'
@@ -213,6 +357,10 @@ rename mean5 Nuclear5
 rename mean6 Patrilocal5
 
 gen sample = "pregnant"
+merge 1:1 varname sample using `stars_pregnant', nogen
+replace sig3 = "" if varname=="n"
+replace sig4 = "" if varname=="n"
+replace sig5 = "" if varname=="n"
 
 append using `postpartum_sample'
 
@@ -289,6 +437,7 @@ sort order
 
 gen str150 rows = ""
 
+
 * Autonomy
 replace rows = "\textbf{\shortstack[l]{Autonomy measures\\(pregnant sample)}}" if order==1
 replace rows = "No say in own healthcare"                  if order==2
@@ -339,8 +488,7 @@ order rows
 ************************************************************
 * DISPLAY STRINGS
 ************************************************************
-
-keep rows Nuclear* Patrilocal*
+keep rows Nuclear* Patrilocal* sig*
 
 gen byte isNrow = inlist(rows, ///
     "\textbf{N (pregnant sample)}", ///
@@ -350,6 +498,7 @@ foreach r in 3 4 5 {
 
     gen str12 dispNuclear`r'    = ""
     gen str12 dispPatrilocal`r' = ""
+    gen str5  dispSig`r'        = ""
 
     * N rows: integers with commas
     replace dispNuclear`r' = string(round(Nuclear`r'), "%9.0fc") if isNrow
@@ -361,12 +510,16 @@ foreach r in 3 4 5 {
 
     replace dispPatrilocal`r' = string(Patrilocal`r', "%4.2f") ///
         if rows!="" & !isNrow & strpos(rows, "\textbf{")==0
+
+    * Significance stars
+    replace dispSig`r' = sig`r' ///
+        if rows!="" & !isNrow & strpos(rows, "\textbf{")==0
 }
 
 * Blank out section header rows and spacer rows
-foreach var in dispNuclear3 dispPatrilocal3 ///
-               dispNuclear4 dispPatrilocal4 ///
-               dispNuclear5 dispPatrilocal5 {
+foreach var in dispNuclear3 dispPatrilocal3 dispSig3 ///
+               dispNuclear4 dispPatrilocal4 dispSig4 ///
+               dispNuclear5 dispPatrilocal5 dispSig5 {
     replace `var' = "" if strpos(rows, "\textbf{")!=0 & !isNrow
     replace `var' = "" if rows==""
 }
@@ -376,26 +529,24 @@ keep rows disp*
 
 list rows disp*, noobs clean
 
+
 drop if rows=="Owns land"
-
-
 ************************************************************
 * EXPORT TO LATEX
 ************************************************************
-
 listtex ///
     rows ///
-    dispNuclear3 dispPatrilocal3 ///
-    dispNuclear4 dispPatrilocal4 ///
-    dispNuclear5 dispPatrilocal5 ///
+    dispNuclear3 dispPatrilocal3 dispSig3 ///
+    dispNuclear4 dispPatrilocal4 dispSig4 ///
+    dispNuclear5 dispPatrilocal5 dispSig5 ///
     using "tables/table2_summarystats_byhhstruc.tex", ///
     replace rstyle(tabular) ///
     head( ///
-"\begin{tabular}{lcccccc}" ///
+"\begin{tabular}{lccccccccc}" ///
 "\toprule" ///
-" & \multicolumn{2}{c}{2005--2006} & \multicolumn{2}{c}{2015--2016} & \multicolumn{2}{c}{2019--2021} \\" ///
-"\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}" ///
-" & Nuclear & \shortstack{Patrilocal\\Extended} & Nuclear & \shortstack{Patrilocal\\Extended} & Nuclear & \shortstack{Patrilocal\\Extended} \\" ///
+" & \multicolumn{3}{c}{2005--2006} & \multicolumn{3}{c}{2015--2016} & \multicolumn{3}{c}{2019--2021} \\" ///
+"\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}" ///
+" & Nuclear & \shortstack{Patrilocal\\Extended} & p-value & Nuclear & \shortstack{Patrilocal\\Extended} & p-value & Nuclear & \shortstack{Patrilocal\\Extended} & p-value \\" ///
 "\midrule" ///
 ) ///
     foot( ///

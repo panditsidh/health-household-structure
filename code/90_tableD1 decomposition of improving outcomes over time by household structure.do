@@ -2,7 +2,7 @@
 
 This file creates Appendix Table A-3.
 
-The table decomposes the total change in each outcome between NFHS-3 and NFHS-5.
+The table decomposes the total change in each outcome between NFHS-3 and NFHS-5 using the Kitagawa decomposition method.
 
 For each outcome, the total change is split into two parts:
 1. the part explained by changes in the share of women living in nuclear versus
@@ -25,14 +25,13 @@ do "$paths"
 
 use "$all_nfhs_ir", clear
 
+* analytic sample - ever married women in nuclear and patrilocal households
 keep if ever_married==1
-
-
 keep if inlist(hh_struc,1,2)
-
 keep if inlist(round,3,4,5)
 
 
+* postfile for storing results
 capture postclose h
 tempfile results
 postfile h ///
@@ -46,6 +45,8 @@ foreach outcome in nosay_healthcare nosay_visits anc_four facility_birth  {
 	
 	preserve 
 	
+	
+	* the decision making questions were only asked of women in the state module which requires different weights be used
 	if "`outcome'"=="nosay_healthcare" | "`outcome'"=="nosay_visits" {
 		local outcome_wt w_state
 		keep if sample==2
@@ -56,6 +57,9 @@ foreach outcome in nosay_healthcare nosay_visits anc_four facility_birth  {
 		keep if sample==1
 	} 
 	
+	
+	* we want weights (shares nuclear and patrilocal) for each survey round
+	* and outcome means for each household structure x survey round
 	foreach h in 1 2 {
 		
 		
@@ -83,20 +87,21 @@ foreach outcome in nosay_healthcare nosay_visits anc_four facility_birth  {
 		
 		
 		
-		* components of the gap
+		* components of the difference following Kitagawa's decomposition method
 		local within_`h' = (`outcome_`h'5' - `outcome_`h'3') * (`wt_`h'3' + `wt_`h'5')/2
-		
-		
-		
 		local between_`h' = (`outcome_`h'3' + `outcome_`h'5')/2 * (`wt_`h'5' - `wt_`h'3')
 		
 		
 	}
 	
+	
+	* components of the difference following Kitagawa's decomposition method
 	local total_gap =  `outcome_5'  - `outcome_3' 
 	
+	* percent of the difference due to changes in household structure
 	local pct_explained = (`between_1' + `between_2')/`total_gap' * 100 
 	
+	* percent of the change within household structures
 	local pct_unexplained = (`within_1' + `within_2')/`total_gap' * 100
 	
 	
@@ -128,7 +133,6 @@ use `results', clear
 rename total_gap      total_change
 rename pct_explained  share_hhstruc
 
-* If your pct_unexplained is off (it is, given negatives), rebuild it:
 gen share_within = 100 - share_hhstruc
 
 * 2) Make outcome labels (nice names)

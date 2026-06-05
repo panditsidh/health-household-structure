@@ -33,14 +33,6 @@ currently residing with husband
 
 
 
-cap label drop roundlbl
-label define roundlbl ///
-    3 "2005—2006" ///
-    4 "2015—2016" ///
-    5 "2019—2021"
-label values round roundlbl
-label values group grouplbl
-
 keep if ever_married==1
 keep if nuclear | natal | patrilocal
 keep if inlist(round, 3, 4, 5)
@@ -92,7 +84,7 @@ foreach r in 3 4 5 {
 
 
 *******************************************************
-* Panel 2: Allendorf sample
+* Stacked bar graph
 *******************************************************
 #delimit ;
 graph bar (mean) nuclear natal_usual_resident patrilocal if allendorf_sample==1 [aw=wt],

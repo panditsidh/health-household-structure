@@ -24,6 +24,8 @@ among men who report that their wife is currently pregnant.
 This file uses raw NFHS household member recode files and men's recode files.
 You need to have defined all required paths in 00_paths.do for this file to work.
 
+
+* deriving household structure from men instead of women and then matching husbands allows us to see household structure of women's usual residence if they are not present in the home
 */
 
 
@@ -47,7 +49,7 @@ append using `nfhs5hmr'
 
 
 /*********************************************************************
-1. Create household-level indicators from HMR
+1. Create indicators for each household member's relation to the household head
 *********************************************************************/
 
 * Someone who is not the head, spouse, child, or adopted/foster child
@@ -86,7 +88,7 @@ foreach r in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 98 {
 
 
 /*********************************************************************
-2. Collapse indicators to household level
+2. Collapse to the household level (who are the household members present relative to the household head)
 *********************************************************************/
 
 foreach var in non_nuclear_member mother father parent mil fil pil sibil sib other nieceneph_adult {
@@ -178,9 +180,8 @@ label var man_visitor "Man is visitor to interviewed HH"
 
 
 /*********************************************************************
-7. Intermediate categories for men's household structure
-
-These are used only to construct hh_struc_men.
+7. Use the household level member indicators (relative to household head) to assess household structure for each man 
+* deriving household structure from men instead of women and then matching husbands allows us to see household structure of women's usual residence if they are not present in the home
 *********************************************************************/
 
 gen men_nuclear = 0

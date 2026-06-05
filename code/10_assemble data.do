@@ -228,25 +228,42 @@ label define wealthlbl ///
 
 label values wealth wealthlbl
 
+
+*******************************************************
+* Parity categories
+*******************************************************
+
+capture drop parity parity0 parity1 parity2 parity3
+
+* For pregnant women, v201 is the number of prior live births.
+* We code parity as:
+* 1 = 0 prior live births
+* 2 = 1 prior live birth
+* 3 = 2 prior live births
+* 4 = 3+ prior live births
+
+gen parity = .
+replace parity = 1 if v201 == 0
+replace parity = 2 if v201 == 1
+replace parity = 3 if v201 == 2
+replace parity = 4 if v201 >= 3 & !missing(v201)
+
+label define paritylbl ///
+    1 "0 (no live births)" ///
+    2 "1 (1 live birth)" ///
+    3 "2 (2 live births)" ///
+    4 "3+ (3+ live births)", replace
+label values parity paritylbl
+
+gen parity0 = parity == 1 if !missing(parity)
+gen parity1 = parity == 2 if !missing(parity)
+gen parity2 = parity == 3 if !missing(parity)
+gen parity3 = parity == 4 if !missing(parity)
+
+
 *==============================================================*
 * 12. Other variables
 *==============================================================*
-
-
-
-gen parity = bord_01
-replace parity = 4 if bord_01>4
-
-tab parity, gen(parity)
-
-
-label define paritylbl ///
-    1 "1 (no live births)" ///
-    2 "2 (1 live birth)" ///
-	3 "3 (2 live births)" ///
-	4 "4+ (3+ live births)" 	
-label values parity paritylbl
-
 
 gen rural = v025==2
 

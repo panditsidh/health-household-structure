@@ -63,11 +63,14 @@ postfile hh ///
 
 foreach outcome in nosay_healthcare nosay_visits facility_birth anc_four {
 
+
+	* these correspond to the comparisons done in each column of table3
     foreach sample in nfhs3to4 nfhs4to5 all_nfhs {
 
         preserve
         keep if `sample'==1
 
+		* the decision making questions are only asked to women in the state module which requires different weights be used
         if inlist("`outcome'","nosay_healthcare","nosay_visits") {
             local ifcond "sample==2"
             local wt "[aw=w_state]"

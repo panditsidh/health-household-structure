@@ -28,31 +28,6 @@ use "$all_nfhs_ir", clear
 
 
 
-drop parity*
-
-* true parity (number of children before current pregnancy)
-gen parity_true = .
-replace parity_true = 0 if missing(bord_01)
-replace parity_true = bord_01 if !missing(bord_01)
-
-* grouped parity for decomposition
-gen parity = .
-replace parity = 1 if parity_true==0          // first pregnancy
-replace parity = 2 if parity_true==1
-replace parity = 3 if parity_true==2
-replace parity = 4 if parity_true>=3
-
-label define paritylbl ///
-    1 "Parity 0 (first pregnancy)" ///
-    2 "Parity 1" ///
-    3 "Parity 2" ///
-    4 "Parity 3+", replace
-label values parity paritylbl
-
-gen parity1 = parity==1
-gen parity2 = parity==2
-gen parity3 = parity==3
-gen parity4 = parity==4
 
 drop if missing(parity)
 
@@ -91,7 +66,7 @@ postfile h ///
     double explained unexplained ///
     using `results', replace
 
-foreach j in 1 2 3 4 {
+foreach j in 0 1 2 3 {
 
     * weighted share in each round
     quietly sum parity`j' [aw=wt] if round==3
@@ -100,13 +75,12 @@ foreach j in 1 2 3 4 {
     quietly sum parity`j' [aw=wt] if round==5
     local share5_`j' = r(mean)
 
-    * patrilocal rate within parity category in each round
-    quietly sum patrilocal [aw=wt] if round==3 & parity==`j'
-    local rate3_`j' = r(mean)
+	* patrilocal rate within parity category in each round
+	quietly sum patrilocal [aw=wt] if round==3 & parity`j'==1
+	local rate3_`j' = r(mean)
 
-    quietly sum patrilocal [aw=wt] if round==5 & parity==`j'
-    local rate5_`j' = r(mean)
-
+	quietly sum patrilocal [aw=wt] if round==5 & parity`j'==1
+	local rate5_`j' = r(mean)
     * components of the gap
     local explained_`j'   = (`share5_`j'' - `share3_`j'') * ///
                             ((`rate5_`j'' + `rate3_`j'')/2)
@@ -115,7 +89,7 @@ foreach j in 1 2 3 4 {
                             ((`share5_`j'' + `share3_`j'')/2)
 	
 	
-	if `j'==4 local row "Parity 4+"
+	if `j'==3 local row "Parity 3+"
 	else local row "Parity `j'"
     post h ///
         ("`row'") ///
@@ -128,8 +102,8 @@ foreach j in 1 2 3 4 {
 }
 
 * totals
-local total_explained = `explained_1' + `explained_2' + `explained_3' + `explained_4'
-local total_unexplained = `unexplained_1' + `unexplained_2' + `unexplained_3' + `unexplained_4'
+local total_explained = `explained_0' + `explained_1' + `explained_2' + `explained_3'
+local total_unexplained = `unexplained_0' + `unexplained_1' + `unexplained_2' + `unexplained_3'
 local pct_explained = (`total_explained'/`total_change')*100
 local pct_unexplained = (`total_unexplained'/`total_change')*100
 
@@ -182,18 +156,15 @@ gen disp_unexplained_pct = string(unexplained_pct_r, "%9.2f")
 
 * order rows
 gen roworder = .
-replace roworder = 1 if group=="Parity 1"
-replace roworder = 2 if group=="Parity 2"
-replace roworder = 3 if group=="Parity 3"
-replace roworder = 4 if group=="Parity 4+"
+replace roworder = 1 if group=="Parity 0"
+replace roworder = 2 if group=="Parity 1"
+replace roworder = 3 if group=="Parity 2"
+replace roworder = 4 if group=="Parity 3+"
 replace roworder = 5 if group=="Total"
 sort roworder
 
 
-replace group = "Parity 0" if group=="Parity 1"
-replace group = "Parity 1" if group=="Parity 2"
-replace group = "Parity 2" if group=="Parity 3"
-replace group = "Parity 3+" if group=="Parity 4+"
+
 
 
 * keep export vars

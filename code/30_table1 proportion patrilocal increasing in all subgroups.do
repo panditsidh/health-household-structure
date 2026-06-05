@@ -80,12 +80,7 @@ keep if inlist(hh_struc, 1, 2)
 keep if inlist(round, 3, 4, 5)
 keep if pregnant == 1 & !missing(nosay_visits) & !missing(nosay_healthcare)
 
-label define paritylbl ///
-    1 "1 (no live births)" ///
-    2 "2 (1 live birth)" ///
-    3 "3 (2 live births)" ///
-    4 "4+ (3+ live births)", replace
-label values parity paritylbl
+
 
 foreach overvar in group region v013 parity {
   

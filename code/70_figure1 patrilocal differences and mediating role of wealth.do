@@ -32,9 +32,7 @@ use "$all_nfhs_ir", clear
 
 
 keep if inlist(round,3,4,5)
-
 keep if inlist(hh_struc,1,2)
-
 keep if ever_married==1
 
 
@@ -60,7 +58,7 @@ postfile h ///
     double b ll ul ///
     using `results', replace
 
-* -------- Pregnant outcomes --------
+* -------- Outcomes for pregnant women sample --------
 * we use w_state here because these are state module outcomes that require different weights be used
 foreach y in nosay_healthcare nosay_visits {
     foreach r in 3 4 5 {
@@ -81,7 +79,7 @@ foreach y in nosay_healthcare nosay_visits {
     }
 }
 
-* -------- Postpartum outcomes --------
+* -------- Outcomes for gave birth 3-12 months ago sample  --------
 foreach y in facility_birth anc_four {
     foreach r in 3 4 5 {
 		

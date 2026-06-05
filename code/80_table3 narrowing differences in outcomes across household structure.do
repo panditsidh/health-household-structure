@@ -65,6 +65,8 @@ postfile hh ///
 
 foreach outcome in nosay_healthcare nosay_visits facility_birth anc_four {
 
+
+	* this correponds to the 3 columns each comparing survey rounds differently
     foreach sample in nfhs3to4 nfhs4to5 all_nfhs {
 
         preserve
