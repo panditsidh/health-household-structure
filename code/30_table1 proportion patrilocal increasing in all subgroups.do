@@ -21,7 +21,7 @@ You need to have defined all required paths in 00_paths.do for this file to work
 
 
 do "$paths"
-do "code/31_helper significance stars for table1.do"
+do "code/31_helper pvalues for table1.do"
 
 
 
@@ -254,7 +254,7 @@ listtex ///
     head( ///
         "\begin{tabular}{lcccc}" ///
         "\toprule" ///
-        " & \multicolumn{1}{c}{2005--2006} & \multicolumn{1}{c}{2015--2016} & \multicolumn{1}{c}{2019--2021} & \multicolumn{1}{c}{\shortstack{2005--2006 vs.\\2019--2021}} \\" ///
+        " & \multicolumn{1}{c}{2005--2006} & \multicolumn{1}{c}{2015--2016} & \multicolumn{1}{c}{2019--2021} & \multicolumn{1}{c}{\shortstack{$p$-value\\2005--2006 vs.\\2019--2021}} \\" ///
         "\midrule" ///
     ) ///
     foot( ///
