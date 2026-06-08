@@ -21,7 +21,7 @@ You need to have defined all required paths in 00_paths.do for this file to work
 
 
 do "$paths"
-do "code/31_helper pvalues for table1.do"
+// do "code/31_helper pvalues for table1.do"
 
 
 
@@ -50,23 +50,9 @@ restore
 tempfile sample group region v013 parity samp1 samp2
 
 
-* get overall shares patrilocal within each sample
-preserve
-    keep if sample == 1
-    collapse (mean) patrilocal [aw=wt], by(round sample)
-    save `samp1'
-restore
-
-
-preserve
-    keep if sample == 2
-    collapse (mean) patrilocal [aw=wt], by(round sample)
-    save `samp2'
-restore
-
-
-use `samp1', clear
-append using `samp2'
+* get overall shares patrilocal within pregnant sample
+keep if sample == 2
+collapse (mean) patrilocal [aw=wt], by(round sample)
 reshape wide patrilocal, i(sample) j(round)
 drop if sample == .
 save `sample', replace
@@ -122,31 +108,32 @@ order row
 
 gen order = _n
 
-replace order = 27 if row == "postpartum"
-
-sort order
-expand 3 if inlist(order, 2, 3, 9, 16, 23, 26)
-
 sort order
 
-drop if _n == 2
-drop if _n == 3
-drop if _n == 35
+* Insert blank rows for fomatting purposes
+expand 3 if inlist(row,"Adivasi", "UP and Bihar", "15-19", "0 (no live births)")
+expand 2 if inlist(row,"pregnant")
+
+sort order
+
+drop if _n == 1
+// drop if _n == 3
+// drop if _n == 35
 
 capture drop row_fmt
 input str150 row_fmt
 "\textbf{All currently pregnant women}"
 ""
 "\textbf{Social group}"
-"\hspace*{2em}Forward caste"
-"\hspace*{2em}OBC"
-"\hspace*{2em}Dalit"
 "\hspace*{2em}Adivasi"
+"\hspace*{2em}Dalit"
+"\hspace*{2em}OBC"
+"\hspace*{2em}Forward caste"
 "\hspace*{2em}Muslim"
 "\hspace*{2em}Sikh/Jain/Christian"
 ""
-"\textbf{Region}"
-"\hspace*{2em}Focus states$^1$"
+"\textbf{Region$^1$}"
+"\hspace*{2em}Uttar Pradesh and Bihar"
 "\hspace*{2em}Central"
 "\hspace*{2em}East"
 "\hspace*{2em}West"
@@ -168,7 +155,6 @@ input str150 row_fmt
 "\hspace*{2em}1"
 "\hspace*{2em}2"
 "\hspace*{2em}3+"
-""
 ""
 "\textbf{N (currently pregnant women)}"  end
 

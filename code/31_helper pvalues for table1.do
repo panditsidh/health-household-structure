@@ -135,7 +135,7 @@ append using `final_parity'
 replace row_fmt = "\hspace*{2em}Forward caste"        if row_fmt=="\hspace*{2em}Forward Caste"
 replace row_fmt = "\hspace*{2em}Sikh/Jain/Christian"  if row_fmt=="\hspace*{2em}Sikh, Jain, Christian"
 
-replace row_fmt = "\hspace*{2em}Focus states$^1$"     if row_fmt=="\hspace*{2em}UP and Bihar"
+replace row_fmt = "\hspace*{2em}Uttar Pradesh and Bihar"     if row_fmt=="\hspace*{2em}UP and Bihar"
 replace row_fmt = "\hspace*{2em}Central"              if row_fmt=="\hspace*{2em}central"
 replace row_fmt = "\hspace*{2em}East"                 if row_fmt=="\hspace*{2em}east"
 replace row_fmt = "\hspace*{2em}West"                 if row_fmt=="\hspace*{2em}west"
