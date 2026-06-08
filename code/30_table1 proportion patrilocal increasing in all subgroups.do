@@ -169,8 +169,8 @@ input str150 row_fmt
 "\hspace*{2em}2"
 "\hspace*{2em}3+"
 ""
-"\textbf{N (currently pregnant women)}"
-""  end
+""
+"\textbf{N (currently pregnant women)}"  end
 
 keep row_fmt patrilocal*
 order row_fmt
