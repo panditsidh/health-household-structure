@@ -71,10 +71,10 @@ esttab model_3 model_4 model_5 using "tables/tableB1_predicting_early_pregnancy.
     nonumbers
     nonote
     label
-    se
+    ci
     nostar
-    b(3) se(4)
-    mtitle("2005-2006" "2015-2016" "2019-2021")
+    b(3) ci(3)
+    mtitle("2005--2006" "2015--2016" "2019--2021")
     mgroups("reports of 1 or 2 months of pregnancy", pattern(1 0 0) ///
         span prefix(\multicolumn{@span}{c}{) suffix(}) ///
         erepeat(\cmidrule(lr){@span}))
@@ -104,7 +104,3 @@ esttab model_3 model_4 model_5 using "tables/tableB1_predicting_early_pregnancy.
         2.group "\textbf{Social group} \\ (Adivasi omitted)", nolabel)
     stats(N, fmt(%15.0fc) label("\textbf{N}"));
 #delimit cr
-
-
-
-
