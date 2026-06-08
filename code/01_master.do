@@ -71,7 +71,7 @@ do "code/70_figure1 patrilocal differences and mediating role of wealth.do"
 * 8. Table 3
 *******************************************************
 
-do "code/80_table3 narrowing differences in outcomes across household structure .do"
+do "code/80_table3 narrowing differences in outcomes across household structure.do"
 
 
 *******************************************************

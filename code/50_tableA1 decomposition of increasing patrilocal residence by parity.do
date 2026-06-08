@@ -186,7 +186,7 @@ listtex ///
     rstyle(tabular) ///
     head("\begin{tabular}{>{\raggedright\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.25cm}>{\centering\arraybackslash}p{1.25cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}}"
          "\toprule"
-         "Parity group & \makecell{Parity\\share\\2005--2006\\(\%)} & \makecell{Parity\\share\\2019--2021\\(\%)} & \makecell{Patrilocal\\share\\2005--2006\\(\%)} & \makecell{Patrilocal\\share\\2019--2021\\(\%)} & \makecell{Explained\\change\\share\\(\%)} & \makecell{Unexplained\\change\\share\\(\%)} \\"
+         "Parity group & \makecell{Parity\\share\\2005-2006\\(\%)} & \makecell{Parity\\share\\2019-2021\\(\%)} & \makecell{Patrilocal\\share\\2005-2006\\(\%)} & \makecell{Patrilocal\\share\\2019-2021\\(\%)} & \makecell{Explained\\change\\share\\(\%)} & \makecell{Unexplained\\change\\share\\(\%)} \\"
          "\midrule") ///
     foot("\bottomrule"
          "\end{tabular}");

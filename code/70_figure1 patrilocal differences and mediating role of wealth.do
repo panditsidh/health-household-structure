@@ -156,7 +156,7 @@ twoway ///
     legend(order(2 "No controls" 4 "Wealth controls") ///
            rows(1) ring(1) pos(6) ///
            region(lstyle(none)) size(small)) ///
-    xlabel(1 `"2005--2006"' 2 `"2015--2016"' 3 `"2019--2021"', ///
+    xlabel(1 `"2005-2006"' 2 `"2015-2016"' 3 `"2019-2021"', ///
            noticks nogrid labsize(small)) ///
     ylabel(, labsize(small) angle(0)) ///
     xscale(range(0.85 3.15)) ///

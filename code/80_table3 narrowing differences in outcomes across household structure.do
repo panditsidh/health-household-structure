@@ -215,7 +215,7 @@ listtex rowlabel c_y0506vs1516 c_y1516vs1921 c_stack0506vs1516 c_stack0506vs1921
     head(
         "\begin{tabular}{lcccc}"
         "\toprule"
-        " & \multicolumn{1}{c}{\shortstack{$\delta$ (Eq.~\ref{eq:tworounds})\\2005--2006 vs.\\2015--2016}} & \multicolumn{1}{c}{\shortstack{$\delta$ (Eq.~\ref{eq:tworounds})\\2015--2016 vs.\\2019--2021}} & \multicolumn{1}{c}{\shortstack{$\delta_4$ (Eq.~\ref{eq:stacked})\\2005--2006 vs.\\2015--2016}} & \multicolumn{1}{c}{\shortstack{$\delta_5$ (Eq.~\ref{eq:stacked})\\2005--2006 vs.\\2019--2021}} \\\\"
+        " & \multicolumn{1}{c}{\shortstack{$\delta$ (Eq.~\ref{eq:tworounds})\\2005-2006 vs.\\2015-2016}} & \multicolumn{1}{c}{\shortstack{$\delta$ (Eq.~\ref{eq:tworounds})\\2015-2016 vs.\\2019-2021}} & \multicolumn{1}{c}{\shortstack{$\delta_4$ (Eq.~\ref{eq:stacked})\\2005--2006 vs.\\2015-2016}} & \multicolumn{1}{c}{\shortstack{$\delta_5$ (Eq.~\ref{eq:stacked})\\2005-2006 vs.\\2019-2021}} \\\\"
         "\midrule"
     )
     foot(
