@@ -1,0 +1,117 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2761
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;\f1\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww30040\viewh16560\viewkind0
+\deftab720
+\pard\pardeftab720\sa213\partightenfactor0
+
+\f0\b\fs24 \cf0 \expnd0\expndtw0\kerning0
+\ul \ulc0 README
+\f1\b0 \ulnone  This file describes the materials submitted with the manuscript: "Extended family residence and pregnant women\'92s autonomy and healthcare in India"\
+
+\f0\b \ul \
+SOFTWARE REQUIREMENTS\
+
+\f1\b0 \ulnone The analysis was written and run using Stata 18.5. The code is expected to run in Stata 17 or later, although it has not been tested on earlier versions. Some do-files use user-written Stata packages. Before running the code, install the following packages if they are not already installed:\
+    ssc install reghdfe\
+    ssc install ftools\
+    ssc install estout\
+    ssc install listtex\
+\
+
+\f0\b \ul MAIN MANUSCRIPT FILES\
+
+\f1\b0 \ulnone     manuscript_DR_format.tex \
+	LaTeX code of the main manuscript file.\
+\
+
+\f0\b \ul STATA DO FILES\
+\ulnone     code/00_paths.do\
+
+\f1\b0         Defines project paths and data-file locations. Users will need to edit this file to add their file paths to datasets and the project folder before running anything else.\
+
+\f0\b     code/01_master.do\
+
+\f1\b0         Runs all do-files needed to reproduce the analysis tables and figures.\
+
+\f0\b     code/10_assemble data.do\
+
+\f1\b0         Builds the main analysis dataset by stacking NFHS-3, NFHS-4, and NFHS-5 Individual Recode files, merging household structure information, and generating variables.\
+
+\f0\b     code/11_helper determine household structure.do\
+
+\f1\b0         Constructs household structure measures from the Household Member Recode files. Called by code/10_assemble data.do.\
+
+\f0\b     code/12_helper harmonize state variable across survey rounds.do\
+
+\f1\b0         Harmonizes state and region variables across NFHS rounds. Called by code/10_assemble data.do.\
+
+\f0\b     code/20_tableB1 selection into detecting pregnancy early.do\
+
+\f1\b0         Generates Appendix Table B-1.\
+        Output: tables/tableB1_predicting_early_pregnancy.tex\
+
+\f0\b     code/30_table1 proportion patrilocal increasing in all subgroups.do\
+
+\f1\b0         Generates Table 1.\
+        Output: tables/table1_patrilocal_increasing_inall_subgroups.tex\
+
+\f0\b     code/31_helper pvalues for table1.do\
+
+\f1\b0         Creates significance stars for Table 1. Called by code/30_table1 proportion patrilocal increasing in all subgroups.do.\
+        Output: tables/table1_rowfmt_sig_only.dta  -  this is an intermediate output used by code/30_table1 proportion patrilocal increasing in all subgroups.do in creating table 1. \
+
+\f0\b     code/40_figureC1 change in hh structure composition for all women.do\
+
+\f1\b0         Generates Appendix Figure C-1.\
+        Output: figures/figureC1_hhstruc_composition_allwomen.pdf\
+
+\f0\b     code/41_figureC2 change in hh structure composition for men.do\
+
+\f1\b0         Generates Appendix Figure C-2.\
+        Output: figures/figureC2_hhstruc_composition_husbands.pdf\
+
+\f0\b     code/42_figureC3 change in hh structure composition in allendorf2013 sample.do
+\f1\b0 \
+        Generates Appendix Figure C-3.\
+        Output: figures/figureC3_hhstruc_composition_allendorf2013sample.pdf\
+
+\f0\b     code/50_tableA1 decomposition of increasing patrilocal residence by parity.do
+\f1\b0 \
+        Generates Appendix Table A-1.\
+        Output: tables/tableA1_hhstruc_decomposition.tex\
+   
+\f0\b  code/60_table2 summary statistics within survey round and household structure.do
+\f1\b0 \
+        Generates Table 2.\
+        Output: tables/table2_summarystats_byhhstruc.tex\
+
+\f0\b     code/70_figure1 patrilocal differences and mediating role of wealth.do
+\f1\b0 \
+        Generates Figure 1.\
+        Output: figures/figure1_patrilocaldiffs_wealthcontrols.pdf\
+
+\f0\b     code/80_table3 narrowing differences in outcomes across household structure.do
+\f1\b0 \
+        Generates Table 3.\
+        Output: tables/table3_narrowing_gaps.tex\
+
+\f0\b     code/90_tableD1 decomposition of improving outcomes over time by household structure.do
+\f1\b0 \
+        Generates Appendix Table D-1.\
+\
+
+\f0\b \ul REPLICATION INSTRUCTIONS
+\f1\b0 \ulnone \
+    1. Download required NFHS data from the DHS Program.\
+    2. Edit:\
+           code/00_paths.do\
+       Update data-file paths and the project working directory.\
+    3. In Stata, run:\
+           do "code/01_master.do"\
+       This regenerates the tables and figures.\
+    4. Compile:\
+           manuscript_DR_format.tex\
+	This can be done in Overleaf or other LaTeX editors by uploading the entire folder.\
+}

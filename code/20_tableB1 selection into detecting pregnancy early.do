@@ -72,7 +72,7 @@ esttab model_3 model_4 model_5 using "tables/tableB1_predicting_early_pregnancy.
     nonote
     label
     se
-    star(* 0.10 ** 0.05 *** 0.01)
+    nostar
     b(3) se(4)
     mtitle("2005-2006" "2015-2016" "2019-2021")
     mgroups("reports of 1 or 2 months of pregnancy", pattern(1 0 0) ///
