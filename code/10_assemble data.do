@@ -133,12 +133,12 @@ label values group grouplbl
 label values group grouplbl
 
 
-gen forward = group==1
-gen obc = group==2
-gen dalit = group==3
-gen adivasi = group==4
-gen muslim = group==5
-gen sjc = group==6
+gen adivasi = group==1
+gen dalit   = group==2
+gen obc     = group==3
+gen forward = group==4
+gen muslim  = group==5
+gen sjc     = group==6
 
 
 *==============================================================*
@@ -318,8 +318,8 @@ gen age3049 = agebin==4
 //birth spacing is time between last delivery and interview for non-pregnant women and time between last delivery and estimated conception of current pregnancy for pregnant women
 //it is only defined for women that have had at least one live birth
 //v008 is the date of the interview and b3 is the date of birth of the child
-gen birth_space = (v008 - b3_01) + 9 if preg==0 & !missing(b3_01)
-replace birth_space = (v008 - b3_01) + (9-gestdur) if preg==1 & !missing(b3_01)
+gen birth_space = (v008 - b3_01) + 9 if pregnant==0 & !missing(b3_01)
+replace birth_space = (v008 - b3_01) + (9-gestdur) if pregnant==1 & !missing(b3_01)
 
 gen bs = .
 replace bs = 1 if birth_space < 24

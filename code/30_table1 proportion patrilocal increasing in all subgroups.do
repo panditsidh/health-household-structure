@@ -9,7 +9,7 @@ overall and by social group, region, age group, and parity.
 The sample is restricted to women in either nuclear or patrilocal extended
 households who are in the pregnant-women analytic sample.
 
-The file first runs 31_sigstars_for_table_1.do, which creates the significance
+The file first runs 31_helper pvalues for table1.do, which creates the significance
 stars for the difference between NFHS-3 and NFHS-5. It then uses collapse (mean)
 to calculate weighted subgroup-level shares of women living in patrilocal
 extended households. Finally, it formats the rows, merges in the significance
@@ -84,9 +84,9 @@ foreach overvar in group region v013 parity {
 }
 
 
-*------------------------------------------------------*
+*–––––––––––––––––––––––––––*
 * Append all pieces together and format nicely
-*------------------------------------------------------*
+*–––––––––––––––––––––––––––*
 use `sample', clear
 append using `group'
 append using `region'
@@ -142,13 +142,13 @@ input str150 row_fmt
 "\hspace*{2em}Northeast"
 ""
 "\textbf{Age}"
-"\hspace*{2em}15--19"
-"\hspace*{2em}20--24"
-"\hspace*{2em}25--29"
-"\hspace*{2em}30--34"
-"\hspace*{2em}35--39"
-"\hspace*{2em}40--44"
-"\hspace*{2em}45--49"
+"\hspace*{2em}15–19"
+"\hspace*{2em}20–24"
+"\hspace*{2em}25–29"
+"\hspace*{2em}30–34"
+"\hspace*{2em}35–39"
+"\hspace*{2em}40–44"
+"\hspace*{2em}45–49"
 ""
 "\textbf{Parity (live births)}"
 "\hspace*{2em}0"
@@ -188,7 +188,7 @@ foreach r in 3 4 5 {
     replace disp`r' = "" ///
         if strpos(row_fmt, "\textbf{") ///
         & row_fmt != "\textbf{All currently pregnant women}" ///
-        & row_fmt != "\textbf{All women 3--12 months postpartum}" ///
+        & row_fmt != "\textbf{All women 3–12 months postpartum}" ///
 		& row_fmt != "\textbf{N (currently pregnant women)}"
 }
 
@@ -199,7 +199,7 @@ foreach r in 3 4 5 {
 
 
 
-drop if row_fmt == "\textbf{All women 3--12 months postpartum}"
+drop if row_fmt == "\textbf{All women 3–12 months postpartum}"
 
 gen master_order = _n
 
@@ -225,7 +225,7 @@ listtex ///
     head( ///
         "\begin{tabular}{lcccc}" ///
         "\toprule" ///
-        " & \multicolumn{1}{c}{2005-2006} & \multicolumn{1}{c}{2015-2016} & \multicolumn{1}{c}{2019-2021} & \multicolumn{1}{c}{\shortstack{p-value\\2005-2006 vs.\\2019-2021}} \\" ///
+        " & \multicolumn{1}{c}{2005–2006} & \multicolumn{1}{c}{2015–2016} & \multicolumn{1}{c}{2019–2021} & \multicolumn{1}{c}{\shortstack{p-value\\2005–2006 vs.\\2019–2021}} \\" ///
         "\midrule" ///
     ) ///
     foot( ///

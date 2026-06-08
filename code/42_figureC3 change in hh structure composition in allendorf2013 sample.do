@@ -103,7 +103,7 @@ graph bar (mean) nuclear natal_usual_resident patrilocal if allendorf_sample==1 
     plotregion(color(white))
     ysize(9) xsize(4.5)
     name(g3, replace)
-	note("Sample sizes: N=`N3' in 2005—2006, N=`N4' in 2015—2016," "                        N=`N5' in 2019-2021");
+	note("Sample sizes: N=`N3' in 2005—-2006, N=`N4' in 2015-—2016," "                        N=`N5' in 2019–2021");
 #delimit cr
 
 

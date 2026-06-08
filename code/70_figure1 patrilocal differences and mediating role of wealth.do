@@ -58,7 +58,7 @@ postfile h ///
     double b ll ul ///
     using `results', replace
 
-* -------- Outcomes for pregnant women sample --------
+* –––– Outcomes for pregnant women sample ––––
 * we use w_state here because these are state module outcomes that require different weights be used
 foreach y in nosay_healthcare nosay_visits {
     foreach r in 3 4 5 {
@@ -79,7 +79,7 @@ foreach y in nosay_healthcare nosay_visits {
     }
 }
 
-* -------- Outcomes for gave birth 3-12 months ago sample  --------
+* –––– Outcomes for gave birth 3-12 months ago sample  ––––
 foreach y in facility_birth anc_four {
     foreach r in 3 4 5 {
 		
@@ -109,7 +109,7 @@ use `results', clear
 * Figure: coefficients across NFHS rounds (4 panels)
 *============================================================*
 
-* --- x-axis positions ---
+* –- x-axis positions –-
 gen byte x = .
 replace x = 1 if round==3
 replace x = 2 if round==4
@@ -121,14 +121,14 @@ gen double xoff = x
 replace xoff = x - 0.025 if spec=="no controls"
 replace xoff = x + 0.025 if spec=="wealth controls"
 
-* --- nicer outcome titles for by-panels ---
+* –- nicer outcome titles for by-panels –-
 gen str40 outcome_title = outcome
 replace outcome_title = "(c) No say in own healthcare"              if outcome=="nosay_healthcare"
 replace outcome_title = "(d) No say in visits to family/friends"    if outcome=="nosay_visits"
 replace outcome_title = "(a) Gave birth in a health facility"       if outcome=="facility_birth"
 replace outcome_title = "(b) Had 4+ prenatal visits"               if outcome=="anc_four"
 
-* --- marker labels: coef with stars if you have them; else just b formatted ---
+* –- marker labels: coef with stars if you have them; else just b formatted –-
 * If you already have stars in a variable, swap mlabel() to that.
 gen str12 mlabel = string(b, "%4.3f")
 
@@ -156,7 +156,7 @@ twoway ///
     legend(order(2 "No controls" 4 "Wealth controls") ///
            rows(1) ring(1) pos(6) ///
            region(lstyle(none)) size(small)) ///
-    xlabel(1 `"2005-2006"' 2 `"2015-2016"' 3 `"2019-2021"', ///
+    xlabel(1 `"2005–2006"' 2 `"2015–2016"' 3 `"2019–2021"', ///
            noticks nogrid labsize(small)) ///
     ylabel(, labsize(small) angle(0)) ///
     xscale(range(0.85 3.15)) ///

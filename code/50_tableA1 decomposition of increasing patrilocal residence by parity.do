@@ -32,21 +32,21 @@ use "$all_nfhs_ir", clear
 drop if missing(parity)
 
 
-*-----------------------------*
+*––––––––––––––-*
 * Sample
-*-----------------------------*
+*––––––––––––––-*
 keep if pregnant==1
 keep if inlist(round,3,5)
 keep if inlist(hh_struc,1,2)
 keep if ever_married==1
 
-*-----------------------------*
+*––––––––––––––-*
 
 
 *
-*-----------------------------*
+*––––––––––––––-*
 * Overall patrilocal rates for each survey round
-*-----------------------------*
+*––––––––––––––-*
 foreach r in 3 5 {
     quietly sum patrilocal [aw=wt] if round==`r'
     local pat_`r' = r(mean)
@@ -54,9 +54,9 @@ foreach r in 3 5 {
 
 local total_change = `pat_5' - `pat_3'
 
-*-----------------------------*
+*––––––––––––––-*
 * Post decomposition pieces by parity category
-*-----------------------------*
+*––––––––––––––-*
 capture postclose h
 tempfile results
 postfile h ///
@@ -186,7 +186,7 @@ listtex ///
     rstyle(tabular) ///
     head("\begin{tabular}{>{\raggedright\arraybackslash}p{1.8cm}>{\centering\arraybackslash}p{1.25cm}>{\centering\arraybackslash}p{1.25cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}>{\centering\arraybackslash}p{1.45cm}}"
          "\toprule"
-         "Parity group & \makecell{Parity\\share\\2005-2006\\(\%)} & \makecell{Parity\\share\\2019-2021\\(\%)} & \makecell{Patrilocal\\share\\2005-2006\\(\%)} & \makecell{Patrilocal\\share\\2019-2021\\(\%)} & \makecell{Explained\\change\\share\\(\%)} & \makecell{Unexplained\\change\\share\\(\%)} \\"
+         "Parity group & \makecell{Parity\\share\\2005–2006\\(\%)} & \makecell{Parity\\share\\2019–2021\\(\%)} & \makecell{Patrilocal\\share\\2005–2006\\(\%)} & \makecell{Patrilocal\\share\\2019–2021\\(\%)} & \makecell{Explained\\change\\share\\(\%)} & \makecell{Unexplained\\change\\share\\(\%)} \\"
          "\midrule") ///
     foot("\bottomrule"
          "\end{tabular}");

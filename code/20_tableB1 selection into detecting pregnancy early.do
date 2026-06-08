@@ -35,10 +35,10 @@ gen gestdur_1or2 = inlist(gestdur, 1, 2) // self-reports 1 or 2 months pregnant
 
 drop if group==6
 
-*---------------------------------
+*––––––––––––––––-
 * Regress an indicator "reports being 1 or 2 months pregnant" on sociodemographic characteristics
 * the coefficients on each variable will tell if women who report being 1 or 2 months pregnant are different than other pregnant women
-*---------------------------------
+*––––––––––––––––-
 
 foreach r in 3 4 5 {
 
@@ -60,9 +60,9 @@ foreach r in 3 4 5 {
 }
 
 
-*---------------------------------
+*––––––––––––––––-
 * LaTeX export
-*---------------------------------
+*––––––––––––––––-
 
 #delimit ;
 esttab model_3 model_4 model_5 using "tables/tableB1_predicting_early_pregnancy.tex",
@@ -74,7 +74,7 @@ esttab model_3 model_4 model_5 using "tables/tableB1_predicting_early_pregnancy.
     ci
     nostar
     b(3) ci(3)
-    mtitle("2005--2006" "2015--2016" "2019--2021")
+    mtitle("2005–2006" "2015–2016" "2019–2021")
     mgroups("reports of 1 or 2 months of pregnancy", pattern(1 0 0) ///
         span prefix(\multicolumn{@span}{c}{) suffix(}) ///
         erepeat(\cmidrule(lr){@span}))
@@ -83,9 +83,9 @@ esttab model_3 model_4 model_5 using "tables/tableB1_predicting_early_pregnancy.
         1.less_edu "\hspace*{1em}Less than primary education" ///
         1.rural    "\hspace*{1em}Rural resident" ///
         1.noboy    "\hspace*{1em}Does not have boy child" ///
-        2.agebin   "\hspace*{1em}20--24" ///
-        3.agebin   "\hspace*{1em}25--29" ///
-        4.agebin   "\hspace*{1em}30--49" ///
+        2.agebin   "\hspace*{1em}20–24" ///
+        3.agebin   "\hspace*{1em}25–29" ///
+        4.agebin   "\hspace*{1em}30–49" ///
         2.parity   "\hspace*{1em}1" ///
         3.parity   "\hspace*{1em}2" ///
         4.parity   "\hspace*{1em}3+" ///
@@ -98,7 +98,7 @@ esttab model_3 model_4 model_5 using "tables/tableB1_predicting_early_pregnancy.
         5.group    "\hspace*{1em}Muslim" ///
         _cons      "\hspace*{1em}Constant") ///
     refcat( ///
-        2.agebin "\textbf{Age categories} \\ (15--19 omitted)" ///
+        2.agebin "\textbf{Age categories} \\ (15–19 omitted)" ///
         2.parity "\textbf{Parity (live births)} \\ (0 omitted)" ///
         2.wealth "\textbf{Wealth quartiles} \\ (1st quartile omitted)" ///
         2.group "\textbf{Social group} \\ (Adivasi omitted)", nolabel)

@@ -58,9 +58,9 @@ label values columns columnlbl
 
 keep if sample==1
 
-*-------------------------------
+*–––––––––––––––-
 * 0) N by columns (unweighted)
-*-------------------------------
+*–––––––––––––––-
 preserve
 contract columns
 rename _freq N
@@ -71,9 +71,9 @@ tempfile collapsed_N_pp
 save `collapsed_N_pp', replace
 restore
 
-*-------------------------------
+*–––––––––––––––-
 * 1) Means (wt)
-*-------------------------------
+*–––––––––––––––-
 preserve
 collapse (mean) ///
 	facility_birth anc_four ///
@@ -94,9 +94,9 @@ tempfile collapsed_main_pp
 save `collapsed_main_pp', replace
 restore
 
-*-------------------------------
+*–––––––––––––––-
 * 2) Stack + wide
-*-------------------------------
+*–––––––––––––––-
 use `collapsed_main_pp', clear
 append using `collapsed_N_pp'
 
@@ -142,9 +142,9 @@ label define columnlbl ///
 	6 "Patrilocal NFHS-5", replace
 label values columns columnlbl
 
-*-------------------------------
+*–––––––––––––––-
 * 0) N by columns (unweighted)
-*-------------------------------
+*–––––––––––––––-
 preserve
 contract columns
 rename _freq N
@@ -155,9 +155,9 @@ tempfile collapsed_N
 save `collapsed_N', replace
 restore
 
-*-------------------------------
+*–––––––––––––––-
 * 1) Wealth means (w_state)
-*-------------------------------
+*–––––––––––––––-
 preserve
 
 * The pregnant sample is restricted to women who were asked the decision-making
@@ -180,9 +180,9 @@ tempfile collapsed_wealth
 save `collapsed_wealth', replace
 restore
 
-*-------------------------------
+*–––––––––––––––-
 * 2) Autonomy means (w_state)
-*-------------------------------
+*–––––––––––––––-
 preserve
 collapse (mean) ///
 	nosay_healthcare nosay_visits ///
@@ -197,9 +197,9 @@ tempfile collapsed_auto
 save `collapsed_auto', replace
 restore
 
-*-------------------------------
+*–––––––––––––––-
 * 3) Stack + wide
-*-------------------------------
+*–––––––––––––––-
 use `collapsed_auto', clear
 append using `collapsed_wealth'
 append using `collapsed_N'
@@ -393,7 +393,7 @@ listtex ///
     head( ///
 "\begin{tabular}{lcccccc}" ///
 "\toprule" ///
-" & \multicolumn{2}{c}{2005-2006} & \multicolumn{2}{c}{2015-2016} & \multicolumn{2}{c}{2019-2021} \\" ///
+" & \multicolumn{2}{c}{2005–2006} & \multicolumn{2}{c}{2015–2016} & \multicolumn{2}{c}{2019–2021} \\" ///
 "\cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7}" ///
 " & Nuclear & \shortstack{Patrilocal\\Extended} & Nuclear & \shortstack{Patrilocal\\Extended} & Nuclear & \shortstack{Patrilocal\\Extended} \\" ///
 "\midrule" ///

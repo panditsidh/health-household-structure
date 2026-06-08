@@ -94,7 +94,7 @@ foreach overvar in group region v013 parity {
 
 		if "`overvar'"=="v013" {
 			local lbl : label (v013) `lvl'
-			local lbl = subinstr("`lbl'","-","--",.)
+			local lbl = subinstr("`lbl'","-","–",.)
 			local thisrow "\hspace*{2em}`lbl'"
 		}
 

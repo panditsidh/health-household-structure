@@ -155,9 +155,9 @@ replace round = 4 if v000 == "IA6"
 replace round = 5 if v000 == "IA7"
 
 label define roundlbl ///
-    3 "2005-2006" ///
-    4 "2015-2016" ///
-    5 "2019-2021"
+    3 "2005–2006" ///
+    4 "2015–2016" ///
+    5 "2019–2021"
 
 label values round roundlbl
 

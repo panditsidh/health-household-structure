@@ -1,6 +1,6 @@
 /*
 
-This file creates Appendix Table A-3.
+This file creates Appendix Table D1.
 
 The table decomposes the total change in each outcome between NFHS-3 and NFHS-5 using the Kitagawa decomposition method.
 
