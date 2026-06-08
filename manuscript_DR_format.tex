@@ -355,9 +355,7 @@ Patrilocal residence varies sharply by age and parity. Younger women are substan
 \small\scriptsize{\textsf{The sample is restricted to ever-married women in either nuclear or patrilocal extended household structures, and women who report being three or more months pregnant when surveyed.}}
 \newline\small\scriptsize{P-values are from weighted linear probability models regressing patrilocal extended household residence on an indicator for 2019-2021, in which being from the 2005-2006 round is the omitted category.  Samples are restricted to the relevant subgroup. Standard errors are clustered at the primary sampling unit level.
 \newline\small\scriptsize{\textsf{$^1$ Focus states refer to Uttar Pradesh and Bihar, two Indian states that have a large burden of poor maternal health outcomes.}}
-
-In Appendix \ref{appendix:hhstructure}, 
-
+Appendix \ref{appendix:hhstructure} shows that similar patterns emerge across various different samples besides pregnant women and that the share of people in natal households, the other major household structure which we omit, remains stable in the time period. 
 \end{table}
 
 \subsection{Extended family residences predicts both maternal healthcare use and autonomy}
@@ -639,29 +637,28 @@ This research also suggests that future research investigate how relationships w
 \nocite{*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%% APPENDIX %%%%%%%%%%%%%%%%%%%%%%%%%%
-
-% DELETE if you do not have an appendix.
 \clearpage
 \section*{Appendix}
 \addcontentsline{toc}{section}{\numberline{}Appendix}
 
+% Appendix section labels: A, B, C, ...
+\setcounter{section}{0}
+\renewcommand{\thesection}{\Alph{section}}
+
+% Appendix table/figure/equation labels: A-1, A-2, etc.
+\setcounter{equation}{0}
+\renewcommand{\theequation}{\thesection-\arabic{equation}}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{\thesection-\arabic{figure}}
+\setcounter{table}{0}
+\renewcommand{\thetable}{\thesection-\arabic{table}}
+
 % ---------------------------------------------------------
 % Appendix A
 % ---------------------------------------------------------
-\setcounter{section}{0}
-\renewcommand{\thesection}{A-\arabic{section}}
-\setcounter{equation}{0}
-\renewcommand{\theequation}{A-\arabic{equation}}
-\setcounter{figure}{0}
-\renewcommand{\thefigure}{A-\arabic{figure}}
-\setcounter{table}{0}
-\renewcommand{\thetable}{A-\arabic{table}}
-
-
-
-
-\subsection*{A. Kitagawa decomposition of changes in family structure}
-
+\refstepcounter{section}
+\subsection*{\thesection. Kitagawa decomposition of changes in family structure}
+\label{sec:decomposition_parity}
 We use Kitagawa decomposition \citep{kitagawa1955components} to assess whether the increase in the proportion of women living in patrilocal extended households observed between 2005-2006 and 2019-2021 in Table \ref{tab:patrilocal_subgroups} can be explained by compositional shifts in parity. 
 
 For the proportion of women living in patrilocal extended households, $Y$, the change between NFHS-3 (2005-2006) and NFHS-5 (2019-2021) can be written as:
@@ -727,7 +724,8 @@ For the proportion of women living in patrilocal extended households, $Y$, the c
 \setcounter{table}{0}
 \renewcommand{\thetable}{B-\arabic{table}}
 
-\subsection*{B. Justification of decision to drop women reporting 1 or 2 months of pregnancy}
+\refstepcounter{section}
+\subsection*{B. Justification of decision to drop women reporting 1 or 2 months of pregnancy} \label{sec:dropearlypregnancy}
 
 The main sample of pregnant women used in the paper excludes those who report being 1 or 2 months pregnant at the time of the survey, 
 to avoid biasing the results due to selection into early detection and reporting of pregnancy.
@@ -777,15 +775,25 @@ We report the estimated coefficients $\beta$ in table \ref{tab:earlypregnancy} t
 % Appendix C
 % ---------------------------------------------------------
 \clearpage
-\renewcommand{\thesection}{C-\arabic{section}}
+
+% Appendix C: section reference should be just C
+\renewcommand{\thesection}{C}
+
+% Appendix C: figures/tables/equations should be C-1, C-2, etc.
 \setcounter{equation}{0}
 \renewcommand{\theequation}{C-\arabic{equation}}
+
 \setcounter{figure}{0}
 \renewcommand{\thefigure}{C-\arabic{figure}}
+
 \setcounter{table}{0}
 \renewcommand{\thetable}{C-\arabic{table}}
 
-\subsection*{C. Distribution of women by household type in NFHS-2005, 2015, and 2021}\label{appendix:hhstructure}
+% Make the label point to C
+\refstepcounter{section}
+\subsection*{C. Distribution of women by household type in NFHS-2005, 2015, and 2021}
+\label{appendix:hhstructure}
+
 
 The sample used for the main analysis in this paper focuses on pregnant women aged 15-49 who live in either nuclear or patrilocal extended household structures, excluding women living in natal households.
 
@@ -857,7 +865,8 @@ In all samples shown in Figure \ref{fig:bargraph} except the sample used in \cit
 \setcounter{table}{0}
 \renewcommand{\thetable}{D-\arabic{table}}
 
-\subsection*{D. Kitagawa decomposition of changes in autonomy and health care indicators}
+\refstepcounter{section}
+\subsection*{D. Kitagawa decomposition of changes in autonomy and health care indicators} \label{sec:decomposition_outcomes}
 
 To assess whether changes in autonomy and maternal healthcare are driven by shifts in the distribution of household structure or by changes within household types, we implement a Kitagawa decomposition \citep{kitagawa1955components} comparing NFHS-3 (2005--06) and NFHS-5 (2019--21), using NFHS-3 as the baseline.
 
