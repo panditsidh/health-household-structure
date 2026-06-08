@@ -238,4 +238,13 @@ format=myformat, singlelinecheck=false, indention=2.32cm}
     \leftmargin\leftmarginiii
     \labelwidth\leftmarginiii  \advance \labelwidth-\labelsep
     }
+
+% Double-space manuscript text for review submission
+\AtBeginDocument{\doublespacing}
+
+% Keep tables, figures, captions, and notes compact
+\AtBeginEnvironment{table}{\singlespacing}
+\AtBeginEnvironment{figure}{\singlespacing}
+\AtBeginEnvironment{longtable}{\singlespacing}
+
 \makeatother
