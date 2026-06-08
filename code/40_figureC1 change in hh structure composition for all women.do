@@ -25,7 +25,6 @@ keep if ever_married==1
 keep if nuclear | natal | patrilocal
 keep if inlist(round, 3, 4, 5)
 
-replace allendorf_sample = . if natal==1
 
 *******************************************************
 * Split natal women into usual residents and visitors

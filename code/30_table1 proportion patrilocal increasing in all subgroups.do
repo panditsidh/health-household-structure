@@ -22,7 +22,7 @@ You need to have defined all required paths in 00_paths.do for this file to work
 
 do "$paths"
 do "code/31_helper pvalues for table1.do"
-s
+
 
 
 use "$all_nfhs_ir", clear
