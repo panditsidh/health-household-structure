@@ -1,0 +1,45 @@
+{
+\def\sym#1{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\begin{tabular}{l*{3}{c}}
+\toprule
+                    &\multicolumn{3}{c}{reports of 1 or 2 months of pregnancy}        \\\cmidrule(lr){2-4}
+                    &\multicolumn{1}{c}{2005--2006}&\multicolumn{1}{c}{2015--2016}&\multicolumn{1}{c}{2019--2021}\\
+\midrule
+\hspace*{1em}Less than primary education&       0.001         &      -0.006         &       0.003         \\
+                    &    (0.0126)         &    (0.0059)         &    (0.0067)         \\
+\addlinespace
+\hspace*{1em}Rural resident&       0.005         &       0.016\sym{**} &       0.011         \\
+                    &    (0.0130)         &    (0.0076)         &    (0.0080)         \\
+\addlinespace
+\hspace*{1em}Does not have boy child&      -0.010         &       0.006         &      -0.004         \\
+                    &    (0.0115)         &    (0.0057)         &    (0.0071)         \\
+\addlinespace
+\textbf{Age categories} \\ (15--19 omitted)&                     &                     &                     \\
+\addlinespace
+\hspace*{1em}20--24 &      -0.035\sym{**} &      -0.033\sym{***}&      -0.016\sym{*}  \\
+                    &    (0.0161)         &    (0.0094)         &    (0.0094)         \\
+\addlinespace
+\hspace*{1em}25--29 &      -0.052\sym{***}&      -0.032\sym{***}&      -0.024\sym{**} \\
+                    &    (0.0171)         &    (0.0103)         &    (0.0103)         \\
+\addlinespace
+\hspace*{1em}30--49 &      -0.049\sym{**} &      -0.027\sym{**} &      -0.003         \\
+                    &    (0.0199)         &    (0.0118)         &    (0.0149)         \\
+\addlinespace
+\textbf{Wealth quartiles} \\ (1st quartile omitted)&                     &                     &                     \\
+\addlinespace
+\hspace*{1em}2nd quartile&       0.026\sym{*}  &       0.005         &       0.012         \\
+                    &    (0.0146)         &    (0.0071)         &    (0.0073)         \\
+\addlinespace
+\hspace*{1em}3rd quartile&       0.022         &       0.015\sym{*}  &       0.016         \\
+                    &    (0.0159)         &    (0.0084)         &    (0.0099)         \\
+\addlinespace
+\hspace*{1em}4th quartile&       0.058\sym{***}&       0.024\sym{**} &       0.024\sym{**} \\
+                    &    (0.0206)         &    (0.0099)         &    (0.0098)         \\
+\addlinespace
+\hspace*{1em}Constant&       0.123\sym{***}&       0.141\sym{***}&       0.132\sym{***}\\
+                    &    (0.0242)         &    (0.0131)         &    (0.0140)         \\
+\midrule
+\textbf{N}          &       5,911         &      32,425         &      28,403         \\
+\bottomrule
+\end{tabular}
+}
