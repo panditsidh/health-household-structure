@@ -15,7 +15,7 @@ You do not need to run this file directly. It is called by 10_assemble_data.do.
 * first stack the household member recode datasets
 clear 
 
-do "$paths"
+*do "$paths"
 
 
 foreach file in nfhs3hmr nfhs4hmr nfhs5hmr {

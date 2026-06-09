@@ -1,7 +1,4 @@
-
-
-
-do "$paths"
+*do "$paths"
 
 
 * first call 11_gen_hhstruc.do to stack NFHS rounds and merge the individual recode and household member recode datasets.
@@ -439,6 +436,6 @@ gen w_dv = w_dv_base / total_w_dv
 	
 
 
-save $all_nfhs_ir, replace
+save "$all_nfhs_ir", replace
 
 

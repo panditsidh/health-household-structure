@@ -1,5 +1,4 @@
 /*
-
 This file defines all paths needed to run the replication code.
 
 Before running the replication files, users should edit the paths below so that
@@ -11,11 +10,7 @@ replace the placeholder paths below with the local paths to those files.
 
 All other do-files call this file to locate the raw data, the final analytic
 dataset, and the folders where tables and figures are saved.
-
 */
-
-
-
 
 // global nfhs3hr  "INSERT PATH TO NFHS-3 HOUSEHOLD RECODE FILE: IAHR52FL.DTA"
 // global nfhs3hmr "INSERT PATH TO NFHS-3 HOUSEHOLD MEMBER RECODE FILE: IAPR52FL.DTA"
@@ -40,11 +35,35 @@ dataset, and the folders where tables and figures are saved.
 // cd "INSERT PATH TO PROJECT ROOT FOLDER"
 
 
-
-
 * We can delete the rest of this before submitting.
 
+if "`c(username)'" == "dc42724" {
 
+	global nfhs3hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\all india household recode\IAHR52FL.dta"
+	global nfhs3hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\hhmr\IAPR52FL.dta"
+	global nfhs3ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\ir\IAIR52FL.dta"
+	
+	global nfhs4hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\hr\IAHR71FL.DTA"
+	global nfhs4hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\hhmr\IAPR71FL.DTA"
+	global nfhs4ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\ir\IAIR74FL.DTA"	
+	
+	global nfhs5ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAIR7DDT\IAIR7DFL.DTA"
+	global nfhs5hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAHR7DDT\IAHR7DFL.DTA"
+	global nfhs5hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAPR7DDT\IAPR7DFL.DTA"
+	global nfhs5br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IABR7EDT\IABR7EFL.DTA"
+	
+	global nfhs5mr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAMR7DDT\IAMR7DFL.DTA"
+	global nfhs4mr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\all india male recode\IAMR74FL.DTA"
+	global nfhs3mr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\all india male recode\IAMR52FL.dta"
+	
+	global all_nfhs_ir "C:\Users\dc42724\Dropbox\Data\combined nfhs for hh structure paper.dta"
+	
+	global paths "C:\Users\dc42724\Documents\GitHub\health-household-structure\code\00_paths.do"
+	
+	cd "C:\Users\dc42724\Documents\GitHub\health-household-structure"
+
+}
+/*
 
 if "`c(username)'" == "sidhpandit" {
 	
@@ -79,38 +98,6 @@ if "`c(username)'" == "sidhpandit" {
 	
 	cd "/Users/sidhpandit/Documents/GitHub/health-household-structure"
 	
-	
-}
-
-if "`c(username)'" == "dc42724" {
-
-	global nfhs3hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\all india household recode\IAHR52FL.dta"
-	global nfhs3hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\hhmr\IAPR52FL.dta"
-	global nfhs3ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\ir\IAIR52FL.dta"
-	
-	global nfhs4hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\hr\IAHR71FL.DTA"
-	global nfhs4hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\hhmr\IAPR71FL.DTA"
-	global nfhs4ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\ir\IAIR71FL.DTA"	
-	
-	global nfhs5ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAIR7DDT\IAIR7DFL.DTA"
-	global nfhs5hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAHR7DDT\IAHR7DFL.DTA"
-	global nfhs5hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAPR7DDT\IAPR7DFL.DTA"
-	global nfhs5br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IABR7EDT\IABR7EFL.DTA"
-	
-	global nfhs5mr "ADD"
-	global nfhs4mr "ADD"
-	global nfhs3mr "ADD"
-	
-	global all_nfhs_ir "C:\Users\dc42724\Dropbox\Data\combined nfhs for hh structure paper.dta"
-	
-	global paths "C:\Users\dc42724\Documents\GitHub\health-household-structure\code\00_paths.do"
-	
-	cd "C:\Users\dc42724\Documents\GitHub\health-household-structure"
-
-}
-
-
-
 
 if "`c(username)'" == "bipasabanerjee" {
 	global nfhs1hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS 1/NFHS1_Householdmemberrecode/IAPR23FL.DTA"
