@@ -14,7 +14,7 @@ nfhs_round | hh_type | outcome    | mean | ci_low | ci_high | N
 * Postpartum sample: last birth 3–12 months ago
 ************************************************************
 
-use "$all_nfhs_ir", clear
+
 keep if inlist(round,3,4,5)
 keep if inlist(hh_struc,1,2)
 
@@ -161,18 +161,18 @@ local N2020 : display %7.0fc r(sum)
 #delimit ;
 twoway 
     (rcap ci_low ci_high survey_year_nuclear if hh_type==1,
-        lcolor(black) lwidth(medthick)
+        lcolor(blue) lwidth(medthick)
     )
     (scatter mean survey_year_nuclear if hh_type==1,
-        msymbol(Oh) mcolor(black) mfcolor(white) msize(medium)
-        mlabel(prop_label) mlabpos(9) mlabsize(medium) mlabcolor(black)
+        msymbol(Oh) mcolor(blue) mfcolor(white) msize(medium)
+        mlabel(prop_label) mlabpos(9) mlabsize(medium) mlabcolor(blue)
     )
     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
-        lcolor(black) lwidth(medthick)
+        lcolor(red) lwidth(medthick)
     )
     (scatter mean survey_year_sasural if hh_type==2,
-        msymbol(square) mcolor(black) msize(medium)
-        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(medium) mlabcolor(black)
+        msymbol(square) mcolor(red) msize(medium)
+        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(medium) mlabcolor(red)
     )
 	,xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(medium) angle(0) nogrid)
     ylabel(0(.2)1, labsize(medium) grid)
@@ -185,7 +185,7 @@ twoway
 #delimit cr
 
 restore
-graph save "Graph" "figures/figure 2 panel C.gph", replace 
+graph save "figures for poster/figure 2 panel C.gph", replace
 ************************************************************
 * Panel B: anc_four
 ************************************************************
@@ -232,18 +232,18 @@ local N2020 : display %7.0fc r(sum)
 #delimit ;
 twoway 
     (rcap ci_low ci_high survey_year_nuclear if hh_type==1,
-        lcolor(black) lwidth(medthick)
+        lcolor(blue) lwidth(medthick)
     )
     (scatter mean survey_year_nuclear if hh_type==1,
-        msymbol(Oh) mcolor(black) mfcolor(white) msize(medium)
-        mlabel(prop_label) mlabpos(9) mlabsize(medium) mlabcolor(black)
+        msymbol(Oh) mcolor(blue) mfcolor(white) msize(medium)
+        mlabel(prop_label) mlabpos(9) mlabsize(medium) mlabcolor(blue)
     )
     (rcap ci_low ci_high survey_year_sasural if hh_type==2,
-        lcolor(black) lwidth(medthick)
+        lcolor(red) lwidth(medthick)
     )
     (scatter mean survey_year_sasural if hh_type==2,
-        msymbol(square) mcolor(black) msize(medium)
-        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(medium) mlabcolor(black)
+        msymbol(square) mcolor(red) msize(medium)
+        mlabel(prop_label) mlabgap(*2) mlabpos(12) mlabsize(medium) mlabcolor(red)
     ),
     xlabel(2005 "2005-2006" 2015 "2015-2016" 2020 "2019-2021", labsize(medium) angle(0) nogrid)
     ylabel(0(.2)1, labsize(medium) grid)
@@ -256,4 +256,4 @@ twoway
 #delimit cr
 
 restore
-graph save "Graph" "figures/figure 2 panel D.gph", replace
+graph save "figures for poster/figure 2 panel D.gph", replace

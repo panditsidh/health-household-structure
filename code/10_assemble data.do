@@ -1,3 +1,5 @@
+
+cd "/Users/bipasabanerjee/Documents/GitHub/health-household-structure"
 do "code/11_gen hhstruc.do"
 
 do "code/12_state district match.do"
@@ -15,7 +17,7 @@ do "code/12_state district match.do"
 * Own healthcare
 gen nosay_healthcare = .
 replace nosay_healthcare = 1 if inlist(v743a,4,5,6) & inlist(round,3,4,5)
-replace nosay_healthcare = 0 if inlist(v743a,1,2,3) & inlist(round,3,4,5)
+replace nosay_healthcare = 0 if inlist(v743a,1,2,3) & inlist(round,3,4,5) 
 
 gen nosay_visits = .
 replace nosay_visits = 0 if inlist(v743d,1,2,3) & inlist(round,3,4,5)
