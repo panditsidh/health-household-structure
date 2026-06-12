@@ -60,7 +60,7 @@ save `sample', replace
 
 
 * now get shares patrilocal in different subgroups
-use $all_nfhs_ir, clear
+use "$all_nfhs_ir", clear
 
 keep if inlist(hh_struc, 1, 2)
 keep if inlist(round, 3, 4, 5)

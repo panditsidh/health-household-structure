@@ -439,6 +439,6 @@ gen w_dv = w_dv_base / total_w_dv
 	
 
 
-save $all_nfhs_ir, replace
+save "$all_nfhs_ir", replace
 
 
