@@ -90,16 +90,16 @@ if "`c(username)'" == "dc42724" {
 	
 	global nfhs4hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\hr\IAHR71FL.DTA"
 	global nfhs4hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\hhmr\IAPR71FL.DTA"
-	global nfhs4ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\ir\IAIR71FL.DTA"	
+	global nfhs4ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\ir\IAIR74FL.DTA"	
 	
 	global nfhs5ir "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAIR7DDT\IAIR7DFL.DTA"
 	global nfhs5hr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAHR7DDT\IAHR7DFL.DTA"
 	global nfhs5hmr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAPR7DDT\IAPR7DFL.DTA"
 	global nfhs5br "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IABR7EDT\IABR7EFL.DTA"
 	
-	global nfhs5mr "ADD"
-	global nfhs4mr "ADD"
-	global nfhs3mr "ADD"
+	global nfhs5mr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS19\IAMR7DDT\IAMR7DFL.DTA"
+	global nfhs4mr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS15\all india male recode\IAMR74FL.DTA"
+	global nfhs3mr "C:\Users\dc42724\Dropbox\Data\NFHS\NFHS06\all india male recode\IAMR52FL.dta"
 	
 	global all_nfhs_ir "C:\Users\dc42724\Dropbox\Data\combined nfhs for hh structure paper.dta"
 	
