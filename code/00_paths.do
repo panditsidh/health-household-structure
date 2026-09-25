@@ -117,15 +117,15 @@ if "`c(username)'" == "bipasabanerjee" {
 	global nfhs1hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS 1/NFHS1_Householdrecode/IAHR23FL.DTA"
 	global nfhs1ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS 1/NFHS1_Individualrecode/IAIR23FL.DTA"
 	
-	global nfhs2hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3,Fall2025/Research/NFHS2/NFHS2_Householdrecode/IAHR42FL.DTA"
+	global nfhs2hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS2/NFHS2_Householdrecode/IAHR42FL.DTA"
 	global nfhs2ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS2/NFHS2_Individualrecode/IAIR42FL.DTA"
-	global nfhs2hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3,Fall2025/Research/NFHS2/NFHS2_Householdmemberrecode/IAPR42FL.DTA"
+	global nfhs2hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS2/NFHS2_Householdmemberrecode/IAPR42FL.DTA"
 	
 	global nfhs3hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS3/Household/IAHR52FL.dta"
 	global nfhs3hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS3/Household member recode/IAPR52FL.DTA"
 	global nfhs3ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS3/Individual/IAIR52FL.dta"
 	
-	global nfhs4hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3,Fall2025/Research/NFHS 4/Household recode/IAHR74FL.DTA"
+	global nfhs4hr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS 4/Household recode/IAHR74FL.DTA"
 	global nfhs4hmr "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS 4/Household member recode/IAPR74FL.DTA"
 	global nfhs4ir "/Users/bipasabanerjee/Library/CloudStorage/OneDrive-TheUniversityofTexasatAustin/PHD/Semester3Fall2025/Research/NFHS 4/Individual recode/IAIR74FL.DTA"	
 	
