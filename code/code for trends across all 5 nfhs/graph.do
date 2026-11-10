@@ -21,12 +21,17 @@ preserve
 
 
 
-cap drop allendorf_sample
-gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1) 
+// cap drop allendorf_sample
+// gen allendorf_sample = (v501==1 & v012>=15 & v012<=29 & v135==1 & v504==1) 
 
-keep if allendorf_sample==1
+// keep if allendorf_sample==1 
+
+
+
+// keep if inlist(v013, 4,5,6,7)
 
 keep if pregnant==1
+
 
 *******************************************************
 * Sample restrictions
@@ -285,7 +290,7 @@ twoway
         angle(horizontal)
     )
 
-    ytitle("Percent of pregnant coresiding married women ages 15–29", size(medsmall))
+    ytitle("Percent of pregnant women", size(medsmall))
     xtitle("")
 
     xscale(range(.8 5.8))
